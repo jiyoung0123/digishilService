@@ -74,13 +74,11 @@ public class MainController {
     }
 
     @RequestMapping("/randomChat")
-    public String randomChat(Model model){
+    public String randomChat(Model model, HttpSession session){
+        if(session.getAttribute("loginGuest")==null){
+            return "redirect:/login";
+        }
         model.addAttribute("center", "randomChat");
         return "index";
     }
-
-
-
-
-
 }
