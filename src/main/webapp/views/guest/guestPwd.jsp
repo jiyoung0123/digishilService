@@ -54,39 +54,39 @@
     <h1 class="hero-heading mb-0">비밀번호 변경</h1>
     <p class="text-muted mb-5">Manage your Login & security and settings here.</p>
     <div class="row">
-      <form class="form-validate" id="guestPwdForm">
-        <input type="hidden" name="id" value="${guest.guestId}">
-        <div class="col-lg-7 mb-5 mb-lg-0">
-          <div class="text-block">
-            <h3 class="mb-4">Login</h3>
-            <div class="row">
-              <div class="col-sm-8">
-                <h6>Password</h6>
-              </div>
-            </div>
-            <div id="updatePassword">
-              <div class="row mt-4">
-                <div class="mb-4 col-12">
-                  <label class="form-label" for="guestPwd">현재 비밀번호</label>
-                  <input class="form-control" type="password" name="guestPwd" id="guestPwd">
-                </div>
-                <div class="mb-4 col-md-6">
-                  <label class="form-label" for="guestPwdNew">변경할 비밀번호</label>
-                  <input class="form-control" type="password" name="guestPwdNew" id="guestPwdNew">
-                </div>
-                <div class="mb-4 col-md-6">
-                  <label class="form-label" for="guestPwdConfirm">변경할 비밀번호 확인</label>
-                  <input class="form-control" type="password" name="guestPwdConfirm" id="guestPwdConfirm">
-                </div>
-                <div class="mb-4 col-md-6">
-                  <span id="pwdCheck" style="color:rgb(77,102,247)"></span>
+      <div class="col-lg-7 mb-5 mb-lg-0">
+        <form class="form-validate" id="guestPwdForm">
+          <input type="hidden" name="id" value="${guest.guestId}">
+            <div class="text-block">
+              <h3 class="mb-4">Login</h3>
+              <div class="row">
+                <div class="col-sm-8">
+                  <h6>Password</h6>
                 </div>
               </div>
-              <button id="guestPwdBtn" class="btn btn-outline-primary">Update Password</button>
+              <div id="updatePassword">
+                <div class="row mt-4">
+                  <div class="mb-4 col-12">
+                    <label class="form-label" for="guestPwd">현재 비밀번호</label>
+                    <input class="form-control" type="password" name="guestPwd" id="guestPwd">
+                  </div>
+                  <div class="mb-4 col-md-6">
+                    <label class="form-label" for="guestPwdNew">변경할 비밀번호</label>
+                    <input class="form-control" type="password" name="guestPwdNew" id="guestPwdNew">
+                  </div>
+                  <div class="mb-4 col-md-6">
+                    <label class="form-label" for="guestPwdConfirm">변경할 비밀번호 확인</label>
+                    <input class="form-control" type="password" name="guestPwdConfirm" id="guestPwdConfirm">
+                  </div>
+                  <div class="mb-4 col-md-6">
+                    <span id="pwdCheck" style="color:rgb(77,102,247)"></span>
+                  </div>
+                </div>
+                <button id="guestPwdBtn" class="btn btn-outline-primary">Update Password</button>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
-      </form>
       <div class="col-md-8 col-lg-4 ms-lg-auto">
         <div class="card border-0 shadow">
           <div class="card-header bg-primary-light py-4 border-0">
