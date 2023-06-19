@@ -1,0 +1,25 @@
+package com.kbstar.board;
+
+
+import com.kbstar.service.BoardService;
+import com.kbstar.service.ReserveService;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@Slf4j
+@SpringBootTest
+class BoardSelectAllTest {
+    @Autowired
+    BoardService boardService;
+    @Test
+    void contextLoads() {
+        try {
+            boardService.get();
+        } catch (Exception e) {
+            log.info("★★★★★★★★★★★★★★★ERROR★★★★★★★★★★★★★★★");
+            e.printStackTrace();
+        }
+    }
+}

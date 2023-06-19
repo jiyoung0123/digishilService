@@ -55,7 +55,7 @@
                                 <tbody>
                                 <tr>
                                     <th class="fw-normal py-2">합계</th>
-                                    <td class="text-end py-2">${reserve.reservePrice}원</td>
+                                    <td class="text-end py-2"><fmt:formatNumber type="number" pattern="###,###원" value="${reserve.reservePrice}"/></td>
                                 </tr>
                                 <tr>
                                     <th class="fw-normal pt-2 pb-3">적립금</th>

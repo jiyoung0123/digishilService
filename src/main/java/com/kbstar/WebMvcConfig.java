@@ -29,7 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://127.0.0.1:8088");            }
+                registry.addMapping("/**").allowedOrigins("http://127.0.0.1:8088", "http://localhost:3000");            }
         };
     }
 }

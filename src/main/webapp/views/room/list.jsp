@@ -69,8 +69,8 @@
                         <label class="form-label">Price range</label>
                         <div class="text-primary" id="slider-snap"></div>
                         <div class="nouislider-values">
-                            <div class="min">From $<span id="slider-snap-value-from"></span></div>
-                            <div class="max">To $<span id="slider-snap-value-to"></span></div>
+                            <div class="min">From ￦<span id="slider-snap-value-from"></span></div>
+                            <div class="max">To ￦<span id="slider-snap-value-to"></span></div>
                         </div>
                         <input type="hidden" name="pricefrom" id="slider-snap-input-from" value="40">
                         <input type="hidden" name="priceto" id="slider-snap-input-to" value="110">
@@ -124,7 +124,7 @@
                         <c:forEach var="roomList" items="${roomList.getList()}">
                             <div class="col-sm-6 mb-5 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
                                 <div class="card h-100 border-0 shadow">
-                                    <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="/img/photo/photo-1484154218962-a197022b5858.jpg" alt="Modern, Well-Appointed Room"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
+                                    <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="/img/photo/${roomList.roomImage1}" alt="Modern, Well-Appointed Room"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
                                         <div class="card-img-overlay-bottom z-index-20">
                                             <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/avatar-0.jpg" alt="Pamela"/>
                                                 <div>${roomList.hostName}</div>
@@ -263,13 +263,13 @@
     var snapSlider = document.getElementById('slider-snap');
 
     noUiSlider.create(snapSlider, {
-        start: [ 40, 110 ],
+        start: [ 10000, 500000 ],
         snap: false,
         connect: true,
         step: 1,
         range: {
-            'min': 40,
-            'max': 110
+            'min': 10000,
+            'max': 1000000
         }
     });
     var snapValues = [

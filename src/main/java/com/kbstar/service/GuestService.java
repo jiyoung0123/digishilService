@@ -48,4 +48,7 @@ public class GuestService implements KBService<String, Guest> {
     public void updatePwd(Guest guest) throws Exception {
         mapper.updatePwd(guest);
     }
+    public void updatePwd2(Guest guest) throws Exception {
+        mapper.updatePwd2(guest);
+    }
 }

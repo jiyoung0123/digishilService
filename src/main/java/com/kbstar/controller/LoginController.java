@@ -26,6 +26,12 @@ public class LoginController {
         try {
             guest = guestService.get(guestId);
             if(guest != null && encoder.matches(guestPwd,guest.getGuestPwd())){
+                if(guest.getGuestPwdChange() == 1){
+                    session.setMaxInactiveInterval(1000000);
+                    session.setAttribute("loginGuest",guest);
+//                    model.addAttribute("center","center");
+                    return "redirect:/guestPwd?id="+guest.getGuestId();
+                }
                 session.setMaxInactiveInterval(1000000);
                 session.setAttribute("loginGuest",guest);
                 model.addAttribute("center","center");

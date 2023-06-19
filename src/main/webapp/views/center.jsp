@@ -31,9 +31,9 @@
                             </div>
                             <div class="col-lg-3 d-flex align-items-center form-group no-divider">
                                 <select class="selectpicker" title="상세지역을 선택하세요" data-style="btn-form-control" name="roomLoc">
-                                    <option value="S">서울</option>
-                                    <option value="B">부산</option>
-                                    <option value="J">제주</option>
+                                    <option value="서울">서울</option>
+                                    <option value="부산">부산</option>
+                                    <option value="제주">제주</option>
                                     <option value="x-large">그밖의 지역</option>
                                 </select>
                             </div>

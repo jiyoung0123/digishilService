@@ -65,7 +65,7 @@
                 <c:forEach var="roomList" items="${roomList.getList()}">
                     <div class="col-sm-6 col-xl-4 mb-5 hover-animate" data-marker-id="59c0c8e3a31e62979bf147c9">
                         <div class="card h-100 border-0 shadow">
-                            <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="Modern Apt - Vibrant Neighborhood!"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
+                            <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="img/photo/${roomList.roomImage1}" alt="Modern Apt - Vibrant Neighborhood!"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="img/avatar/avatar-8.jpg" alt="Julie"/>
                                         <div>${roomList.hostName}</div>
