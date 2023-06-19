@@ -21,6 +21,7 @@ public class Guest {
     private double guestRate;
     private Date guestRegDate;
     private Date guestDelDate;
+    private int guestPwdChange;
 
 
     public Guest(String guestId, String guestPwd, String guestName) {

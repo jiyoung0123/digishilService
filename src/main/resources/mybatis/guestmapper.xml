@@ -8,7 +8,7 @@
     </select>
 
     <insert id="insert" parameterType="Guest">
-        INSERT INTO guest(guestId, guestPwd, guestName, guestCoupon, guestRegDate) VALUES (#{guestId},#{guestPwd},#{guestName}, 0, SYSDATE)
+        INSERT INTO guest(guestId, guestPwd, guestName, guestCoupon, guestRegDate, guestPwdChange) VALUES (#{guestId},#{guestPwd},#{guestName}, 0, SYSDATE, 0)
     </insert>
 
     <update id="update" parameterType="Guest">

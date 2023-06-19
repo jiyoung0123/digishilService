@@ -69,8 +69,8 @@
                         <label class="form-label">Price range</label>
                         <div class="text-primary" id="slider-snap"></div>
                         <div class="nouislider-values">
-                            <div class="min">From $<span id="slider-snap-value-from"></span></div>
-                            <div class="max">To $<span id="slider-snap-value-to"></span></div>
+                            <div class="min">From ￦<span id="slider-snap-value-from"></span></div>
+                            <div class="max">To ￦<span id="slider-snap-value-to"></span></div>
                         </div>
                         <input type="hidden" name="pricefrom" id="slider-snap-input-from" value="40">
                         <input type="hidden" name="priceto" id="slider-snap-input-to" value="110">
@@ -263,13 +263,13 @@
     var snapSlider = document.getElementById('slider-snap');
 
     noUiSlider.create(snapSlider, {
-        start: [ 40, 110 ],
+        start: [ 10000, 500000 ],
         snap: false,
         connect: true,
         step: 1,
         range: {
-            'min': 40,
-            'max': 110
+            'min': 10000,
+            'max': 1000000
         }
     });
     var snapValues = [
