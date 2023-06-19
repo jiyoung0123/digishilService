@@ -5,7 +5,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 
+<script src="path/to/jquery.min.js"></script>
+<script src="path/to/moment.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
+
 let websocket={
     id:null,
     stompClient:null,
@@ -19,22 +25,36 @@ let websocket={
         });
         $("#sendall").click(function() {
             websocket.sendAll();
-        });
+            let point = 0;
+            point += 350;
+            const paperPlane = $('#paperPlane');
+            console.log(paperPlane); // paperPlane 선택자로 선택된 요소를 확인합니다.
+            paperPlane.css('position', 'relative'); // position 속성을 설정합니다.
+            paperPlane.animate({ left: point + 'px' }); // 애니메이션을 적용합니다.
+            console.log('Connected: ' + frame);
 
+
+            const paperPlane1 = $('#paperPlane1');
+            console.log(paperPlane1);
+            paperPlane1.css('display', 'block');
+        });
     },
+    // 관리자 서버로 접속:8088
+
+
     connect:function(){
         var sid = this.id;
 
-        // 관리자 서버로 접속:8088
-        var socket = new SockJS('${adminserver}/ws');
+        var socket = new SockJS('http://127.0.0.1/randomWs');
         this.stompClient = Stomp.over(socket);
-
         this.stompClient.connect({}, function(frame) {
             websocket.setConnected(true);
-            console.log('Connected: ' + frame);
-            this.subscribe('/send', function(msg) {
+
+            this.subscribe('/randomSend', function(msg) {
                 $("#all").prepend(
-                    "<h4>" + JSON.parse(msg.body).sendid +":"+
+                    "<h4>" + $('#name').val() +":"+
+                    // "<h4>" + JSON.parse(msg.body).sendid +":"+
+                    // "<h4>" + $('#guestName').val() +":"+
                     JSON.parse(msg.body).content1
                     + "</h4>");
             });
@@ -57,18 +77,16 @@ let websocket={
     // receiveall한테 메세지를 보내는것 -receiveall은 8088/ws에 있음-관리자의 msgcontroller로 들어옴
     sendAll:function(){
         var msg = JSON.stringify({
-            'sendid' : this.id,
+            'sendid' : $('#guestName').val(),
             'content1' : $("#alltext").val()
         });
-        this.stompClient.send("/receiveall", {}, msg);
+        this.stompClient.send("/randomReceiveall", {}, msg);
     }
 };
 
 $(function(){
     websocket.init();
 })
-
-
 </script>
 
 
@@ -90,8 +108,11 @@ $(function(){
         <h2 class="h4 mb-5">종이 비행기</h2>
         <div class="row">
             <div class="col-md-5 mb-5 mb-md-0">
-                <form class="form" id="contact-form" method="post" action="contact.php">
+<%--                <form class="form" id="contact-form" method="post" action="contact.php">--%>
                     <h1 id="loginGuestId">${loginGuest.getGuestId()}</h1>
+                    <button class="btn btn-outline-primary" id="connectBtn">채팅시작</button>
+                    <button class="btn btn-outline-primary" id="disconnectBtn">연결해제</button>
+                    <input id="guestName" type="hidden" value="${loginGuest.getguestName()}">
                     <H1 id="status">Status</H1>
                     <div class="controls">
                         <div class="row">
@@ -101,30 +122,22 @@ $(function(){
                                     <input class="form-control" type="text" name="name" id="name" placeholder="대화명을 입력 해 주세요">
                                 </div>
                             </div>
-<%--                            <div class="col-sm-6">--%>
-<%--                                <div class="mb-4">--%>
-<%--                                    <label class="form-label" for="surname">Your lastname *</label>--%>
-<%--                                    <input class="form-control" type="text" name="surname" id="surname" placeholder="Enter your  lastname" required="required">--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
                         </div>
                         <div class="mb-4">
-                            <label class="form-label" for="email">Your email *</label>
-                            <input class="form-control" type="email" name="email" id="email" placeholder="Enter your  email">
+                            <label class="form-label" for="message">인사말</label>
+                            <textarea type="text" id="alltext" class="form-control" rows="4" name="message" id="message" placeholder="인사말을 입력해 주세요"></textarea>
                         </div>
-                        <div class="mb-4">
-                            <label class="form-label" for="message">Your message for us *</label>
-                            <textarea class="form-control" rows="4" name="message" id="message" placeholder="Enter your message"></textarea>
-                        </div>
-                        <button class="btn btn-outline-primary" id="connectBtn">종이비행기 날리기</button>
-                        <img src="img/paperPlaneWhite.jpg" style="width: 50px;margin-left: 10px;">
 
-                        <button class="btn btn-outline-primary" id="disconnectBtn">연결해제</button>
+                        <button class="btn btn-outline-primary" id="sendall">종이비행기 날리기</button>
+
+                        <img id="paperPlane" src="img/paperPlaneWhite.jpg" style="width: 50px;margin-left: 10px;">
+                        <img id="paperPlane1" src="img/paperPlane.jpg" style=" display: none; width: 50px;margin-left: 10px;">
                     </div>
-                </form>
+<%--                </form>--%>
             </div>
             <div class="col-md-5">
                 <div class="ps-lg-4 text-sm">
+                    <div id="all" style="position: relative; width: 400px; height: 400px; border: 1px solid black;"></div>
                     <p class="text-muted"></p>
                     <p class="text-muted"></p>
                 </div>

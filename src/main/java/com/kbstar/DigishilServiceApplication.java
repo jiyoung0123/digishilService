@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @SpringBootApplication
-public class DigishilApplication {
+public class DigishilServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DigishilApplication.class, args);
+        SpringApplication.run(DigishilServiceApplication.class, args);
     }
     @Bean
     public InternalResourceViewResolver setupViewResolver() {

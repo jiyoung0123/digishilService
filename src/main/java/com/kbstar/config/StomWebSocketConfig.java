@@ -24,12 +24,17 @@ public class StomWebSocketConfig implements WebSocketMessageBrokerConfigurer{
                 .setAllowedOrigins("http://127.0.0.1")
                 .setAllowedOriginPatterns("*")
                 .withSockJS();
+
+        //        127.0.0.1로 접속했던 애들도 이 웹소켓에 접속할 수 있게끔 하겠다는 뜻
+        //        randomWs의 웹소켓을 만들었다
+        registry.addEndpoint("/randomWs").setAllowedOrigins("http://127.0.0.1").withSockJS();
     }
 
     /* 어플리케이션 내부에서 사용할 path를 지정할 수 있음 */
+    //    나가는 통로를 만들어 주는것. ex /send, /sendadm
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry) {
-        registry.enableSimpleBroker("/send","/broadcast");
+        registry.enableSimpleBroker("/send","/broadcast","/randomSend");
     }
 
 
