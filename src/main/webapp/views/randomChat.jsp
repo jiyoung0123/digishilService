@@ -10,13 +10,19 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<style>
+    #all{
+        border: none;
+        outline: none;
+    }
+</style>
 <script>
 
 let websocket={
     id:null,
     stompClient:null,
     init:function(){
-        this.id = $('#loginGuestId').text();
+        this.id = $('#loginGuestId').val();
         $("#connectBtn").click(function() {
             websocket.connect();
         });
@@ -31,12 +37,13 @@ let websocket={
             console.log(paperPlane); // paperPlane 선택자로 선택된 요소를 확인합니다.
             paperPlane.css('position', 'relative'); // position 속성을 설정합니다.
             paperPlane.animate({ left: point + 'px' }); // 애니메이션을 적용합니다.
-            console.log('Connected: ' + frame);
-
 
             const paperPlane1 = $('#paperPlane1');
             console.log(paperPlane1);
             paperPlane1.css('display', 'block');
+        });
+        $("#sendto").click(function() {
+            websocket.sendTo();
         });
     },
     // 관리자 서버로 접속:8088
@@ -44,17 +51,27 @@ let websocket={
 
     connect:function(){
         var sid = this.id;
-
         var socket = new SockJS('http://127.0.0.1/randomWs');
+
+        // 커넥트시도
         this.stompClient = Stomp.over(socket);
+
+        // 커넥트시도
         this.stompClient.connect({}, function(frame) {
             websocket.setConnected(true);
 
+            // subscribe로 받을 준비함
             this.subscribe('/randomSend', function(msg) {
                 $("#all").prepend(
-                    "<h4>" + $('#name').val() +":"+
-                    // "<h4>" + JSON.parse(msg.body).sendid +":"+
+                    "<h4>" + '<img src="img/paperPlane.jpg" style="width: 50px;margin-left: 10px;">'+ $('#name').val() +":"+
+                    "<h4>" + JSON.parse(msg.body).sendid +":"+
                     // "<h4>" + $('#guestName').val() +":"+
+                    JSON.parse(msg.body).content1
+                    + "</h4>");
+            });
+            this.subscribe('/randomSend/to/'+sid, function(msg) {
+                $("#to").prepend(
+                    "<h4>" + JSON.parse(msg.body).sendid +":"+
                     JSON.parse(msg.body).content1
                     + "</h4>");
             });
@@ -77,15 +94,27 @@ let websocket={
     // receiveall한테 메세지를 보내는것 -receiveall은 8088/ws에 있음-관리자의 msgcontroller로 들어옴
     sendAll:function(){
         var msg = JSON.stringify({
-            'sendid' : $('#guestName').val(),
+            'sendid' : $('#loginGuestId').val(),
             'content1' : $("#alltext").val()
         });
         this.stompClient.send("/randomReceiveall", {}, msg);
-    }
+    },
+    sendTo:function(){
+        var msg = JSON.stringify({
+            'sendid' : this.id,
+            'receiveid' : $('#target').val(),
+            'content1' : $('#totext').val()
+        });
+        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        console.log(msg);
+        this.stompClient.send('/randomReceiveto', {}, msg);
+    },
 };
+
 
 $(function(){
     websocket.init();
+
 })
 </script>
 
@@ -109,10 +138,10 @@ $(function(){
         <div class="row">
             <div class="col-md-5 mb-5 mb-md-0">
 <%--                <form class="form" id="contact-form" method="post" action="contact.php">--%>
-                    <h1 id="loginGuestId">${loginGuest.getGuestId()}</h1>
+                    <input id="loginGuestId" value="${loginGuest.getGuestId()}">
                     <button class="btn btn-outline-primary" id="connectBtn">채팅시작</button>
                     <button class="btn btn-outline-primary" id="disconnectBtn">연결해제</button>
-                    <input id="guestName" type="hidden" value="${loginGuest.getguestName()}">
+<%--                    <input id="guestName" type="hidden" value="${loginGuest.getguestName()}">--%>
                     <H1 id="status">Status</H1>
                     <div class="controls">
                         <div class="row">
@@ -131,17 +160,28 @@ $(function(){
                         <button class="btn btn-outline-primary" id="sendall">종이비행기 날리기</button>
 
                         <img id="paperPlane" src="img/paperPlaneWhite.jpg" style="width: 50px;margin-left: 10px;">
-                        <img id="paperPlane1" src="img/paperPlane.jpg" style=" display: none; width: 50px;margin-left: 10px;">
                     </div>
 <%--                </form>--%>
             </div>
+
             <div class="col-md-5">
                 <div class="ps-lg-4 text-sm">
-                    <div id="all" style="position: relative; width: 400px; height: 400px; border: 1px solid black;"></div>
-                    <p class="text-muted"></p>
-                    <p class="text-muted"></p>
+                    <div id="to"></div>
+<%--                    <div class="col-12 col-lg-3 align-self-center" >--%>
+                    <button id="all" class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#leaveReview" aria-expanded="false" aria-controls="leaveReview">
+                    </button>
+                        <div class="collapse mt-4" id="leaveReview">
+                                <div class="col-sm-6">
+                                    <label class="form-label">메세지</label>
+                                    <input id="totext" class="form-control" required="required">
+                                    <input type="text" id="target" value="taebin100@hanmail.net">
+                                    <button id="sendto">보내기</button>
+                                </div>
+                        </div>
+<%--                    </div>--%>
                 </div>
             </div>
+
         </div>
     </div>
 </section>

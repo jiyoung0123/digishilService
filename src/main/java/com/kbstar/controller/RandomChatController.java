@@ -17,4 +17,11 @@ public class RandomChatController {
 //        randomSend(target)라는 outbound로 msg를 보냄
         template.convertAndSend("/randomSend",msg);
     }
+
+    @MessageMapping("/randomReceiveto") // 특정 Id에게 전송
+    public void randomReceiveto(RandomChatMsg msg, SimpMessageHeaderAccessor headerAccessor) {
+        String id = msg.getSendid();
+        String target = msg.getReceiveid();
+        template.convertAndSend("/randomSend/to/"+target,msg);
     }
+}
