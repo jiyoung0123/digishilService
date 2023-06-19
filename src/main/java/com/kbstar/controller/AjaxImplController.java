@@ -107,7 +107,7 @@ public class AjaxImplController {
             result = "false";
         }else{
             guest.setGuestPwd(encoder.encode(guestPwdNew));
-            guestService.updatePwd(guest);
+            guestService.updatePwd2(guest);
             result = "true";
         }
         return result;

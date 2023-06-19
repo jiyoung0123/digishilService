@@ -18,6 +18,9 @@
 
 <!--    //임시비밀번호 발급을 위한 업데이트-->
     <update id="updatePwd" parameterType="Guest">
-        UPDATE guest SET guestPwd=#{guestPwd} WHERE guestId=#{guestId}
+        UPDATE guest SET guestPwd=#{guestPwd}, guestPwdChange=1 WHERE guestId=#{guestId}
+    </update>
+    <update id="updatePwd2" parameterType="Guest">
+        UPDATE guest SET guestPwd=#{guestPwd}, guestPwdChange=0 WHERE guestId=#{guestId}
     </update>
 </mapper>
