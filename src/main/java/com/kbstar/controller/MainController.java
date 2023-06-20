@@ -81,4 +81,13 @@ public class MainController {
         model.addAttribute("center", "randomChat");
         return "index";
     }
+
+    @RequestMapping("/randomChatRoom")
+    public String randomChatRoom(Model model, HttpSession session){
+        if(session.getAttribute("loginGuest")==null){
+            return "redirect:/login";
+        }
+        model.addAttribute("center", "randomChatRoom");
+        return "index";
+    }
 }

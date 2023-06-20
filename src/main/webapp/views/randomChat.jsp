@@ -64,7 +64,7 @@ let websocket={
             this.subscribe('/randomSend', function(msg) {
                 $("#all").prepend(
                     "<h4>" + '<img src="img/paperPlane.jpg" style="width: 50px;margin-left: 10px;">'+ $('#name').val() +":"+
-                    "<h4>" + JSON.parse(msg.body).sendid +":"+
+                    // "<h4>" + JSON.parse(msg.body).sendid +":"+
                     // "<h4>" + $('#guestName').val() +":"+
                     JSON.parse(msg.body).content1
                     + "</h4>");
@@ -100,21 +100,27 @@ let websocket={
         this.stompClient.send("/randomReceiveall", {}, msg);
     },
     sendTo:function(){
+        var allText = $('#all').text().trim();
+        var chatId = allText.split(':')[1];
+        console.log("==================================================");
+        console.log(chatId);
         var msg = JSON.stringify({
             'sendid' : this.id,
-            'receiveid' : $('#target').val(),
+            'receiveid' :chatId,
             'content1' : $('#totext').val()
         });
-        console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-        console.log(msg);
         this.stompClient.send('/randomReceiveto', {}, msg);
     },
 };
+// $(document).ready(function() {
+//     $('#all').click(function() {
+//         $('#leaveReview').collapse('toggle');
+//     });
+// });
 
 
 $(function(){
     websocket.init();
-
 })
 </script>
 
@@ -163,25 +169,30 @@ $(function(){
                     </div>
 <%--                </form>--%>
             </div>
-
             <div class="col-md-5">
                 <div class="ps-lg-4 text-sm">
-                    <div id="to"></div>
+
 <%--                    <div class="col-12 col-lg-3 align-self-center" >--%>
-                    <button id="all" class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#leaveReview" aria-expanded="false" aria-controls="leaveReview">
-                    </button>
-                        <div class="collapse mt-4" id="leaveReview">
+                    <a id="all" class="btn btn-outline-primary" type="button" href="/randomChatRoom" >
+<%--                        <a id="all" class="btn btn-outline-primary" type="button" href="/" data-bs-toggle="collapse" data-bs-target="#leaveReview" aria-expanded="false" aria-controls="leaveReview">--%>
+                    </a>
+                    <div id="leaveReview" class="collapse">
+                        채팅창
+                        <div id="to"></div>
+                        <!-- 채팅창 내용을 넣으세요 -->
+                    </div>
+
+                    <div class="collapse mt-4" id="leaveReview">
                                 <div class="col-sm-6">
                                     <label class="form-label">메세지</label>
                                     <input id="totext" class="form-control" required="required">
-                                    <input type="text" id="target" value="taebin100@hanmail.net">
+                                    <input type="hidden" id="target">
                                     <button id="sendto">보내기</button>
                                 </div>
                         </div>
 <%--                    </div>--%>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
