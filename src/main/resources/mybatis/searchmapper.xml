@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.SearchMapper">
+    <insert id="insert" parameterType="Search">
+        INSERT INTO search(searchId, searchWord, searchCount) VALUES (searchSeq.NEXTVAL, #{searchWord} ,1)
+    </insert>
+    <update id="update" parameterType="Search">
+        UPDATE search SET searchCount=searchCount+1 WHERE searchWord=#{searchWord}
+    </update>
+    <select id="selectall" resultType="Search">
+        SELECT * FROM SEARCH WHERE rownum &lt;5 ORDER BY searchCount desc
+    </select>
+    <select id="select" parameterType="String" resultType="Search">
+        SELECT * FROM search WHERE searchWord=#{searchWord}
+    </select>
+
+</mapper>
