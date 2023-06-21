@@ -28,4 +28,7 @@
     <select id="selectGuestCoupon" parameterType="String" resultType="Integer">
         SELECT guestCoupon FROM guest WHERE guestId=#{guestId}
     </select>
+    <update id="updateGuestCoupon" parameterType="Guest">
+        UPDATE guest SET guestCoupon=#{guestCoupon} WHERE guestId=#{guestId}
+    </update>
 </mapper>

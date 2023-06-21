@@ -36,5 +36,9 @@ public class Guest {
         this.guestLang = guestLang;
         this.guestIntro = guestIntro;
     }
+    public Guest(String guestId, int guestCoupon) {
+        this.guestId = guestId;
+        this.guestCoupon = guestCoupon;
+    }
 }
 
