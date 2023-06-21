@@ -11,4 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public interface GuestMapper extends KBMapper<String, Guest> {
     public void updatePwd(Guest guest);
     public void updatePwd2(Guest guest);
+    public int selectGuestCoupon(String guestId);
+    public void updateGuestCoupon(Guest guest);
 }

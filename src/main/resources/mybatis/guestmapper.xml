@@ -23,4 +23,9 @@
     <update id="updatePwd2" parameterType="Guest">
         UPDATE guest SET guestPwd=#{guestPwd}, guestPwdChange=0 WHERE guestId=#{guestId}
     </update>
+
+    <!-- 적립금 조회-->
+    <select id="selectGuestCoupon" parameterType="String" resultType="Guest">
+        SELECT guestCoupon FROM guest WHERE guestId=#{guestId}
+    </select>
 </mapper>

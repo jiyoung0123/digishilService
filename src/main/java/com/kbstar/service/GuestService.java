@@ -51,4 +51,10 @@ public class GuestService implements KBService<String, Guest> {
     public void updatePwd2(Guest guest) throws Exception {
         mapper.updatePwd2(guest);
     }
+    public int selectGuestCoupon(String guestId) throws Exception{
+        return mapper.selectGuestCoupon(guestId);
+    }
+    public void updateGuestCoupon(Guest guest) throws Exception{
+        mapper.updateGuestCoupon(guest);
+    }
 }

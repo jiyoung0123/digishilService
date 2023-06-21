@@ -3,6 +3,7 @@ package com.kbstar.controller;
 import com.kbstar.dto.Board;
 import com.kbstar.dto.Reserve;
 import com.kbstar.service.BoardService;
+import com.kbstar.service.GuestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,9 +22,18 @@ public class BoardAjaxImplController {
 
     @Autowired
     BoardService boardService;
+    @Autowired
+    GuestService guestService;
 
     @RequestMapping("/boardAll")
     public List<Board> getall() throws Exception {
+        List<Board> boardList;
+        boardList = boardService.get();
+        return boardList;
+    }
+
+    @RequestMapping("/mypoint")
+    public List<Board> getMyPoint() throws Exception {
         List<Board> boardList;
         boardList = boardService.get();
         return boardList;
