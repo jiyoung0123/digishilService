@@ -165,8 +165,19 @@
                 <p class="subtitle text-secondary">Hurry up, these are expiring soon.        </p>
                 <h2>Last minute deals</h2>
             </div>
-            <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category.html">
-                See all deals<i class="fas fa-angle-double-right ms-2"></i></a></div>
+            <div class="col-lg-4 mb-4">
+                <h2 class="h5 text-dark d-flex align-items-center mb-4"><span class="badge badge-primary-light badge-pill py-1 me-1">Hot</span>인기 검색어</h2>
+                <ul class="list-unstyled ms-3 text-sm">
+                    <c:forEach var="search" items="${search}">
+                        <li class="mb-2"><a class="text-muted" href="knowledge-base-topic.html"> <span class="h6 text-primary">1.&nbsp;&nbsp;</span>${search.searchWord}</a></li>
+                    </c:forEach>
+<%--                    <li class="mb-2"><a class="text-muted" href="knowledge-base-topic.html"> <span class="h6 text-primary">2.&nbsp;&nbsp;</span>Adipisicing voluptate magna quis sunt dolor velit.</a></li>--%>
+<%--                    <li class="mb-2"><a class="text-muted" href="knowledge-base-topic.html"> <span class="h6 text-primary">3.&nbsp;&nbsp;</span>Ad pariatur anim magna?</a></li>--%>
+<%--                    <li class="mb-2"><a class="text-muted" href="knowledge-base-topic.html"> <span class="h6 text-primary">4.&nbsp;&nbsp;</span>officia aliqua fugiat ex?</a></li>--%>
+                </ul>
+            </div>
+<%--            <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category.html">--%>
+<%--                See all deals<i class="fas fa-angle-double-right ms-2"></i></a></div>--%>
         </div>
         <!-- Slider main container-->
         <div class="swiper-container swiper-container-mx-negative swiper-init pt-3" data-swiper="{&quot;slidesPerView&quot;:4,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;roundLengths&quot;:true,&quot;breakpoints&quot;:{&quot;1200&quot;:{&quot;slidesPerView&quot;:3},&quot;991&quot;:{&quot;slidesPerView&quot;:2},&quot;565&quot;:{&quot;slidesPerView&quot;:1}},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination&quot;,&quot;clickable&quot;:true,&quot;dynamicBullets&quot;:true}}">

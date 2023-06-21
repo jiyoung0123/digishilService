@@ -3,8 +3,10 @@ package com.kbstar.controller;
 
 import com.kbstar.dto.KakaoApproveResponse;
 import com.kbstar.dto.Reserve;
+import com.kbstar.dto.Search;
 import com.kbstar.service.GuestService;
 import com.kbstar.service.ReserveService;
+import com.kbstar.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,10 +31,17 @@ public class MainController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
-
+    @Autowired
+    SearchService searchService;
 
     @RequestMapping("/")
     public String main(Model model) throws Exception {
+        List<Search> search = null;
+        search = searchService.get();
+        log.info("--------------------------"+search);
+
+        model.addAttribute("search",search);
+        model.addAttribute("center","center");
         return "index";
     }
 

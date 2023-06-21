@@ -5,6 +5,7 @@ import com.kbstar.dto.*;
 import com.kbstar.service.ReserveService;
 import com.kbstar.service.ReviewService;
 import com.kbstar.service.RoomService;
+import com.kbstar.service.SearchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,8 @@ public class RoomController {
     RoomService roomService;
     @Autowired
     ReviewService reviewService;
+    @Autowired
+    SearchService searchService;
     String dir ="room/";
 
     @RequestMapping("/list")
@@ -77,7 +80,13 @@ public class RoomController {
     }
 
     @RequestMapping("/roomSearch")
-    public String roomSearch(Model model, RoomSearch rs, @RequestParam(required = false, defaultValue = "1") int pageNo, String guestId) throws Exception {
+    public String roomSearch(Model model,String roomName, RoomSearch rs, @RequestParam(required = false, defaultValue = "1") int pageNo, String guestId) throws Exception {
+        Search search = new Search(roomName);
+        if(searchService.get(roomName)!=null){
+            searchService.modify(search);
+        }else{
+            searchService.register(search);
+        }
         PageInfo<Room> p = null;
         p = new PageInfo<>(roomService.roomSearch(pageNo, rs), 5);
         model.addAttribute("target","room");
