@@ -4,7 +4,7 @@ import lombok.*;
 
 import java.util.Date;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -20,7 +20,14 @@ public class RoomSearch {
 //    private Date reserveCheckIn;
 //    private Date reserveCheckOut;
 
+
     public RoomSearch(String roomLoc){
         this.roomLoc = roomLoc;
     }
+
+    public RoomSearch(String roomName, String roomLoc){
+        this.roomName = roomName;
+    }
+
+
 }

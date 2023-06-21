@@ -10,7 +10,7 @@
         UPDATE search SET searchCount=searchCount+1 WHERE searchWord=#{searchWord}
     </update>
     <select id="selectall" resultType="Search">
-        SELECT * FROM SEARCH WHERE rownum &lt;5 ORDER BY searchCount desc
+        SELECT * FROM (SELECT * FROM search ORDER BY searchCount desc) WHERE rownum &lt; 5
     </select>
     <select id="select" parameterType="String" resultType="Search">
         SELECT * FROM search WHERE searchWord=#{searchWord}

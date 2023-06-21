@@ -1,11 +1,10 @@
 package com.kbstar.controller;
 
 
-import com.kbstar.dto.KakaoApproveResponse;
-import com.kbstar.dto.Reserve;
-import com.kbstar.dto.Search;
+import com.kbstar.dto.*;
 import com.kbstar.service.GuestService;
 import com.kbstar.service.ReserveService;
+import com.kbstar.service.RoomService;
 import com.kbstar.service.SearchService;
 import com.kbstar.service.randomChat.PrincipalDetails;
 import com.kbstar.service.randomChat.chatService.ChatServiceMain;
@@ -33,13 +32,22 @@ public class MainController {
 
     @Autowired
     SearchService searchService;
+    @Autowired
+    RoomService roomService;
 
     @RequestMapping("/")
     public String main(Model model) throws Exception {
         List<Search> search = null;
         search = searchService.get();
-        log.info("--------------------------"+search);
+        Search first = search.get(0);
+        log.info("1-----------------------------"+first);
+        RoomSearch firstWord = new RoomSearch(first.getSearchWord(),"");
+        log.info("2-----------------------------"+firstWord);
+        List<Room> list = null;
+        list = roomService.roomSearch(1, firstWord);
+        log.info("3-----------------------------"+list);
 
+        model.addAttribute("roomList",list);
         model.addAttribute("search",search);
         model.addAttribute("center","center");
         return "index";
