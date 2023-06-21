@@ -1,7 +1,7 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.RandomChat;
-import com.kbstar.service.randomChat.RandomChatRepository;
+import com.kbstar.service.randomChat.RandomChatServiceMain;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class RandomChatController {
     private final SimpMessageSendingOperations template;
 
     @Autowired
-    RandomChatRepository repository;
+    RandomChatServiceMain repository;
 
     @MessageMapping("/randomReceiveall") // 모두에게 전송
     public void randomReceiveall(RandomChat msg, SimpMessageHeaderAccessor headerAccessor) {
@@ -60,10 +60,10 @@ public class RandomChatController {
         repository.plusUserCnt(chat.getRoomId());
 
         // 채팅방에 유저 추가 및 UserUUID 반환
-        String userUUID = repository.addUser(chat.getRoomId(), chat.getSendid());
-
-        // 반환 결과를 socket session 에 userUUID 로 저장
-        headerAccessor.getSessionAttributes().put("userUUID", userUUID);
+//        String userUUID = repository.addUser(chat.getRoomId(), chat.getSendid());
+//
+//        // 반환 결과를 socket session 에 userUUID 로 저장
+//        headerAccessor.getSessionAttributes().put("userUUID", userUUID);
         headerAccessor.getSessionAttributes().put("roomId", chat.getRoomId());
 
         chat.setContent1(chat.getSendid() + " 님 입장!!");
@@ -77,7 +77,6 @@ public class RandomChatController {
         log.info("CHAT {}", chat);
         chat.setContent1(chat.getContent1());
         template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
-
     }
 //
 //    // 유저 퇴장 시에는 EventListener 을 통해서 유저 퇴장을 확인
@@ -115,24 +114,24 @@ public class RandomChatController {
 //    }
 
     // 채팅에 참여한 유저 리스트 반환
-    @GetMapping("/chat/userlist")
-    @ResponseBody
-    public ArrayList<String> userList(String roomId) {
-
-        return repository.getUserList(roomId);
-    }
-
-    // 채팅에 참여한 유저 닉네임 중복 확인
-    @GetMapping("/chat/duplicateName")
-    @ResponseBody
-    public String isDuplicateName(@RequestParam("roomId") String roomId, @RequestParam("username") String username) {
-
-        // 유저 이름 확인
-        String userName = repository.isDuplicateName(roomId, username);
-        log.info("동작확인 {}", userName);
-
-        return userName;
-    }
+//    @GetMapping("/chat/userlist")
+//    @ResponseBody
+//    public ArrayList<String> userList(String roomId) {
+//
+//        return repository.getUserList(roomId);
+//    }
+//
+//    // 채팅에 참여한 유저 닉네임 중복 확인
+//    @GetMapping("/chat/duplicateName")
+//    @ResponseBody
+//    public String isDuplicateName(@RequestParam("roomId") String roomId, @RequestParam("username") String username) {
+//
+//        // 유저 이름 확인
+//        String userName = repository.isDuplicateName(roomId, username);
+//        log.info("동작확인 {}", userName);
+//
+//        return userName;
+//    }
 
 }
 

@@ -2,11 +2,13 @@ package com.kbstar.service.randomChat;
 
 import com.kbstar.dto.ChatRoomMap;
 import com.kbstar.dto.RandomChatRoom;
+import com.kbstar.mapper.RandomChatMapper;
 import com.kbstar.service.randomChat.chatService.MsgChatService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -20,34 +22,43 @@ import java.util.*;
 @Slf4j
 public class RandomChatServiceMain {
 
+    @Autowired
+    RandomChatMapper mapper;
+
     private final MsgChatService msgChatService;
 //    private final RtcChatService rtcChatService;
 
     // 채팅방 삭제에 따른 채팅방의 사진 삭제를 위한 fileService 선언
 //    private final FileService fileService;
 
+    public void register(RandomChatRoom randomChatRoom) throws Exception {
+        mapper.insert(randomChatRoom);
 
-    // 전체 채팅방 조회
-    public List<RandomChatRoom> findAllRoom(){
-        // 채팅방 생성 순서를 최근순으로 반환
-        List<RandomChatRoom> chatRooms = new ArrayList<>(ChatRoomMap.getInstance().getChatRooms().values());
-        Collections.reverse(chatRooms);
-
-        return chatRooms;
     }
 
+
+    // 전체 채팅방 조회
+    public List<RandomChatRoom> findAllRoom() throws Exception {
+        // 채팅방 생성 순서를 최근순으로 반환
+//        List<RandomChatRoom> chatRooms = new ArrayList<>(ChatRoomMap.getInstance().getChatRooms().values());
+//        Collections.reverse(chatRooms);
+        return mapper.selectall();
+
+    }
+
+
+
     // roomID 기준으로 채팅방 찾기
-    public RandomChatRoom findRoomById(String roomId){
-        return ChatRoomMap.getInstance().getChatRooms().get(roomId);
+    public RandomChatRoom findRoomById(String roomId) throws Exception {
+       return mapper.select(roomId);
+//        return ChatRoomMap.getInstance().getChatRooms().get(roomId);
     }
 
     // roomName 로 채팅방 만들기
-    public RandomChatRoom createChatRoom(String roomName, String roomPwd, boolean secretChk, int maxUserCnt, String chatType){
+    public RandomChatRoom createChatRoom(String createuserID, String roomName, String roomPwd, boolean secretChk, int maxUserCnt, RandomChatRoom.ChatType chatType){
 
         RandomChatRoom room;
-
-
-            room = msgChatService.createChatRoom(roomName, roomPwd, secretChk, maxUserCnt);
+        room = msgChatService.createChatRoom(createuserID, roomName, roomPwd, secretChk, maxUserCnt, chatType);
 
         // 채팅방 타입에 따라서 사용되는 Service 구분
 //        if(chatType.equals("msgChat")){

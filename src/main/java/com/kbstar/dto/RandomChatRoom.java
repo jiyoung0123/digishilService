@@ -23,6 +23,7 @@ import java.util.concurrent.ConcurrentMap;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RandomChatRoom {
+    private String createUserId;
     private String roomId; // 채팅방 아이디
     private String roomName; // 채팅방 이름
     private long userCount; // 채팅방 인원수
@@ -39,13 +40,15 @@ public class RandomChatRoom {
     }
     private ChatType chatType; //  채팅 타입 여부
 
-    public RandomChatRoom create(String roomName){
-        RandomChatRoom chatRoom = new RandomChatRoom();
-        chatRoom.roomId = UUID.randomUUID().toString();
-        chatRoom.roomName = roomName;
+//    public RandomChatRoom create(String roomName){
+//        RandomChatRoom chatRoom = new RandomChatRoom();
+//        chatRoom.roomId = UUID.randomUUID().toString();
+//        chatRoom.roomName = roomName;
+//
+//        return chatRoom;
+//    }
 
-        return chatRoom;
-    }
+    // ChatRoomDto 클래스는 하나로 가되 서비스를 나누었음
     public ConcurrentMap<String, ?> userList = new ConcurrentHashMap<>();
 
 }

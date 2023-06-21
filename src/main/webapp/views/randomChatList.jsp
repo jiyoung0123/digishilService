@@ -276,7 +276,7 @@
     </c:when>
         <c:otherwise>
         <h5>
-            [[${loginGuest.guestName}]]
+            ${loginGuest.guestName}
         </h5>
         </c:otherwise>
     </c:choose>
@@ -289,34 +289,45 @@
                 <th scope="col">채팅 종류</th>
                 <th scope="col">채팅방 설정</th>
             </tr>
-            <th:block th:fragment="content">
-
-                <tr th:each="room : ${list}">
-                    <span class="hidden" th:id="${room.roomName}"></span>
-                    <td th:if="${room.secretChk}">
-                        <a href="#enterRoomModal" data-bs-toggle="modal" data-target="#enterRoomModal" th:data-id="${room.roomId}">[[${room.roomName}]]</a>
-                    </td>
-                    <td th:if="${!room.secretChk}">
-                        <!-- thymeleaf 의 변수를 onclick 에 넣는 방법 -->
-                        <a th:href="@{/chat/room(roomId=${room.roomId})}" th:roomId="${room.roomId}" onclick="return chkRoomUserCnt(this.getAttribute('roomId'));">[[${room.roomName}]]</a>
+            <c:forEach var="room" items="${list}">
+                <span class="hidden" id="${room.roomName}"></span>
+                <tr>
+                    <td>
+                        <c:if test="${room.secretChk}">
+                            <a href="#enterRoomModal" data-bs-toggle="modal" data-target="#enterRoomModal" data-id="${room.roomId}">${room.roomName}</a>
+                        </c:if>
+                        <c:if test="${not room.secretChk}">
+                            <a href="/chat/room?roomId=${room.roomId}" roomId="${room.roomId}" onclick="return chkRoomUserCnt(this.getAttribute('roomId'));">${room.roomName}</a>
+                        </c:if>
                     </td>
                     <td>
-                        <span th:if="${room.secretChk}">
-                            🔒︎
-                        </span>
+                <span>
+                    <c:if test="${room.secretChk}">
+                        🔒︎
+                    </c:if>
+                </span>
                     </td>
                     <td>
-                        <span class="badge bg-primary rounded-pill">[[${room.userCount}]]/[[${room.maxUserCnt}]]</span>
+                        <span class="badge bg-primary rounded-pill">${room.userCount}/${room.maxUserCnt}</span>
                     </td>
                     <td>
-<%--                        <span th:if="${#strings.equals(room.chatType, 'MSG')}">일반 채팅</span>--%>
-<%--                        <span th:unless="${#strings.equals(room.chatType, 'MSG')}">화상 채팅</span>--%>
+                <span>
+                    <c:choose>
+                        <c:when test="${room.chatType == 'MSG'}">일반 채팅</c:when>
+                        <c:otherwise>화상 채팅</c:otherwise>
+                    </c:choose>
+                </span>
                     </td>
                     <td>
-                        <button class="btn btn-primary btn-sm" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" th:data-id="${room.roomId}">채팅방 설정</button>
+                        <button class="btn btn-primary btn-sm" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" data-id="${room.roomId}">채팅방 설정</button>
                     </td>
                 </tr>
-            </th:block>
+            </c:forEach>
+        </table>
+
+
+
+
 
         </table>
         <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#roomModal">방 생성</button>
@@ -334,6 +345,7 @@
             <form method="post" action="/chat/createroom" onsubmit="return createRoom()">
                 <div class="modal-body">
                     <div class="mb-3">
+                        <input type="text" name="createUserId" value="${loginGuest.guestId}">
                         <label for="roomName" class="col-form-label">방 이름</label>
                         <input type="text" class="form-control" id="roomName" name="roomName">
                     </div>
@@ -348,13 +360,13 @@
                     </div>
                     <div class="mb-3">
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="chatType" id="msgType" value="msgChat">
+                            <input class="form-check-input" type="radio" name="chatType" id="msgType" value="MSG">
                             <label class="form-check-label" for="msgType">
                                 일반 채팅(최대 100명)
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="chatType" id="rtcType" value="rtcChat">
+                            <input class="form-check-input" type="radio" name="chatType" id="rtcType" value="RTC">
                             <label class="form-check-label" for="rtcType">
                                 화상 채팅(최대 4명)
                             </label>
