@@ -68,6 +68,7 @@ let websocket={
                     // "<h4>" + $('#guestName').val() +":"+
                     JSON.parse(msg.body).content1
                     + "</h4>");
+                console.log("-------------------------------------" + $('#name').val());
             });
             this.subscribe('/randomSend/to/'+sid, function(msg) {
                 $("#to").prepend(
@@ -97,6 +98,8 @@ let websocket={
             'sendid' : $('#loginGuestId').val(),
             'content1' : $("#alltext").val()
         });
+        console.log(msg);
+        console.log("=================================================================");
         this.stompClient.send("/randomReceiveall", {}, msg);
     },
     sendTo:function(){
@@ -173,7 +176,7 @@ $(function(){
                 <div class="ps-lg-4 text-sm">
 
 <%--                    <div class="col-12 col-lg-3 align-self-center" >--%>
-                    <a id="all" class="btn btn-outline-primary" type="button" href="/randomChatRoom" >
+                    <a id="all" class="btn btn-outline-primary" type="button" href="/randomChatRoom">
 <%--                        <a id="all" class="btn btn-outline-primary" type="button" href="/" data-bs-toggle="collapse" data-bs-target="#leaveReview" aria-expanded="false" aria-controls="leaveReview">--%>
                     </a>
                     <div id="leaveReview" class="collapse">

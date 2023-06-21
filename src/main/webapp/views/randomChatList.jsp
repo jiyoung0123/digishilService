@@ -10,8 +10,7 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -261,20 +260,26 @@
         }
 
     </style>
-</head>
-<body>
+<%--</head>--%>
+
 <div class="container">
     <div class="container">
         <h2>채팅방 리스트</h2>
+    <c:choose>
+    <c:when test="${loginGuest == null}">
 
-        <div th:if="${user == null}" class="row">
+        <div class="row">
             <div class="col">
-                <a href="/chatlogin"><button type="button" class="btn btn-primary">로그인하기</button></a>
+                <a href="/login"><button type="button" class="btn btn-primary">로그인하기</button></a>
             </div>
         </div>
-        <h5 th:if="${user != null}">
-            [[${user.nickName}]]
+    </c:when>
+        <c:otherwise>
+        <h5>
+            [[${loginGuest.guestName}]]
         </h5>
+        </c:otherwise>
+    </c:choose>
 
         <table class="table table-hover" id="table">
             <tr>
@@ -304,8 +309,8 @@
                         <span class="badge bg-primary rounded-pill">[[${room.userCount}]]/[[${room.maxUserCnt}]]</span>
                     </td>
                     <td>
-                        <span th:if="${#strings.equals(room.chatType, 'MSG')}">일반 채팅</span>
-                        <span th:unless="${#strings.equals(room.chatType, 'MSG')}">화상 채팅</span>
+<%--                        <span th:if="${#strings.equals(room.chatType, 'MSG')}">일반 채팅</span>--%>
+<%--                        <span th:unless="${#strings.equals(room.chatType, 'MSG')}">화상 채팅</span>--%>
                     </td>
                     <td>
                         <button class="btn btn-primary btn-sm" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" th:data-id="${room.roomId}">채팅방 설정</button>
@@ -470,5 +475,3 @@
         </div>
     </div>
 </div>
-</body>
-</html>
