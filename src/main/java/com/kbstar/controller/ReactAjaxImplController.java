@@ -1,13 +1,13 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Board;
-import com.kbstar.dto.Reserve;
 import com.kbstar.service.BoardService;
 import com.kbstar.service.GuestService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/react")
 @CrossOrigin(origins = "http://localhost:3000")
-public class BoardAjaxImplController {
+public class ReactAjaxImplController {
 
     @Autowired
     BoardService boardService;
@@ -32,11 +32,11 @@ public class BoardAjaxImplController {
         return boardList;
     }
 
-    @RequestMapping("/mypoint")
-    public List<Board> getMyPoint() throws Exception {
-        List<Board> boardList;
-        boardList = boardService.get();
-        return boardList;
+    @RequestMapping("/myPoint")
+    public Integer selectGuestCoupon(@RequestParam("guestId") String guestId) throws Exception {
+        Integer result;
+        result = guestService.selectGuestCoupon(guestId);
+        return result;
     }
 
 
