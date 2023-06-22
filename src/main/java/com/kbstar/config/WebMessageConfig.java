@@ -1,53 +1,83 @@
 package com.kbstar.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.i18n.LocaleContext;
+import org.springframework.context.i18n.SimpleLocaleContext;
+import org.springframework.web.server.ServerWebExchange;
+
 import java.util.Locale;
 
-@Slf4j
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.i18n.LocaleContext;
+import org.springframework.context.i18n.SimpleLocaleContext;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.i18n.LocaleContextResolver;
+
+import java.util.Locale;
+
 @Configuration
-public class WebMessageConfig {
+public class WebMessageConfig implements ApplicationContextAware {
+
+    ApplicationContext context;
 
     @Bean
-    public ResourceBundleMessageSource messageSource() {
+    public MessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasenames("messages/message");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 
+    @Override
+    public void setApplicationContext(ApplicationContext context) {
+        this.context = context;
+    }
+}
 
+// 사용자가 사용하는 브라우져의 사용 언어 확인
+@Configuration
+class LocaleResolve implements LocaleContextResolver {
 
-
-    @RestController
-    public class LocaleController {
-
-        private final LocaleResolver localeResolver;
-
-        public LocaleController(LocaleResolver localeResolver) {
-            this.localeResolver = localeResolver;
+    @Override
+    public LocaleContext resolveLocaleContext(ServerWebExchange exchange) {
+        //String language = exchange.getRequest().getHeaders().getFirst("Accept-Language");
+        String language = exchange.getRequest().getQueryParams().getFirst("lang");
+        Locale targetLocale = Locale.getDefault();
+        if (language != null && !language.isEmpty()) {
+            targetLocale = Locale.forLanguageTag(language);
         }
+        return new SimpleLocaleContext(targetLocale);
+    }
 
-        @GetMapping("/change-language")
-        public String changeLanguage(@RequestParam("lang") String language,
-                                     HttpServletRequest request,
-                                     HttpServletResponse response) {
-            log.info(language);
-            Locale locale = Locale.forLanguageTag(language);
-            localeResolver.setLocale(request, response, locale);
-            return "Language changed to " + language;
-        }
+    @Override
+    public void setLocaleContext(ServerWebExchange exchange, LocaleContext localeContext) {
+        throw new UnsupportedOperationException("Not Supported");
     }
 
 }
 
+// 언어펙 적용
+@Configuration
+class MessageByLocale {
+
+    @Autowired
+    private MessageSource messageSource;
+
+    @Autowired
+    private LocaleResolve localeResolver;
+
+    public String getMessage(String code, ServerWebExchange exchange) {
+        LocaleContext localeContext = localeResolver.resolveLocaleContext(exchange);
+        return messageSource.getMessage(code, null, localeContext.getLocale());
+    }
+}
