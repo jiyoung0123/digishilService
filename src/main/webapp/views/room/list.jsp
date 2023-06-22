@@ -104,7 +104,12 @@
             <hr class="my-4">
             <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
                 <div class="me-3">
-                    <p class="mb-3 mb-md-0"><strong>12</strong> results found</p>
+                    <c:if test="${roomList != null}">
+                        <p class="mb-3 mb-md-0"><strong>${roomList.getList().size()}</strong> results found</p>
+                    </c:if>
+                    <c:if test="${roomList == null}">
+                        <p class="mb-3 mb-md-0"><strong>${roomSearchList.getList().size()}</strong> results found</p>
+                    </c:if>
                 </div>
                 <div>
                     <label class="form-label me-2" for="form_sort">Sort by</label>

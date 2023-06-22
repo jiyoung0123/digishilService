@@ -98,6 +98,11 @@ public class MainController {
         model.addAttribute("center", "randomChat");
         return "index";
     }
+    @RequestMapping("/canvas")
+    public String canvas(Model model){
+        model.addAttribute("center","brick/canvas");
+        return "index";
+    }
 
 
 }

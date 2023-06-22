@@ -32,6 +32,8 @@
 </section>
 
 <script>
+    alert("게임 시작 !");
+
     let canvas = document.getElementById("myCanvas");
     let ctx = canvas.getContext("2d");
 
@@ -49,8 +51,8 @@
     let rightPressed = false;
     let leftPressed = false;
     // 벽돌 그리기
-    let brickRowCount = 3;
-    let brickColumnCount = 5;
+    let brickRowCount = 5;
+    let brickColumnCount = 3;
     let brickWidth = 75;
     let brickHeight = 20;
     let brickPadding = 10;
@@ -76,7 +78,7 @@
 
     function mouseMoveHandler(e) {
         let relativeX = e.clientX - canvas.offsetLeft;
-        if(relativeX > 33 && relativeX < canvas.width-33) {
+        if(relativeX > 37.5 && relativeX < canvas.width-37.5) {
             paddleX = relativeX - paddleWidth/2;
         }
     }
@@ -152,8 +154,8 @@
         for(let c=0; c<brickColumnCount; c++) {
             for(let r=0; r<brickRowCount; r++) {
                 if(bricks[c][r].status == 1) {
-                    let brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-                    let brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+                    let brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                    let brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
                     bricks[c][r].x = brickX;
                     bricks[c][r].y = brickY;
                     ctx.beginPath();
