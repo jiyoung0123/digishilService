@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+
 <script src="https://kit.fontawesome.com/5f198f7eda.js" crossorigin="anonymous"></script>
 
 <script>
@@ -52,17 +54,17 @@
             <div class="col-xl-10">
                 <div class="text-center text-lg-start">
                     <p class="subtitle letter-spacing-4 mb-2 text-secondary text-shadow">The best holiday experience</p>
-                    <h1 class="display-3 fw-bold text-shadow">여행은 살아보는 거야</h1>
+                    <h1 class="display-3 fw-bold text-shadow"><spring:message code="site.title"/></h1>
                 </div>
 
                 <div class="search-bar mt-5 p-3 p-lg-1 ps-lg-4">
                     <form action="/room/roomSearch" method="get">
                         <div class="row">
                             <div class="col-lg-4 d-flex align-items-center form-group">
-                                <input class="form-control border-0 shadow-0" type="text" name="roomName" placeholder="지역, 이름 등 키워드를 입력하세요">
+                                <input class="form-control border-0 shadow-0" type="text" name="roomName" placeholder=<spring:message code="input.local"/>>
                             </div>
                             <div class="col-lg-3 d-flex align-items-center form-group no-divider">
-                                <select class="selectpicker" title="상세지역을 선택하세요" data-style="btn-form-control" name="roomLoc">
+                                <select class="selectpicker" title=<spring:message code="input.local2"/> data-style="btn-form-control" name="roomLoc">
                                     <option value="서울">서울</option>
                                     <option value="부산">부산</option>
                                     <option value="제주">제주</option>
@@ -71,7 +73,7 @@
                             </div>
 
                             <div class="col-lg-3 d-flex align-items-center form-group no-divider">
-                                <select class="selectpicker" title="객실 타입을 선택하세요" data-style="btn-form-control" name="roomType">
+                                <select class="selectpicker" title=<spring:message code="input.room"/> data-style="btn-form-control" name="roomType">
                                     <option value="small">아파트</option>
                                     <option value="medium">오피스텔</option>
                                     <option value="large">독채</option>
@@ -94,7 +96,7 @@
     <div class="container">
         <div class="text-center pb-lg-4">
             <p class="subtitle text-secondary">The best holiday experience</p>
-            <h2 class="mb-5">No.1 단기 임대 플랫폼 DIGI실</h2>
+            <h2 class="mb-5"><spring:message code="site.centerTitle"/></h2>
         </div>
         <div class="row">
             <div class="col-lg-4 mb-3 mb-lg-0 text-center">
@@ -104,7 +106,7 @@
                             <use xlink:href="#destination-map-1"> </use>
                         </svg>
                     </div>
-                    <h3 class="h5">가장 완벽한 단기 임대</h3>
+                    <h3 class="h5"><spring:message code="site.centerSub1"/></h3>
                 </div>
             </div>
             <div class="col-lg-4 mb-3 mb-lg-0 text-center">
@@ -114,7 +116,7 @@
                             <use xlink:href="#pay-by-card-1"> </use>
                         </svg>
                     </div>
-                    <h3 class="h5">안전하고 빠른 예약 </h3>
+                    <h3 class="h5"><spring:message code="site.centerSub2"/> </h3>
 <%--                    <p class="text-muted">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit</p>--%>
                 </div>
             </div>
@@ -125,7 +127,7 @@
                             <use xlink:href="#heart-1"> </use>
                         </svg>
                     </div>
-                    <h3 class="h5">휴가를 즐기세요!</h3>
+                    <h3 class="h5"><spring:message code="site.centerSub3"/></h3>
                 </div>
             </div>
         </div>
@@ -135,8 +137,8 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-8">
-                <p class="subtitle text-primary">현지인처럼 살아보기</p>
-                <h2>DIGI실 추천 여행지</h2>
+                <p class="subtitle text-primary"><spring:message code="site.recommendation"/></p>
+                <h2><spring:message code="site.recommendationTitle"/></h2>
             </div>
             <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category.html">
                 See all guides<i class="fas fa-angle-double-right ms-2"></i></a></div>

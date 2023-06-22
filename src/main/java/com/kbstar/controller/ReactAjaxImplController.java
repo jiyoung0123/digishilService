@@ -1,6 +1,7 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Board;
+import com.kbstar.dto.Guest;
 import com.kbstar.service.BoardService;
 import com.kbstar.service.GuestService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,6 +38,12 @@ public class ReactAjaxImplController {
         Integer result;
         result = guestService.selectGuestCoupon(guestId);
         return result;
+    }
+
+    @RequestMapping("/updatePoint")
+    public void updateGuestCoupon(@RequestParam("guestId") String guestId, @RequestParam("guestCoupon") int guestCoupon) throws Exception {
+        Guest guest = new Guest(guestId, guestCoupon);
+        guestService.updateGuestCoupon(guest);
     }
 
 

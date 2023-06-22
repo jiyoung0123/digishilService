@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 
 <!DOCTYPE html>
@@ -41,6 +42,30 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
+
+    function changeLanguage(language) {
+        fetch('/change-language?lang=' + language, {
+            method: 'GET',
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Language changed successfully
+                    // You can perform additional actions or update the UI accordingly
+                    console.log('Language changed to ' + language);
+                    // Reload the page to reflect the new language
+                    location.reload();
+                } else {
+                    // Handle error response
+                    console.error(language);
+                    console.error('Failed to change language');
+                }
+            })
+            .catch(error => {
+                // Handle network or fetch error
+                console.error('Error occurred:', error);
+            });
+    }
+
     // let socket;
     // //connect부분은 쓰레기 코드인데 어떻게 객체화해야할지 모르겠어서 대충하겠다...너무 지친다...
     // function connect() {
@@ -128,6 +153,22 @@
                     </div>
                 </form>
                 <ul class="navbar-nav ms-auto">
+                    <!-- 언어팩 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" id="langPack" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <svg class="svg-icon text-primary svg-icon-sd"><use xlink:href="#earth-globe-1"> </use></svg>
+                         </a>
+                        <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink">
+                            <button class="dropdown-item" onclick="changeLanguage('en')">English</button>
+                            <button class="dropdown-item" onclick="changeLanguage('ko')">한국어</button>
+                            <button class="dropdown-item" onclick="changeLanguage('ja')">日本語</button>
+                        </div>
+
+                    </li>
+
+
+                    <!-- Home -->
+
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" id="homeDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Home</a>
                         <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="/room/list">Rooms</a><a class="dropdown-item" href="index-2.html">Restaurants</a><a class="dropdown-item" href="index-3.html">Travel</a><a class="dropdown-item" href="index-4.html">Real Estate <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
