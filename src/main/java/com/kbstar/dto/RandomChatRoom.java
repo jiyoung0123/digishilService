@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.web.socket.WebSocketSession;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,26 +30,14 @@ public class RandomChatRoom {
     private long userCount; // 채팅방 인원수
     private int maxUserCnt; // 채팅방 최대 인원 제한
 
-    private HashMap<String, String> userlist = new HashMap<String, String>();
-
     private String roomPwd; // 채팅방 삭제시 필요한 pwd
     private boolean secretChk; // 채팅방 잠금 여부
-
 
     public enum ChatType{  // 화상 채팅, 문자 채팅
         MSG, RTC
     }
     private ChatType chatType; //  채팅 타입 여부
 
-//    public RandomChatRoom create(String roomName){
-//        RandomChatRoom chatRoom = new RandomChatRoom();
-//        chatRoom.roomId = UUID.randomUUID().toString();
-//        chatRoom.roomName = roomName;
-//
-//        return chatRoom;
-//    }
-
-    // ChatRoomDto 클래스는 하나로 가되 서비스를 나누었음
-    public ConcurrentMap<String, ?> userList = new ConcurrentHashMap<>();
+    private Map<String, String> userList = new HashMap<>();  //userList
 
 }

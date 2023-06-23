@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 
 
 @Service
@@ -66,23 +67,32 @@ public class RandomChatServiceMain {
 //        }else{
 //            room = rtcChatService.createChatRoom(roomName, roomPwd, secretChk, maxUserCnt);
 //        }
-
         return room;
     }
 
     // 채팅방 비밀번호 조회
-    public boolean confirmPwd(String roomId, String roomPwd) {
+    public boolean confirmPwd(String roomId, String roomPwd) throws Exception {
+        String pwd = mapper.select(roomId).getRoomPwd();
 //        String pwd = chatRoomMap.get(roomId).getRoomPwd();
-
-        return roomPwd.equals(ChatRoomMap.getInstance().getChatRooms().get(roomId).getRoomPwd());
+        return roomPwd.equals(pwd);
 
     }
 
     // 채팅방 인원+1
-    public void plusUserCnt(String roomId){
-        log.info("cnt {}",ChatRoomMap.getInstance().getChatRooms().get(roomId).getUserCount());
-        RandomChatRoom room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
-        room.setUserCount(room.getUserCount()+1);
+    public void plusUserCnt(String roomId) throws Exception {
+        log.info("------------------------------plusUserCnt도착");
+        log.info(roomId);
+//        log.info("cnt {}",ChatRoomMap.getInstance().getChatRooms().get(roomId).getUserCount());
+        RandomChatRoom room = mapper.select(roomId);
+        log.info(String.valueOf(room));
+
+//        RandomChatRoom room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+        long cnt =room.getUserCount();
+        log.info("userCnt 가져오기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        log.info(String.valueOf(cnt));
+        long cnt2 =cnt+1;
+        log.info(String.valueOf(cnt2));
+        log.info("------------------------------plusUserCnt끝");
     }
 
     // 채팅방 인원-1
@@ -92,35 +102,16 @@ public class RandomChatServiceMain {
     }
 
     // maxUserCnt 에 따른 채팅방 입장 여부
-    public boolean chkRoomUserCnt(String roomId){
-        RandomChatRoom room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
-
-
+    public boolean chkRoomUserCnt(String roomId) throws Exception {
+        RandomChatRoom room = mapper.select(roomId);
         if (room.getUserCount() + 1 > room.getMaxUserCnt()) {
             return false;
         }
-
         return true;
     }
 
     // 채팅방 삭제
-    public void delChatRoom(String roomId){
-
-        try {
-            // 채팅방 타입에 따라서 단순히 채팅방만 삭제할지 업로드된 파일도 삭제할지 결정
-            ChatRoomMap.getInstance().getChatRooms().remove(roomId);
-
-            if (ChatRoomMap.getInstance().getChatRooms().get(roomId).getChatType().equals(RandomChatRoom.ChatType.MSG)) { // MSG 채팅방은 사진도 추가 삭제
-                // 채팅방 안에 있는 파일 삭제
-//                fileService.deleteFileDir(roomId);
-            }
-
-            log.info("삭제 완료 roomId : {}", roomId);
-
-        } catch (Exception e) { // 만약에 예외 발생시 확인하기 위해서 try catch
-            System.out.println(e.getMessage());
-        }
-
+    public void delChatRoom(String roomId) throws Exception {
+        mapper.delete(roomId);
     }
-
 }

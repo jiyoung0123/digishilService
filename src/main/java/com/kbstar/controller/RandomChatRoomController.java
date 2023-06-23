@@ -77,12 +77,42 @@ public class RandomChatRoomController {
         if(session.getAttribute("loginGuest")==null){
             return "redirect:/login";
         }
+        log.info("/chat/room도착======================================");
         model.addAttribute("user","loginGuest");
         log.info("roomId {}", roomId);
         RandomChatRoom room = chatServiceMain.findRoomById(roomId);
         model.addAttribute("room", room);
 //        model.addAttribute("center","randomChatRoom1");
         return "randomChatRoom1";
+    }
+
+    // 채팅방 비밀번호 확인
+    @PostMapping("/chat/confirmPwd/{roomId}")
+    @ResponseBody
+    public boolean confirmPwd(@PathVariable String roomId, @RequestParam String roomPwd) throws Exception {
+        log.info("confirmPwd도착!!!!!!!!!!!!!!!!!!!!!");
+        // 넘어온 roomId 와 roomPwd 를 이용해서 비밀번호 찾기
+        // 찾아서 입력받은 roomPwd 와 room pwd 와 비교해서 맞으면 true, 아니면  false
+        log.info(roomId);
+        log.info(roomPwd);
+        return chatServiceMain.confirmPwd(roomId, roomPwd);
+    }
+
+    // 채팅방 삭제
+    @GetMapping("/chat/delRoom/{roomId}")
+    public String delChatRoom(@PathVariable String roomId) throws Exception {
+
+        // roomId 기준으로 chatRoomMap 에서 삭제, 해당 채팅룸 안에 있는 사진 삭제
+        chatServiceMain.delChatRoom(roomId);
+        return "redirect:/randomChatList";
+    }
+
+    // 유저 카운트
+    @GetMapping("/chat/chkUserCnt/{roomId}")
+    @ResponseBody
+    public boolean chUserCnt(@PathVariable String roomId) throws Exception {
+        log.info("chUserCnt도착!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        return chatServiceMain.chkRoomUserCnt(roomId);
     }
 
 }

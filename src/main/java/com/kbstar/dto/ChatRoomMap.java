@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.PostConstruct;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
 /**
  * @desc Room 을 담기위한 클래스 => 싱글톤
  *
@@ -25,16 +25,17 @@ import java.util.concurrent.ConcurrentMap;
 public class ChatRoomMap {
     private static ChatRoomMap chatRoomMap = new ChatRoomMap();
     private ConcurrentMap<String, RandomChatRoom> chatRooms = new ConcurrentHashMap<>();
+//    public ConcurrentMap<String, RandomChatRoom> getChatRooms() {
+//        return chatRooms;
+//    }
 
-    private ChatRoomMap(){}
+
+    public ChatRoomMap(){}
 
     public static ChatRoomMap getInstance(){
         return chatRoomMap;
     }
 
-    public List<RandomChatRoom> getAllChatRooms() {
-        return new ArrayList<>(chatRooms.values());
-    }
 
 }
 // 싱글톤으로 생성

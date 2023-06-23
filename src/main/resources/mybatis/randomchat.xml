@@ -16,5 +16,9 @@
         SELECT * FROM randomChatRoom WHERE roomId=#{roomId}
     </select>
 
+    <delete id="delete" parameterType="String">
+        DELETE FROM randomChatRoom WHERE roomId=#{roomId}
+    </delete>
+
 
 </mapper>

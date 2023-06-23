@@ -59,8 +59,6 @@
             })
         })
 
-
-
         // 채팅방 설정 시 비밀번호 확인 - keyup 펑션 활용
         function confirmPWD(){
             $("#confirmPwd").on("keyup", function(){
@@ -99,7 +97,6 @@
                                 "color" : "#FA3E3E",
                                 "font-weight" : "bold",
                             });
-
                         }
                     }
                 })
@@ -264,7 +261,7 @@
 
 <div class="container">
     <div class="container">
-        <h2>채팅방 리스트</h2>
+        <h2>같이 여행할 친구들과 실시간 채팅 <i class="fa-solid fa-users"></i><i class="fa-regular fa-comment"></i></h2>
     <c:choose>
     <c:when test="${loginGuest == null}">
 

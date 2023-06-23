@@ -54,19 +54,23 @@ function connect(event) {
 function onConnected() {
 
     // sub 할 url => /sub/chat/room/roomId 로 구독한다
-    stompClient.subscribe('/sub/chat/room/' + roomId, onMessageReceived);
+    stompClient.subscribe('/sub/chat/room/'+ roomId, onMessageReceived);
+    stompClient.subscribe('/sub/chat/room/'+ roomId, function(chat){
+        console.log(chat);
+        //$("#messageArea").prepend( JSON.parse(chat.body).sendid);
+    });
+    console.log("onMessageReceived 연결해보쟈~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
     // 서버에 username 을 가진 유저가 들어왔다는 것을 알림
     // /pub/chat/enterUser 로 메시지를 보냄
     stompClient.send("/pub/chat/enterUser",
         {},
         JSON.stringify({
-            "roomId": roomId,
-            sender: username,
+            'roomId': roomId,
+            sendid: username,
             type: 'ENTER'
         })
     )
-
     connectingElement.classList.add('hidden');
 
 }
@@ -93,11 +97,11 @@ function isDuplicateName() {
 // 유저 리스트 받기
 // ajax 로 유저 리스를 받으며 클라이언트가 입장/퇴장 했다는 문구가 나왔을 때마다 실행된다.
 function getUserList() {
-    const $list = $("#list");
+    const $list = $('#list');
 
     $.ajax({
         type: "GET",
-        url: "/chat/userlist",
+        url: "/pub/chat/userlist",
         data: {
             "roomId": roomId
         },
@@ -124,79 +128,88 @@ function sendMessage(event) {
 
     if (messageContent && stompClient) {
         var chatMessage = {
-            "roomId": roomId,
-            sender: username,
-            message: messageInput.value,
+            roomId: roomId,
+            sendid: username,
+            content1: messageInput.value,
             type: 'TALK'
         };
 
         stompClient.send("/pub/chat/sendMessage", {}, JSON.stringify(chatMessage));
-        messageInput.value = '';
+        // messageArea.innerHTML = JSON.stringify(chatMessage.content1);
+        // messageArea.appendChild(JSON.stringify(chatMessage.content1));
+        // messageArea.scrollTop = messageArea.scrollHeight;
+        // messageInput.value = '';
+        // =====================================================================================================
+        // GPT로 내가 짜봄
+        // var messageDiv = document.createElement('div');
+        // messageDiv.textContent = chatMessage.sendid + ":" +chatMessage.content1;
+        // messageArea.appendChild(messageDiv);
+        // messageArea.scrollTop = messageArea.scrollHeight;
+        // // =====================================================================================================
+        // messageInput.value = '';
     }
     event.preventDefault();
 }
 
+
+
+//
 // 메시지를 받을 때도 마찬가지로 JSON 타입으로 받으며,
 // 넘어온 JSON 형식의 메시지를 parse 해서 사용한다.
 function onMessageReceived(payload) {
-    //console.log("payload 들어오냐? :"+payload);
+    console.log("payload 들어오냐? :"+payload);
+    // var chat = payload.body;
+    // console.log(chat.sendid);
     var chat = JSON.parse(payload.body);
+    console.log(chat.type); // "TALK"
+    console.log(chat.roomId); // "d52379d5-0fbb-43fa-aba3-aebc9bdc1a9e"
+    console.log(chat.sendid); // "서지영"
+    console.log(chat.content1); // "dd"
 
     var messageElement = document.createElement('li');
 
     if (chat.type === 'ENTER') {  // chatType 이 enter 라면 아래 내용
         messageElement.classList.add('event-message');
-        chat.content = chat.sender + chat.message;
+        chat.content = chat.sendid + chat.content1;
+        console.log("-------------------------------------------------");
+        console.log(chat.content);
         getUserList();
 
     } else if (chat.type === 'LEAVE') { // chatType 가 leave 라면 아래 내용
         messageElement.classList.add('event-message');
-        chat.content = chat.sender + chat.message;
+        chat.content = chat.sendid + chat.content1;
+        console.log("-------------------------------------------------");
+        console.log(chat.content);
         getUserList();
 
     } else { // chatType 이 talk 라면 아래 내용
         messageElement.classList.add('chat-message');
 
         var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(chat.sender[0]);
+        var avatarText = document.createTextNode(chat.sendid[0]);
+        var messageText = document.createTextNode(chat.content1);
         avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(chat.sender);
+        avatarElement.style['background-color'] = getAvatarColor(chat.sendid);
 
         messageElement.appendChild(avatarElement);
 
+
+
         var usernameElement = document.createElement('span');
-        var usernameText = document.createTextNode(chat.sender);
+        var usernameText = document.createTextNode(chat.sendid);
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
+
+        var colonText = document.createTextNode(":");
+        messageElement.appendChild(colonText);
+
+        messageElement.appendChild(messageText);
     }
 
     var contentElement = document.createElement('p');
 
-    // 만약 s3DataUrl 의 값이 null 이 아니라면 => chat 내용이 파일 업로드와 관련된 내용이라면
-    // img 를 채팅에 보여주는 작업
-    if(chat.s3DataUrl != null){
-        var imgElement = document.createElement('img');
-        imgElement.setAttribute("src", chat.s3DataUrl);
-        imgElement.setAttribute("width", "300");
-        imgElement.setAttribute("height", "300");
 
-        var downBtnElement = document.createElement('button');
-        downBtnElement.setAttribute("class", "btn fa fa-download");
-        downBtnElement.setAttribute("id", "downBtn");
-        downBtnElement.setAttribute("name", chat.fileName);
-        downBtnElement.setAttribute("onclick", `downloadFile('${chat.fileName}', '${chat.fileDir}')`);
-
-
-        contentElement.appendChild(imgElement);
-        contentElement.appendChild(downBtnElement);
-
-    }else{
-        // 만약 s3DataUrl 의 값이 null 이라면
-        // 이전에 넘어온 채팅 내용 보여주기기
-       var messageText = document.createTextNode(chat.message);
-        contentElement.appendChild(messageText);
-    }
-
+    // 말하는 사람 이름 성 붙여주는것
     messageElement.appendChild(contentElement);
 
     messageArea.appendChild(messageElement);
@@ -216,6 +229,7 @@ function getAvatarColor(messageSender) {
 
 usernameForm.addEventListener('submit', connect, true)
 messageForm.addEventListener('submit', sendMessage, true)
+messageForm.addEventListener('submit', onMessageReceived, true)
 
 /// 파일 업로드 부분 ////
 function uploadFile(){
@@ -258,8 +272,8 @@ function uploadFile(){
 
         var chatMessage = {
             "roomId": roomId,
-            sender: username,
-            message: username+"님의 파일 업로드",
+            sendid: username,
+            content1: username+"님의 파일 업로드",
             type: 'TALK',
             s3DataUrl : data.s3DataUrl, // Dataurl
             "fileName": file.name, // 원본 파일 이름

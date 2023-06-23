@@ -1,18 +1,24 @@
 package com.kbstar.service.randomChat.chatService;
+import com.kbstar.mapper.RandomChatMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.kbstar.dto.ChatRoomMap;
 import com.kbstar.dto.RandomChatRoom;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 
 @Slf4j
 @RequiredArgsConstructor
 @Service
 public class MsgChatService {
+
+    @Autowired
+    RandomChatMapper mapper;
 
 
     // 채팅방 삭제에 따른 채팅방의 사진 삭제를 위한 fileService 선언
@@ -31,70 +37,69 @@ public class MsgChatService {
                 .chatType(chatType)
                 .build();
 
-//        room.setUserList(new ConcurrentHashMap<String, String>());
-//
-//        // msg 타입이면 ChatType.MSG
-//        room.setChatType(RandomChatRoom.ChatType.MSG);
-//
+           room.setUserList(new ConcurrentHashMap<String, String>());
+           log.info("==============================setUserList출력");
+           log.info(String.valueOf(room.getUserList()));
+
 //        // map 에 채팅룸 아이디와 만들어진 채팅룸을 저장
-//        ChatRoomMap.getInstance().getChatRooms().put(room.getRoomId(), room);
         return room;
     }
 
 
     // 채팅방 유저 리스트에 유저 추가
-    public String addUser(Map<String, RandomChatRoom> chatRoomMap, String roomId, String userName){
-        RandomChatRoom room = chatRoomMap.get(roomId);
+    public String addUser(String roomId, String userName) throws Exception {
+        log.info("-------------------------------------------addUser도착");
+        log.info("addUserClass=[{}, {}]", roomId, userName);
+
         String userUUID = UUID.randomUUID().toString();
+        RandomChatRoom room = mapper.select(roomId);
 
-        // 아이디 중복 확인 후 userList 에 추가
-        //room.getUserList().put(userUUID, userName);
-
-        // hashmap 에서 concurrentHashMap 으로 변경
-//        ConcurrentHashMap<String, String> userList = (ConcurrentHashMap<String, String>)room.getUserList();
-//        userList.put(userUUID, userName);
-
-
+        Map<String, String> userList = room.getUserList();
+        room.getUserList().put(userUUID,userName);
+        log.info("room에 userList 넣어본거!={}",room);
+        log.info(userUUID);
         return userUUID;
     }
 
     // 채팅방 유저 이름 중복 확인
-//    public String isDuplicateName(Map<String, RandomChatRoom> chatRoomMap, String roomId, String username){
-//        RandomChatRoom room = chatRoomMap.get(roomId);
-//        String tmp = username;
-//
-//        // 만약 userName 이 중복이라면 랜덤한 숫자를 붙임
-//        // 이때 랜덤한 숫자를 붙였을 때 getUserlist 안에 있는 닉네임이라면 다시 랜덤한 숫자 붙이기!
-//        while(room.getUserList().containsValue(tmp)){
-//            int ranNum = (int) (Math.random()*100)+1;
-//
-//            tmp = username+ranNum;
-//        }
-//
-//        return tmp;
-//    }
+    public String isDuplicateName(Map<String, RandomChatRoom> chatRoomMap, String roomId, String username) throws Exception {
+        RandomChatRoom room = mapper.select(roomId);
+        String tmp = username;
 
-    // 채팅방 userName 조회
-//    public String findUserNameByRoomIdAndUserUUID(Map<String, RandomChatRoom> chatRoomMap, String roomId, String userUUID){
-//        RandomChatRoom room = chatRoomMap.get(roomId);
-//        return (String) room.getUserList().get(userUUID);
-//    }
+        // 만약 userName 이 중복이라면 랜덤한 숫자를 붙임
+        // 이때 랜덤한 숫자를 붙였을 때 getUserlist 안에 있는 닉네임이라면 다시 랜덤한 숫자 붙이기!
+        while(room.getUserList().containsValue(tmp)){
+            int ranNum = (int) (Math.random()*100)+1;
+            tmp = username+ranNum;
+        }
+        return tmp;
+    }
+
+//     채팅방 userName 조회
+    public String findUserNameByRoomIdAndUserUUID(Map<String, RandomChatRoom> chatRoomMap, String roomId, String userUUID){
+        RandomChatRoom room = chatRoomMap.get(roomId);
+        return (String) room.getUserList().get(userUUID);
+    }
 
     // 채팅방 전체 userlist 조회
-//    public ArrayList<String> getUserList(Map<String, RandomChatRoom> chatRoomMap, String roomId){
-//        ArrayList<String> list = new ArrayList<>();
-//
+    public ArrayList<String> getUserList(Map<String, RandomChatRoom> chatRoomMap, String roomId) throws Exception {
+        log.info("getUserList도착!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        ArrayList<String> list = new ArrayList<>();
+        RandomChatRoom room = mapper.select(roomId);
+
 //        RandomChatRoom room = chatRoomMap.get(roomId);
-//
-//        // hashmap 을 for 문을 돌린 후
-//        // value 값만 뽑아내서 list 에 저장 후 reutrn
-////        room.getUserList().forEach((key, value) -> list.add((String) value));
-//        return list;
-//    }
+        log.info("room받아오기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        log.info("room 받아온거임={}", room);
+
+        // hashmap 을 for 문을 돌린 후
+        // value 값만 뽑아내서 list 에 저장 후 reutrn
+        room.getUserList().forEach((key, value) -> list.add((String) value));
+        return list;
+    }
 
     // 채팅방 특정 유저 삭제
-//    public void delUser(Map<String, RandomChatRoom> chatRoomMap, String roomId, String userUUID){
-//        RandomChatRoom room = chatRoomMap.get(roomId);
-//        room.getUserList().remove(userUUID);
-//    }
+   public void delUser(Map<String, RandomChatRoom> chatRoomMap, String roomId, String userUUID){
+       RandomChatRoom room = chatRoomMap.get(roomId);
+       room.getUserList().remove(userUUID);
+   }
 }
