@@ -66,28 +66,29 @@
         SELECT room.roomId, room.hostId, room.roomPrice, room.roomname, room.roomaddress, room.roomaddress2, room.roomloc, room.roominfo,
         room.roomintro, room.roomclean, room.roompet, room.roomwprice, room.roomcap, room.roomtype, room.roomlat,
         room.roomlng, room.roomimage1, room.roomimage2, room.roomimage3, room.roomimage4, room.roomimage5,
-        room.roomimage6, room.roomlikes, host.hostImage, host.hostName, l.guestId ,l.likeId
+        room.roomimage6, room.roomlikes, host.hostImage, host.hostName, l.guestId, l.likeId
         FROM room
         JOIN host ON room.hostId = host.hostId
         LEFT JOIN likeList l ON room.roomId = l.roomId AND l.guestId = #{guestId}
         <where>
-            <if test= "roomPriceFrom != null and !roomPriceFrom.equals('') ">
-                roomPrice &gt;= #{roomPriceFrom}
+            <if test="roomPriceFrom != null and !roomPriceFrom.equals('')">
+                AND roomPrice &gt;= #{roomPriceFrom}
             </if>
-            <if test="roomPriceTo != null and !roomPriceTo.equals('') ">
+            <if test="roomPriceTo != null and !roomPriceTo.equals('')">
                 AND roomPrice &lt;= #{roomPriceTo}
             </if>
-            <if test="roomName != null and !roomName.equals('') ">
-                AND roomName LIKE '%'||#{roomName}||'%'
+            <if test="roomName != null and !roomName.equals('')">
+                AND roomname LIKE '%' || #{roomName} || '%'
             </if>
-             <if test="roomLoc !=null and !roomLoc.equals('')">
-                 AND roomLoc LIKE '%'||#{roomLoc}||'%'
-             </if>
-            <if test="roomType !=null and !roomType.equals('')">
-                AND roomType LIKE '%'||#{roomType}||'%'
+            <if test="roomLoc != null and !roomLoc.equals('')">
+                AND roomloc LIKE '%' || #{roomLoc} || '%'
+            </if>
+            <if test="roomType != null and !roomType.equals('')">
+                AND roomtype LIKE '%' || #{roomType} || '%'
             </if>
         </where>
     </select>
+
 
     <select id="getRoomLocList" parameterType="String" resultType="Room">
         SELECT room.roomId, room.hostId, room.roomPrice, room.roomname, room.roomaddress, room.roomaddress2, room.roomloc, room.roominfo,

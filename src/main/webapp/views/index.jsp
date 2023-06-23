@@ -85,38 +85,153 @@
                 console.log('sendTo clicked');
                 let fromId = `${loginGuest.guestId}`;
                 let toId =`${hostInfo.hostId}`;//메신저 chatDetail.jsp에 있는 hostInfo
-                websocket.sendTo(fromId, toId);
+                let contents = $('#chatContentsBox').val();
+                let chatRoomId = $('#chatRoomId').val();
+                websocket.sendTo(fromId, toId, contents, chatRoomId);
             });
+            $('#payBtn').click(()=>{
+                console.log('payButton clicked');
+                let fromId = `${loginGuest.guestId}`;
+                let toId = `${hostId}`;
+                let contents = '예약이 1건 결제 완료되었습니다.';
+                let chatRoomId = '';
+                websocket.sendTo(fromId, toId, contents, chatRoomId);
+            });
+
+
+
+
         },
-        sendTo:function(fromId, toId){
+        sendTo:function(fromId, toId, contents, chatRoomId){
             var msg = JSON.stringify({
                 'sendid' :  fromId,//보내는 사람
                 'receiveid' : toId, //받는 사람
-                'content1' : `메세지가 도착했습니다.`
+                'content1' : contents,
+                'chatroomid' : chatRoomId
             });
             console.log(msg);
             this.stompClient.send('/receiveto', {}, msg);
         },
         connect:function(){
             var sid = '${loginGuest.guestId}';// 로그인한 나의 Id
+            console.log("===========connect 성공===========");
+            console.log(sid);
+            console.log("===========connect===========");
             var socket = new SockJS('http://127.0.0.1:8088/ws');
             socket.withCredentials = false;
             this.stompClient = Stomp.over(socket);
 
+
             this.stompClient.connect({}, function(frame) {
                 websocket.setConnected(true);
-                console.log('Connected: ' + frame);
-                this.subscribe('/send', function(msg) {
+                console.log('연결: ' + frame);
+                    this.subscribe('/send/to/'+sid, function(msg) {
+                console.log('/send/to 탬플릿 활성화');
+                console.log('=================');
+                console.log(msg.toString());
+                console.log(JSON.parse(msg.body).content1);
+                console.log('===================');
+                let chatSendId = JSON.parse(msg.body).sendid;
+                let chatReceiveId = JSON.parse(msg.body).receiveid;
+                let chatContents = JSON.parse(msg.body).content1;
+                let chatRoomId = JSON.parse(msg.body).chatroomid;
 
-                });
-                this.subscribe('/send/'+sid, function(msg) {
+                // console.log(parsedMsg.content1);
+                if(chatRoomId != ""){
+                    let modalMessage =
+                        `
+          <div class="list-group-item list-group-item-action p-4">
+            <div class="row">
+              <div class="col-2 col-lg-1 align-self-lg-center py-3 d-flex align-items-lg-center z-index-10">
+                 <div class="form-check">
+                  <input class="form-check-input" id="select_message_0" type="checkbox">
+                  <label class="form-check-label" for="select_message_0"> </label>
+                </div>
+                <div class="form-star d-none d-sm-inline-block mt-n1">
+                  <input id="star_message_0" type="checkbox" name="star" checked>
+                  <label class="star-label" for="star_message_0"><span class="sr-only">Important Message</span></label>
+                </div>
+              </div>
+              <div class="col-9 col-lg-4 align-self-center mb-3 mb-lg-0">
+  <div class="d-flex align-items-center mb-1 mb-lg-3">
+                  <h2 class="h5 mb-0"></h2><img class="avatar avatar-sm avatar-border-white ms-3" src="img/avatar/avatar-0.jpg" alt="Jack London">
+                </div>
+                <p class="text-sm text-muted">\${chatSendId}</p><a class="stretched-link" href="user-messages-detail.html"></a>
+              </div>
+              <div class="col-10 ms-auto col-lg-7">
+                <div class="row">
+                  <div class="col-md-8 py-3">
+                   \${chatContents}
+                  </div>
+                  <div class="col-md-4 text-end py-3">
+                    <span class="badge badge-pill p-2 badge-secondary-light"></span>
+                  </div><a class="stretched-link" href="/chatdetail?chatRoomId=\${chatRoomId}&hostId=\${chatReceiveId}&guestId=\${chatSendId}"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+                  `;
+                    $('#modalMessage').append(modalMessage);
+                }else{
+                    let modalMessage =
+                        `
+          <div class="list-group-item list-group-item-action p-4">
+            <div class="row">
+              <div class="col-2 col-lg-1 align-self-lg-center py-3 d-flex align-items-lg-center z-index-10">
+                 <div class="form-check">
+                  <label class="form-check-label" for="select_message_0"> </label>
+                </div>
+                <div class="form-star d-none d-sm-inline-block mt-n1">
+                  <input id="star_message_0" type="checkbox" name="star" checked>
+                  <label class="star-label" for="star_message_0"><span class="sr-only">Important Message</span></label>
+                </div>
+              </div>
+              <div class="col-9 col-lg-4 align-self-center mb-3 mb-lg-0">
+  <div class="d-flex align-items-center mb-1 mb-lg-3">
+                  <h2 class="h5 mb-0"></h2><img class="avatar avatar-sm avatar-border-white ms-3" src="img/avatar/avatar-0.jpg" alt="Jack London">
+                </div>
+                <p class="text-sm text-muted">\${chatSendId}</p><a class="stretched-link" href="user-messages-detail.html"></a>
+              </div>
+              <div class="col-10 ms-auto col-lg-7">
+                <div class="row">
+                  <div class="col-md-8 py-3">
+                   \${chatContents}
+                  </div>
+                  <div class="col-md-4 text-end py-3">
+                    <span class="badge badge-pill p-2 badge-secondary-light"></span>
+                  </div><a class="stretched-link" href="/bookinglist"></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+                  `;
+                    $('#modalMessage').append(modalMessage);
+                }
 
 
-                });
-                this.subscribe('/send/to/'+sid, function(msg) {
+                $('#modalMessage').append(modalMessage);
 
-                });
+                let redSpot =
+                    `
+                    <div class="spinner-grow text-danger spinner-grow-sm"></div>
+                    `;
+                $('#notificationBell').append(redSpot);
+                // if(msg.content1=='message'){
+                //   $('#messageBell').append(redSpot);
+                // }
+                console.log('받은 것'+msg);
+                //send라고 하고 상대방 타인 포트ㄹ 지정해주면, 메세지를 일단 받고
+                // 이 메세지에 아래처럼 덧붙여서 보낼게.
+                // $("#to").prepend(
+                //         "<h4>" + JSON.parse(msg.body).sendid +":"+
+                //         JSON.parse(msg.body).content1
+                //         + "</h4>");
+
             });
+            });
+
         },
         disconnect:function(){
             if (this.stompClient !== null) {
@@ -519,6 +634,7 @@
 <%--rooms daterange--%>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-date-range-picker/0.19.0/jquery.daterangepicker.min.js"> </script>
 
+<!-- The Modal -->
 <div class="modal" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -531,37 +647,10 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <div class="list-group shadow mb-5">
-                    <div class="list-group-item list-group-item-action p-4">
-                        <div class="row">
-                            <div class="col-2 col-lg-1 align-self-lg-center py-3 d-flex align-items-lg-center z-index-10">
-                                <div class="form-check">
-                                    <input class="form-check-input" id="select_message_0" type="checkbox">
-                                    <label class="form-check-label" for="select_message_0"> </label>
-                                </div>
-                                <div class="form-star d-none d-sm-inline-block mt-n1">
-                                    <input id="star_message_0" type="checkbox" name="star" checked>
-                                    <label class="star-label" for="star_message_0"><span class="sr-only">Important Message</span></label>
-                                </div>
-                            </div>
-                            <div class="col-9 col-lg-4 align-self-center mb-3 mb-lg-0">
-                                <div class="d-flex align-items-center mb-1 mb-lg-3">
-                                    <h2 class="h5 mb-0"></h2><img class="avatar avatar-sm avatar-border-white ms-3" src="img/avatar/avatar-0.jpg" alt="Jack London">
-                                </div>
-                                <p class="text-sm text-muted">Double Room</p><a class="stretched-link" href="user-messages-detail.html"></a>
-                            </div>
-                            <div class="col-10 ms-auto col-lg-7">
-                                <div class="row">
-                                    <div class="col-md-8 py-3">
-                                        안녕
-                                    </div>
-                                    <div class="col-md-4 text-end py-3">
+                <div class="list-group shadow mb-5" id="modalMessage">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div><!-- obj Div 태그 -->
             </div>
 

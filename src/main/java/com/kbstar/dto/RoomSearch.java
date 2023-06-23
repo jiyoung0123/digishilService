@@ -31,6 +31,7 @@ public class RoomSearch {
 
     public RoomSearch(String roomName, String roomLoc){
         this.roomName = roomName;
+        this.roomLoc = roomLoc;
     }
 
     public RoomSearch(String roomPriceFrom, String roomPriceTo, int roomPrice){
