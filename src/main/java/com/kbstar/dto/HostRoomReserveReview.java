@@ -26,7 +26,7 @@ public class HostRoomReserveReview {
     private Integer roomId;
     private Integer roomPrice;
     private String roomName;
-    private String roomAddress1;
+    private String roomAddress;
     private String roomAddress2;
     private String roomLoc;
     private String roomInfo;
@@ -78,12 +78,12 @@ public class HostRoomReserveReview {
 
 
 
-    public HostRoomReserveReview(Integer roomId, String hostId, Integer roomPrice, String roomName, String roomAddress1, String roomAddress2, String roomLoc) {
+    public HostRoomReserveReview(Integer roomId, String hostId, Integer roomPrice, String roomName, String roomAddress, String roomAddress2, String roomLoc) {
         this.roomId = roomId;
         this.hostId = hostId;
         this.roomPrice = roomPrice;
         this.roomName = roomName;
-        this.roomAddress1 = roomAddress1;
+        this.roomAddress = roomAddress;
         this.roomAddress2 = roomAddress2;
         this.roomLoc = roomLoc;
     }

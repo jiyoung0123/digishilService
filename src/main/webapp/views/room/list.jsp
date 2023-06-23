@@ -39,7 +39,7 @@
         <div class="col-lg-6 py-4 p-xl-5">
             <h2 class="mb-4">Stay on Manhattan, NY</h2>
             <hr class="my-4">
-            <form action="#" autocomplete="off">
+            <form autocomplete="off">
                 <div class="row">
                     <div class="col-xl-4 col-md-6 mb-4">
                         <label class="form-label" for="form_dates">Dates</label>
@@ -72,8 +72,8 @@
                             <div class="min">From ￦<span id="slider-snap-value-from"></span></div>
                             <div class="max">To ￦<span id="slider-snap-value-to"></span></div>
                         </div>
-                        <input type="hidden" name="pricefrom" id="slider-snap-input-from" value="40">
-                        <input type="hidden" name="priceto" id="slider-snap-input-to" value="110">
+                        <input type="hidden" name="roomPriceFrom" id="slider-snap-input-from" value="40">
+                        <input type="hidden" name="roomPriceTo" id="slider-snap-input-to" value="110">
                     </div>
                     <div class="col-md-6 col-lg-12 col-xl-8 mb-4 d-xl-flex justify-content-center">
                         <div>
@@ -274,7 +274,7 @@
         step: 1,
         range: {
             'min': 10000,
-            'max': 1000000
+            'max': 500000
         }
     });
     var snapValues = [
