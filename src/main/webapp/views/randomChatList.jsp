@@ -9,6 +9,7 @@
 <script src="path/to/moment.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://kit.fontawesome.com/5f198f7eda.js" crossorigin="anonymous"></script>
 
 
 <head>
@@ -260,28 +261,30 @@
 <%--</head>--%>
 
 <div class="container">
-    <div class="container">
-        <h2>같이 여행할 친구들과 실시간 채팅 <i class="fa-solid fa-users"></i><i class="fa-regular fa-comment"></i></h2>
+    <div class="container-fluid pt-5 pb-3 border-bottom px-lg-5">
+        <div class="row" style="padding-left: 50px; padding-right: 50px;">
+            <div class="col-xl-8">
+                <h1><span style="color: #0b5ed7;">&nbsp;<i class="fa-solid fa-users" style='font-size:30px;color:#0b5ed7'></i></span><span style="font-size: large;">&nbsp;&nbsp;&nbsp;여행 친구들과의 간편한 대화&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-regular fa-comment" style='font-size:30px;color:#0b5ed7'></i></span></h1>
+<%--                            <p class="lead text-muted" style="font-size: medium">&nbsp;&nbsp&nbsp;&nbsp;총 &nbsp;99개의 숙소</p>--%>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid py-5 px-lg-5">
     <c:choose>
     <c:when test="${loginGuest == null}">
-
         <div class="row">
             <div class="col">
                 <a href="/login"><button type="button" class="btn btn-primary">로그인하기</button></a>
             </div>
         </div>
     </c:when>
-        <c:otherwise>
-        <h5>
-            ${loginGuest.guestName}
-        </h5>
-        </c:otherwise>
     </c:choose>
-
+        <div class="card border-0 shadow">
         <table class="table table-hover" id="table">
-            <tr>
+            <tr style="text-align: center;">
                 <th scope="col">채팅방명</th>
-                <th scope="col">잠금 여부</th>
+                <th scope="col">잠금</th>
                 <th scope="col">참여 인원</th>
                 <th scope="col">채팅 종류</th>
                 <th scope="col">채팅방 설정</th>
@@ -289,45 +292,49 @@
             <c:forEach var="room" items="${list}">
                 <span class="hidden" id="${room.roomName}"></span>
                 <tr>
-                    <td>
+                    <td class="text-sm fw-bold mb-0" style="padding-left: 20px;">
                         <c:if test="${room.secretChk}">
-                            <a href="#enterRoomModal" data-bs-toggle="modal" data-target="#enterRoomModal" data-id="${room.roomId}">${room.roomName}</a>
+                            <a style="color: slategray" href="#enterRoomModal" data-bs-toggle="modal" data-target="#enterRoomModal" data-id="${room.roomId}">${room.roomName}</a>
                         </c:if>
                         <c:if test="${not room.secretChk}">
-                            <a href="/chat/room?roomId=${room.roomId}" roomId="${room.roomId}" onclick="return chkRoomUserCnt(this.getAttribute('roomId'));">${room.roomName}</a>
+                            <a style="color: black;" href="/chat/room?roomId=${room.roomId}" roomId="${room.roomId}" onclick="return chkRoomUserCnt(this.getAttribute('roomId'));">${room.roomName}</a>
                         </c:if>
                     </td>
-                    <td>
-                <span>
-                    <c:if test="${room.secretChk}">
-                        🔒︎
-                    </c:if>
-                </span>
+                    <td style="text-align: center;">
+                        <span >
+                            <c:if test="${room.secretChk}">
+                                🔒︎
+                            </c:if>
+                        </span>
                     </td>
-                    <td>
-                        <span class="badge bg-primary rounded-pill">${room.userCount}/${room.maxUserCnt}</span>
+                    <td style="text-align: center;">
+                        <span class="testimonial-text">${room.userCount}/${room.maxUserCnt}</span>
                     </td>
-                    <td>
-                <span>
-                    <c:choose>
-                        <c:when test="${room.chatType == 'MSG'}">일반 채팅</c:when>
-                        <c:otherwise>화상 채팅</c:otherwise>
-                    </c:choose>
-                </span>
+                    <td style="text-align: center;">
+                        <span class="label-heading">
+                            <c:choose>
+                                <c:when test="${room.chatType == 'MSG'}">일반 채팅</c:when>
+                                <c:otherwise>화상 채팅</c:otherwise>
+                            </c:choose>
+                        </span>
                     </td>
-                    <td>
-                        <button class="btn btn-primary btn-sm" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" data-id="${room.roomId}">채팅방 설정</button>
+                    <td style="text-align: center;">
+                        <button class="tdate-tile me-3 btn btn-outline-primary" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" data-id="${room.roomId}">방 설정</button>
                     </td>
                 </tr>
             </c:forEach>
         </table>
+        </div>
 
 
 
+            <div class="row" style="margin-top: 30px; margin-left: 10px;">
+                <div class="col-xl-8">
+                    <button type="button" class="btn btn-primary px-3" data-bs-toggle="modal" data-bs-target="#roomModal">방 만들기</button>
+                </div>
+            </div>
 
 
-        </table>
-        <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#roomModal">방 생성</button>
 
     </div>
 </div>
@@ -342,7 +349,7 @@
             <form method="post" action="/chat/createroom" onsubmit="return createRoom()">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <input type="text" name="createUserId" value="${loginGuest.guestId}">
+                        <input type="hidden" name="createUserId" value="${loginGuest.guestId}">
                         <label for="roomName" class="col-form-label">방 이름</label>
                         <input type="text" class="form-control" id="roomName" name="roomName">
                     </div>
