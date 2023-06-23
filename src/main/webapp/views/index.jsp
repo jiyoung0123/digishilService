@@ -66,61 +66,92 @@
             });
     }
 
-    // let socket;
-    // //connect부분은 쓰레기 코드인데 어떻게 객체화해야할지 모르겠어서 대충하겠다...너무 지친다...
-    // function connect() {
-    //     var url = "http://127.0.0.1:8088/wss"; // WebSocket 엔드포인트 URL
-    //
-    //     // WebSocket 생성
-    //     socket = new WebSocket(url);
-    //
-    //     // WebSocket 이벤트 핸들러 정의
-    //     socket.onopen = function(event) {
-    //         console.log("WebSocket opened");
-    //         // 서버로 메시지 전송 예시
-    //         socket.send(1);
-    //     };
-    //
-    //
-    //     //소켓 메세지
-    //     socket.onmessage = function(event) {
-    //         let reader = new FileReader();
-    //         reader.onload = function() {
-    //             let notificationRecieved =
-    //                 `
-    //       <div class="spinner-grow text-danger spinner-grow-sm"></div>
-    //             `;
-    //             $('#notificationBell').append(notificationRecieved);
-    //         };
-    //         reader.readAsText(event.data);
-    //     };
-    //
-    //
-    //
-    //     socket.onclose = function(event) {
-    //         console.log("WebSocket closed");
-    //     };
-    //
-    //
-    //     socket.onerror = function(error) {
-    //         console.error("WebSocket error:", error);
-    //     };
-    //
-    //
-    //
-    // }
-    //
-    //
-    // function disconnect() {
-    //     if (socket) {
-    //         socket.close();
-    //         console.log("WebSocket disconnected");
-    //     }
-    // }
-    //
-    // $(()=>{
-    //     connect();
-    // })
+    let websocket = {
+        id:null,
+        stompClient:null,
+        init:async function(){
+            this.id = '${loginGuest.guestId}';
+            await websocket.connect();
+            $("#disconnect").click(function() {
+                websocket.disconnect();
+            });
+            $("#sendall").click(function() {
+                websocket.sendAll();
+            });
+            $("#sendme").click(function() {
+                websocket.sendMe();
+            });
+            $('#buttonSendMessage').click(function() {
+                console.log('sendTo clicked');
+                let fromId = `${loginGuest.guestId}`;
+                let toId =`${hostInfo.hostId}`;//메신저 chatDetail.jsp에 있는 hostInfo
+                websocket.sendTo(fromId, toId);
+            });
+        },
+        sendTo:function(fromId, toId){
+            var msg = JSON.stringify({
+                'sendid' :  fromId,//보내는 사람
+                'receiveid' : toId, //받는 사람
+                'content1' : `메세지가 도착했습니다.`
+            });
+            console.log(msg);
+            this.stompClient.send('/receiveto', {}, msg);
+        },
+        connect:function(){
+            var sid = '${loginGuest.guestId}';// 로그인한 나의 Id
+            var socket = new SockJS('http://127.0.0.1:8088/ws');
+            socket.withCredentials = false;
+            this.stompClient = Stomp.over(socket);
+
+            this.stompClient.connect({}, function(frame) {
+                websocket.setConnected(true);
+                console.log('Connected: ' + frame);
+                this.subscribe('/send', function(msg) {
+
+                });
+                this.subscribe('/send/'+sid, function(msg) {
+
+
+                });
+                this.subscribe('/send/to/'+sid, function(msg) {
+
+                });
+            });
+        },
+        disconnect:function(){
+            if (this.stompClient !== null) {
+                this.stompClient.disconnect();
+            }
+            websocket.setConnected(false);
+            console.log("Disconnected");
+        },
+        setConnected:function(connected){
+            if (connected) {
+                console.log('connected');
+                $("#status").text("Connected");
+            } else {
+                $("#status").text("Disconnected");
+            }
+        },
+        sendAll:function(){
+            var msg = JSON.stringify({
+                'sendid' : this.id,
+                'content1' : $("#alltext").val()
+            });
+            this.stompClient.send("/receiveall", {}, msg);
+        },
+
+        sendMe:function(){
+            var msg = JSON.stringify({
+                'sendid' : this.id,
+                'content1' : $('#metext').val()
+            });
+            this.stompClient.send("/receiveme", {}, msg);
+        }
+    };
+    $(function(){
+        websocket.init();
+    })
 
 </script>
 <body style="padding-top: 72px;">
@@ -522,10 +553,11 @@
                             <div class="col-10 ms-auto col-lg-7">
                                 <div class="row">
                                     <div class="col-md-8 py-3">
-
+                                        안녕
                                     </div>
                                     <div class="col-md-4 text-end py-3">
-                                    </div>chatRoomId}&hostId=${obj.chatRoomInfo.hostId}&guestId=${obj.chatRoomInfo.guestId}"></a>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
