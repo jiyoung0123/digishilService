@@ -45,13 +45,14 @@ public class RoomController {
             }
             if(rs.getRoomPriceFrom() != null){
                 if(guestId != null){
-                    p = new PageInfo<>(roomService.roomSearch2(pageNo, guestId, rs), 5); // 5:하단 네비게이션 개수
+                    log.info("------------------"+guestId);
+                    p = new PageInfo<>(roomService.roomSearch2(pageNo, rs, guestId), 5); // 5:하단 네비게이션 개수
                     model.addAttribute("target","room");
                     model.addAttribute("roomList",p);
                     model.addAttribute("center",dir+"list");
                     return "index";
                 }else{
-                    p = new PageInfo<>(roomService.roomSearch2(pageNo, guestId, rs), 5); // 5:하단 네비게이션 개수
+                    p = new PageInfo<>(roomService.roomSearch(pageNo, rs), 5); // 5:하단 네비게이션 개수
                 }
             }else {
                 if(guestId != null){
