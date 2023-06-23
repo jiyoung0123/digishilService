@@ -30,10 +30,10 @@ public class RoomController {
     String dir ="room/";
 
     @RequestMapping("/list")
-    public String list(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpServletRequest request) throws Exception {
+    public String list(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpServletRequest request, RoomSearch rs) throws Exception {
         PageInfo<Room> p = null;
         String guestId = null;
-
+        log.info("----------------------------------rs"+rs);
         try {
             HttpSession session = request.getSession(false); // false를 전달하여 새로운 세션을 생성하지 않도록 설정
             if (session != null) {
@@ -43,16 +43,26 @@ public class RoomController {
                     guestId = loginGuest.getGuestId();
                 }
             }
-
-            if(guestId != null){
-                log.info("---------------------guestId = "+guestId);
-                p = new PageInfo<>(roomService.getPage2(pageNo, guestId), 5); // 5:하단 네비게이션 개수
-                model.addAttribute("target","room");
-                model.addAttribute("roomList",p);
-                model.addAttribute("center",dir+"list");
-                return "index";
-            }else{
-                p = new PageInfo<>(roomService.getPage(pageNo), 5); // 5:하단 네비게이션 개수
+            if(rs.getRoomPriceFrom() != null){
+                if(guestId != null){
+                    p = new PageInfo<>(roomService.roomSearch2(pageNo, guestId, rs), 5); // 5:하단 네비게이션 개수
+                    model.addAttribute("target","room");
+                    model.addAttribute("roomList",p);
+                    model.addAttribute("center",dir+"list");
+                    return "index";
+                }else{
+                    p = new PageInfo<>(roomService.roomSearch2(pageNo, guestId, rs), 5); // 5:하단 네비게이션 개수
+                }
+            }else {
+                if(guestId != null){
+                    p = new PageInfo<>(roomService.getPage2(pageNo, guestId), 5); // 5:하단 네비게이션 개수
+                    model.addAttribute("target","room");
+                    model.addAttribute("roomList",p);
+                    model.addAttribute("center",dir+"list");
+                    return "index";
+                }else{
+                    p = new PageInfo<>(roomService.getPage(pageNo), 5); // 5:하단 네비게이션 개수
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,12 +91,14 @@ public class RoomController {
 
     @RequestMapping("/roomSearch")
     public String roomSearch(Model model,String roomName, RoomSearch rs, @RequestParam(required = false, defaultValue = "1") int pageNo, String guestId) throws Exception {
+        //검색 시 인기 검색어 테이블에 추가하는 부분
         Search search = new Search(roomName);
         if(searchService.get(roomName)!=null){
             searchService.modify(search);
         }else{
             searchService.register(search);
         }
+        // 검색 후 리스트 띄우는 부분
         PageInfo<Room> p = null;
         p = new PageInfo<>(roomService.roomSearch(pageNo, rs), 5);
         model.addAttribute("target","room");

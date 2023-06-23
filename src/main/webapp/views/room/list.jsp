@@ -268,13 +268,13 @@
     var snapSlider = document.getElementById('slider-snap');
 
     noUiSlider.create(snapSlider, {
-        start: [ 10000, 500000 ],
+        start: [ 10000, 200000 ],
         snap: false,
         connect: true,
-        step: 1,
+        step: 1000,
         range: {
             'min': 10000,
-            'max': 500000
+            'max': 400000
         }
     });
     var snapValues = [
@@ -286,7 +286,10 @@
         document.getElementById('slider-snap-input-to')
     ];
     snapSlider.noUiSlider.on('update', function( values, handle ) {
-        snapValues[handle].innerHTML = values[handle];
-        inputValues[handle].value = values[handle];
+        var formattedValue = parseFloat(values[handle]).toFixed(0);
+        var displayValue = formattedValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        snapValues[handle].innerHTML = displayValue;
+        inputValues[handle].value = formattedValue;
+
     })
 </script>

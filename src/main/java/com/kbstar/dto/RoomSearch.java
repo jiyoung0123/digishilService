@@ -15,6 +15,8 @@ public class RoomSearch {
     private String roomType;
     private int roomCap;
     private int roomPrice;
+    private String roomPriceFrom;
+    private String roomPriceTo;
     private int hostSuper;
 
 //    private Date reserveCheckIn;
