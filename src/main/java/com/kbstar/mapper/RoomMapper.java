@@ -16,7 +16,7 @@ public interface RoomMapper extends KBMapper<Integer, Room> {
     Page<Room> getpage2(String s) throws Exception;
 
     Page<Room> roomSearch(RoomSearch rs) throws Exception;
-    Page<Room> roomSearch2(RoomSearch rs, String s) throws Exception;
+    Page<Room> roomSearch2(RoomSearch rs) throws Exception;
 
     List<Room> getRoomLocList(String roomLoc);
 }

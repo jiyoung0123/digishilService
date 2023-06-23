@@ -33,7 +33,6 @@ public class RoomController {
     public String list(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpServletRequest request, RoomSearch rs) throws Exception {
         PageInfo<Room> p = null;
         String guestId = null;
-        log.info("----------------------------------rs"+rs);
         try {
             HttpSession session = request.getSession(false); // false를 전달하여 새로운 세션을 생성하지 않도록 설정
             if (session != null) {
@@ -41,12 +40,14 @@ public class RoomController {
                 if (loginGuest != null) {
                     // 로그인 정보를 사용하여 원하는 작업 수행
                     guestId = loginGuest.getGuestId();
+                    rs.setGuestId(guestId);
+                    log.info("----------------------------------rs"+rs);
                 }
             }
             if(rs.getRoomPriceFrom() != null){
                 if(guestId != null){
-                    log.info("------------------"+guestId);
-                    p = new PageInfo<>(roomService.roomSearch2(pageNo, rs, guestId), 5); // 5:하단 네비게이션 개수
+                    log.info("----------도착--------"+rs);
+                    p = new PageInfo<>(roomService.roomSearch2(pageNo, rs), 5); // 5:하단 네비게이션 개수
                     model.addAttribute("target","room");
                     model.addAttribute("roomList",p);
                     model.addAttribute("center",dir+"list");
