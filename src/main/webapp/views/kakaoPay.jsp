@@ -42,7 +42,7 @@
       //findHostId(reserveId);
 
       $('#buttonSendMessage').click(() => {
-          console.log('clicked');
+          console.log('message send button clicked');
           sendData();
       });
 
@@ -91,6 +91,7 @@
           })
           .fail(() => {
               console.log("DB 전송 실패 failed to load data");
+              alert('채팅 전송 실패! 잠시 후 다시 시도해주세요.');
           });
   }
 

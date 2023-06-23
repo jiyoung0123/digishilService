@@ -58,9 +58,9 @@ public class RoomService implements KBService<Integer, Room> {
         return mapper.roomSearch(rs);
     }
 
-    public Page<Room> roomSearch2(int pageNo, String s, RoomSearch rs) throws Exception {
+    public Page<Room> roomSearch2(int pageNo, RoomSearch rs) throws Exception {
         PageHelper.startPage(pageNo, 6);
-        return mapper.roomSearch2(s, rs);
+        return mapper.roomSearch2(rs);
     }
 
 

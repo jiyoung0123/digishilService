@@ -32,6 +32,18 @@
         });
     });
 
+    let search2Button = {
+        init : $('#search2Button').click(()=>{
+            $.ajax({
+                url : ''
+            })
+        })
+    }
+
+    $(()=>{
+        search2Button.init();
+    })
+
 </script>
 
 <div class="container-fluid">
@@ -97,7 +109,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 mb-4 order-2 order-sm-1">
-                        <button class="btn btn-primary" type="submit"> <i class="fas fa-search me-1"></i>Search                </button>
+                        <button id="search2Button"class="btn btn-primary" type="submit"> <i class="fas fa-search me-1"></i>Search                </button>
                     </div>
                 </div>
             </form>
