@@ -8,6 +8,7 @@ import com.kbstar.service.GuestService;
 import com.kbstar.service.ReserveService;
 import com.kbstar.service.ReviewService;
 import com.kbstar.util.MailUtil;
+import com.kbstar.util.WebCrawler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -118,6 +119,13 @@ public class AjaxImplController {
         log.info("-----------------------------------"+String.valueOf(review));
         reviewService.register(review);
         return "";
+    }
+
+    @RequestMapping("/weather")
+    public Object Weather(String loc) throws Exception{
+        WebCrawler webCrawler = new WebCrawler(loc);
+        Object result = webCrawler.crawlWeather();
+        return result;
     }
 
 }

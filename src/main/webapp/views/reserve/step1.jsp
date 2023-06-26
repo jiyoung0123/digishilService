@@ -2,6 +2,66 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<script>
+  let weather = {
+    init : ()=>{
+      $('#weatherSearch').click(async ()=>{
+        $('#weatherTbody').empty();
+        await $('#weatherTable').show();
+        let weatherLoc = $('#weatherLoc').val();
+        console.log('입력한 loc'+ weatherLoc);
+        $.ajax({
+          url : '/weather',
+          data : {
+            'loc' : weatherLoc
+          }
+        }).done((data)=>{
+          let newData = JSON.parse(data);
+          let map = new Map();
+          console.log('weather succeed');
+          console.log(newData);
+          newData.forEach((e)=>{
+            e.substring(0,3);
+            console.log(e.substring(e.length-3,e.length));
+            console.log(e.substring(e.length-10,e.length-7));
+            console.log(e.substring(0,3));
+            console.log(e.substring(3,e.length-11));
+            map.set(e.substring(0,3)+"최저",e.substring(e.length-3,e.length));
+            map.set( e.substring(0,3)+"최고", e.substring(e.length-10,e.length-7));
+            map.set(e.substring(0,3)+"설명",e.substring(3,e.length-11));
+            let date = e.substring(0,3);
+            let high = e.substring(e.length-3,e.length);
+            let low = e.substring(e.length-10,e.length-7);
+            let desc = e.substring(3,e.length-11);
+            let html =
+                    `
+                            <tr>
+                                <td>\${date}</td>
+                                <td>\${desc}</td>
+                                <td>\${high}</td>
+                                <td>\${low}</td>
+                            </tr>
+                        `;
+            $('#weatherTbody').append(html);
+          })
+          console.log(map);
+
+
+        }).fail(()=>{
+          console.log('weather failed');
+
+        })
+      })
+    }
+  }
+
+
+  $(()=>{
+    weather.init();
+    $('#weatherTable').hide();
+  })
+</script>
+
 <div class="progress rounded-0 sticky-top" style="height: 8px; top: 72px;">
   <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
@@ -119,8 +179,34 @@
 
             </div>
           </div>
-        </div>
+
       </div>
+        <div class="card shadow mb-4" >
+          <div class="card-body">
+            <!-- 검색바 -->
+            <div class="input-group mb-3">
+              <input type="text" id="weatherLoc" class="form-control" placeholder="궁금한 지역의 날씨를 검색하세요">
+              <div class="input-group-append">
+                <button id="weatherSearch" class="btn btn-primary" type="button">날씨검색</button>
+              </div>
+            </div>
+            <table class="table" id="weatherTable">
+              <thead>
+              <tr>
+                <th>날짜</th>
+                <th></th>
+                <th>최고기온</th>
+                <th>최저기온</th>
+              </tr>
+              </thead>
+              <tbody id="weatherTbody">
+
+              </tbody>
+            </table>
+
+
+          </div>
+        </div>
     </div>
   </div>
 
