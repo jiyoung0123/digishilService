@@ -24,16 +24,9 @@ public class RandomChatImplController {
 
     @RequestMapping("/pub/chat/userlist")
     @ResponseBody
-    public Map<String, String> userList(String roomId, SimpMessageHeaderAccessor headerAccessor) throws Exception {
+    public Map<String, String> userList(String roomId) throws Exception {
         log.info("/chat/userlist도착---------------------------------------");
         log.info("/chat/userlist도착--roomId 확인하기={}",roomId);
-
-        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
-        log.info("userUUID: " + userUUID);
-
-//         roomId 가져오기
-        roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-        log.info("roomId: " + roomId);
 
         RandomChatRoom room = mapper.select(roomId);
         Map<String, String> userList = room.getUserList();

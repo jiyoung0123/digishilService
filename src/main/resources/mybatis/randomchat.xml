@@ -20,5 +20,9 @@
         DELETE FROM randomChatRoom WHERE roomId=#{roomId}
     </delete>
 
+    <update id="update" parameterType="RandomChatRoom">
+        UPDATE randomChatRoom SET roomId=#{roomId},userCount=#{userCount} WHERE roomId=#{roomId}
+    </update>
+
 
 </mapper>

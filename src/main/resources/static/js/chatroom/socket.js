@@ -172,8 +172,8 @@ function onMessageReceived(payload) {
         messageElement.classList.add('event-message');
         chat.content = chat.sendid + chat.content1;
         console.log("-------------------------------------------------");
-        console.log(chat.content);
-        getUserList();
+        var messageText = document.createTextNode(chat.content1);
+        messageElement.appendChild(messageText);
 
     } else if (chat.type === 'LEAVE') { // chatType 가 leave 라면 아래 내용
         messageElement.classList.add('event-message');
@@ -193,8 +193,6 @@ function onMessageReceived(payload) {
 
         messageElement.appendChild(avatarElement);
 
-
-
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(chat.sendid);
         usernameElement.appendChild(usernameText);
@@ -202,7 +200,6 @@ function onMessageReceived(payload) {
 
         var colonText = document.createTextNode(":");
         messageElement.appendChild(colonText);
-
         messageElement.appendChild(messageText);
     }
 
@@ -211,9 +208,9 @@ function onMessageReceived(payload) {
 
     // 말하는 사람 이름 성 붙여주는것
     messageElement.appendChild(contentElement);
-
     messageArea.appendChild(messageElement);
     messageArea.scrollTop = messageArea.scrollHeight;
+
 }
 
 

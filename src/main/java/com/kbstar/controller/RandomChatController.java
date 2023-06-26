@@ -101,9 +101,6 @@ public class RandomChatController {
         log.info("/sub/chat/room/"+chat.getRoomId());
         template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
 
-
-
-
 //        userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         log.info((String) headerAccessor.getSessionAttributes().get("userUUID")+"이거다!!!!!!!!!!!!!!!!!!!!");
 
@@ -124,7 +121,7 @@ public class RandomChatController {
         template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
         log.info("/pub/chat/sendMessage끝!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     }
-//
+
 //    // 유저 퇴장 시에는 EventListener 을 통해서 유저 퇴장을 확인
 //    @EventListener
 //    public void webSocketDisconnectListener(SessionDisconnectEvent event) {
@@ -160,25 +157,25 @@ public class RandomChatController {
 //    }
 
 //     채팅에 참여한 유저 리스트 반환
-//    @GetMapping("/pub/chat/userlist")
-//    @ResponseBody
-//    public Map<String, String> userList(String roomId, SimpMessageHeaderAccessor headerAccessor) throws Exception {
-//        log.info("/chat/userlist도착---------------------------------------");
-//        log.info("/chat/userlist도착--roomId 확인하기={}",roomId);
-//
-//        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
-//        log.info("userUUID: " + userUUID);
-//
-//        // roomId 가져오기
-//         roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-//        log.info("roomId: " + roomId);
-//
-//        RandomChatRoom room = mapper.select(roomId);
-//        Map<String, String> userList = room.getUserList();
-//
-//        log.info("/pub/chat/userlist여기서 ,room 확인해보쟈!={}",room);
-//        return userList;
-//    }
+    @GetMapping("/pub/chat/userlist")
+    @ResponseBody
+    public Map<String, String> userList(String roomId, SimpMessageHeaderAccessor headerAccessor) throws Exception {
+        log.info("/pub/chat/userlist도착---------------------------------------");
+        log.info("/pub/chat/userlist도착--roomId 확인하기={}",roomId);
+
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        log.info("userUUID: " + userUUID);
+
+        // roomId 가져오기
+         roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+        log.info("roomId: " + roomId);
+
+        RandomChatRoom room = mapper.select(roomId);
+        Map<String, String> userList = room.getUserList();
+
+        log.info("/pub/chat/userlist여기서 ,room 확인해보쟈!={}",room);
+        return userList;
+    }
 
     // 채팅에 참여한 유저 닉네임 중복 확인
     @GetMapping("/pub/chat/duplicateName")

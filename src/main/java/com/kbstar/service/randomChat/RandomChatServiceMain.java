@@ -2,6 +2,7 @@ package com.kbstar.service.randomChat;
 
 import com.kbstar.dto.ChatRoomMap;
 import com.kbstar.dto.RandomChatRoom;
+import com.kbstar.frame.KBService;
 import com.kbstar.mapper.RandomChatMapper;
 import com.kbstar.service.randomChat.chatService.MsgChatService;
 import lombok.Getter;
@@ -26,6 +27,7 @@ public class RandomChatServiceMain {
     @Autowired
     RandomChatMapper mapper;
 
+
     private final MsgChatService msgChatService;
 //    private final RtcChatService rtcChatService;
 
@@ -34,6 +36,11 @@ public class RandomChatServiceMain {
 
     public void register(RandomChatRoom randomChatRoom) throws Exception {
         mapper.insert(randomChatRoom);
+
+    }
+
+    public void modify(RandomChatRoom randomChatRoom) throws Exception {
+        mapper.update(randomChatRoom);
 
     }
 
@@ -85,7 +92,6 @@ public class RandomChatServiceMain {
 //        log.info("cnt {}",ChatRoomMap.getInstance().getChatRooms().get(roomId).getUserCount());
         RandomChatRoom room = mapper.select(roomId);
         log.info(String.valueOf(room));
-
 //        RandomChatRoom room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
         long cnt =room.getUserCount();
         log.info("userCnt 가져오기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -93,12 +99,18 @@ public class RandomChatServiceMain {
         long cnt2 =cnt+1;
         log.info(String.valueOf(cnt2));
         log.info("------------------------------plusUserCnt끝");
+        room.setUserCount(cnt2);
+        log.info("plusUserCnt확인하기!!!={}", room);
+        mapper.update(room);
+
     }
 
     // 채팅방 인원-1
-    public void minusUserCnt(String roomId){
-        RandomChatRoom room = ChatRoomMap.getInstance().getChatRooms().get(roomId);
+    public void minusUserCnt(String roomId) throws Exception {
+        RandomChatRoom room = mapper.select(roomId);
         room.setUserCount(room.getUserCount()-1);
+        mapper.update(room);
+        log.info(String.valueOf(room));
     }
 
     // maxUserCnt 에 따른 채팅방 입장 여부
