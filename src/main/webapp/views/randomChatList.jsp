@@ -268,7 +268,7 @@
 <%--                            <p class="lead text-muted" style="font-size: medium">&nbsp;&nbsp&nbsp;&nbsp;총 &nbsp;99개의 숙소</p>--%>
             </div>
         </div>
-    </div>
+        </div>
 
     <div class="container-fluid py-5 px-lg-5">
     <c:choose>
