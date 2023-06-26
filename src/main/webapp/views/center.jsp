@@ -94,42 +94,71 @@
 </section>
 <section class="py-6 bg-gray-100">
     <div class="container">
-        <div class="text-center pb-lg-4">
-            <p class="subtitle text-secondary">The best holiday experience</p>
-            <h2 class="mb-5"><spring:message code="site.centerTitle"/></h2>
+        <div class="row mb-5">
+            <div class="col-md-8">
+                <p class="subtitle text-secondary">어디로 가야할지 모르겠다면?        </p>
+                <h2>지금 핫한 숙소를 예약하세요 !</h2>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <h2 class="h5 text-dark d-flex align-items-center mb-4"><span class="badge badge-primary-light badge-pill py-1 me-1">Hot</span>인기 검색어</h2>
+                <ul class="list-unstyled ms-3 text-sm">
+                    <c:forEach var="search" items="${search}" varStatus="status">
+                        <li class="mb-2"><a class="text-muted" href="/room/roomSearch?roomName=${search.searchWord}"> <span class="h6 text-primary">${status.index + 1}.&nbsp;&nbsp;</span>${search.searchWord}</a></li>
+                    </c:forEach>
+                </ul>
+            </div>
+            <%--            <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category.html">--%>
+            <%--                See all deals<i class="fas fa-angle-double-right ms-2"></i></a></div>--%>
         </div>
-        <div class="row">
-            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
-                <div class="px-0 px-lg-3">
-                    <div class="icon-rounded bg-primary-light mb-3">
-                        <svg class="svg-icon text-primary w-2rem h-2rem">
-                            <use xlink:href="#destination-map-1"> </use>
-                        </svg>
+        <!-- Slider main container-->
+        <div class="swiper-container swiper-container-mx-negative swiper-init pt-3" data-swiper="{&quot;slidesPerView&quot;:4,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;roundLengths&quot;:true,&quot;breakpoints&quot;:{&quot;1200&quot;:{&quot;slidesPerView&quot;:3},&quot;991&quot;:{&quot;slidesPerView&quot;:2},&quot;565&quot;:{&quot;slidesPerView&quot;:1}},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination&quot;,&quot;clickable&quot;:true,&quot;dynamicBullets&quot;:true}}">
+            <!-- Additional required wrapper-->
+            <div class="swiper-wrapper pb-5">
+                <!-- Slides-->
+                <c:forEach var="roomList" items="${roomList}">
+                    <div class="swiper-slide h-auto px-2">
+                        <!-- place item-->
+                        <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
+                            <div class="card h-100 border-0 shadow">
+                                <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="/img/photo/${roomList.roomImage1}" alt="Modern, Well-Appointed Room"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
+                                    <div class="card-img-overlay-bottom z-index-20">
+                                        <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="img/avatar/avatar-0.jpg" alt="Pamela"/>
+                                            <div>${roomList.hostName}</div>
+                                        </div>
+                                    </div>
+                                    <form id="likeForm_${roomList.roomId}">
+                                        <input type="hidden" name="guestId" value="${loginGuest.guestId}">
+                                        <input type="hidden" name="roomId" value="${roomList.roomId}">
+                                        <div class="card-img-overlay-top text-end">
+                                            <button id="likeFormBtn" class="card-fav-icon position-relative z-index-40" type="button">
+                                                <c:if test="${roomList.likeId != ''}">
+                                                    <i id="likeHeart" class="fa-solid fa-heart" style="color: #fff700;"></i>
+                                                </c:if>
+                                                <c:if test="${roomList.likeId == ''}">
+                                                    <i id="likeHeart" class="fa-regular fa-heart" style="color: #ffffff;"></i>
+                                                </c:if>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-body d-flex align-items-center">
+                                    <div class="w-100">
+                                        <h6 class="card-title"><a class="text-decoration-none text-dark" href="/room/detail?id=${roomList.roomId}">${roomList.roomName}</a></h6>
+                                        <div class="d-flex card-subtitle mb-3">
+                                            <p class="flex-grow-1 mb-0 text-muted text-sm">${roomList.roomType}</p>
+                                            <p class="flex-shrink-1 mb-0 card-stars text-xs text-end"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
+                                            </p>
+                                        </div>
+                                        <p class="card-text text-muted"><span class="h4 text-primary"><fmt:formatNumber type="number" pattern="₩###,###" value="${roomList.roomPrice}"/></span>/1박</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h3 class="h5"><spring:message code="site.centerSub1"/></h3>
-                </div>
+                </c:forEach>
             </div>
-            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
-                <div class="px-0 px-lg-3">
-                    <div class="icon-rounded bg-primary-light mb-3">
-                        <svg class="svg-icon text-primary w-2rem h-2rem">
-                            <use xlink:href="#pay-by-card-1"> </use>
-                        </svg>
-                    </div>
-                    <h3 class="h5"><spring:message code="site.centerSub2"/> </h3>
-<%--                    <p class="text-muted">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit</p>--%>
-                </div>
-            </div>
-            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
-                <div class="px-0 px-lg-3">
-                    <div class="icon-rounded bg-primary-light mb-3">
-                        <svg class="svg-icon text-primary w-2rem h-2rem">
-                            <use xlink:href="#heart-1"> </use>
-                        </svg>
-                    </div>
-                    <h3 class="h5"><spring:message code="site.centerSub3"/></h3>
-                </div>
-            </div>
+            <!-- If we need pagination-->
+            <div class="swiper-pagination"></div>
         </div>
     </div>
 </section>
@@ -192,76 +221,49 @@
         </div>
     </div>
 </section>
+
 <section class="py-6 bg-gray-100">
     <div class="container">
-        <div class="row mb-5">
-            <div class="col-md-8">
-                <p class="subtitle text-secondary">어디로 가야할지 모르겠다면?        </p>
-                <h2>지금 핫한 숙소를 예약하세요 !</h2>
-            </div>
-            <div class="col-lg-4 mb-4">
-                <h2 class="h5 text-dark d-flex align-items-center mb-4"><span class="badge badge-primary-light badge-pill py-1 me-1">Hot</span>인기 검색어</h2>
-                <ul class="list-unstyled ms-3 text-sm">
-                    <c:forEach var="search" items="${search}" varStatus="status">
-                        <li class="mb-2"><a class="text-muted" href="/room/roomSearch?roomName=${search.searchWord}"> <span class="h6 text-primary">${status.index + 1}.&nbsp;&nbsp;</span>${search.searchWord}</a></li>
-                    </c:forEach>
-                </ul>
-            </div>
-<%--            <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category.html">--%>
-<%--                See all deals<i class="fas fa-angle-double-right ms-2"></i></a></div>--%>
+        <div class="text-center pb-lg-4">
+            <p class="subtitle text-secondary">The best holiday experience</p>
+            <h2 class="mb-5"><spring:message code="site.centerTitle"/></h2>
         </div>
-        <!-- Slider main container-->
-        <div class="swiper-container swiper-container-mx-negative swiper-init pt-3" data-swiper="{&quot;slidesPerView&quot;:4,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;roundLengths&quot;:true,&quot;breakpoints&quot;:{&quot;1200&quot;:{&quot;slidesPerView&quot;:3},&quot;991&quot;:{&quot;slidesPerView&quot;:2},&quot;565&quot;:{&quot;slidesPerView&quot;:1}},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination&quot;,&quot;clickable&quot;:true,&quot;dynamicBullets&quot;:true}}">
-            <!-- Additional required wrapper-->
-            <div class="swiper-wrapper pb-5">
-                <!-- Slides-->
-                <c:forEach var="roomList" items="${roomList}">
-                    <div class="swiper-slide h-auto px-2">
-                        <!-- place item-->
-                        <div class="w-100 h-100 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
-                            <div class="card h-100 border-0 shadow">
-                                <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="/img/photo/${roomList.roomImage1}" alt="Modern, Well-Appointed Room"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
-                                    <div class="card-img-overlay-bottom z-index-20">
-                                        <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="img/avatar/avatar-0.jpg" alt="Pamela"/>
-                                            <div>${roomList.hostName}</div>
-                                        </div>
-                                    </div>
-                                    <form id="likeForm_${roomList.roomId}">
-                                        <input type="hidden" name="guestId" value="${loginGuest.guestId}">
-                                        <input type="hidden" name="roomId" value="${roomList.roomId}">
-                                        <div class="card-img-overlay-top text-end">
-                                            <button id="likeFormBtn" class="card-fav-icon position-relative z-index-40" type="button">
-                                                <c:if test="${roomList.likeId != ''}">
-                                                    <i id="likeHeart" class="fa-solid fa-heart" style="color: #fff700;"></i>
-                                                </c:if>
-                                                <c:if test="${roomList.likeId == ''}">
-                                                    <i id="likeHeart" class="fa-regular fa-heart" style="color: #ffffff;"></i>
-                                                </c:if>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="card-body d-flex align-items-center">
-                                    <div class="w-100">
-                                        <h6 class="card-title"><a class="text-decoration-none text-dark" href="/room/detail?id=${roomList.roomId}">${roomList.roomName}</a></h6>
-                                        <div class="d-flex card-subtitle mb-3">
-                                            <p class="flex-grow-1 mb-0 text-muted text-sm">${roomList.roomType}</p>
-                                            <p class="flex-shrink-1 mb-0 card-stars text-xs text-end"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
-                                            </p>
-                                        </div>
-                                        <p class="card-text text-muted"><span class="h4 text-primary"><fmt:formatNumber type="number" pattern="₩###,###" value="${roomList.roomPrice}"/></span>/1박</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+                <div class="px-0 px-lg-3">
+                    <div class="icon-rounded bg-primary-light mb-3">
+                        <svg class="svg-icon text-primary w-2rem h-2rem">
+                            <use xlink:href="#destination-map-1"> </use>
+                        </svg>
                     </div>
-                </c:forEach>
+                    <h3 class="h5"><spring:message code="site.centerSub1"/></h3>
+                </div>
             </div>
-            <!-- If we need pagination-->
-            <div class="swiper-pagination"></div>
+            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+                <div class="px-0 px-lg-3">
+                    <div class="icon-rounded bg-primary-light mb-3">
+                        <svg class="svg-icon text-primary w-2rem h-2rem">
+                            <use xlink:href="#pay-by-card-1"> </use>
+                        </svg>
+                    </div>
+                    <h3 class="h5"><spring:message code="site.centerSub2"/> </h3>
+<%--                    <p class="text-muted">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit</p>--%>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-3 mb-lg-0 text-center">
+                <div class="px-0 px-lg-3">
+                    <div class="icon-rounded bg-primary-light mb-3">
+                        <svg class="svg-icon text-primary w-2rem h-2rem">
+                            <use xlink:href="#heart-1"> </use>
+                        </svg>
+                    </div>
+                    <h3 class="h5"><spring:message code="site.centerSub3"/></h3>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
 
 <!-- Divider Section-->
 <%--<section class="py-7 position-relative dark-overlay"><img class="bg-image" src="img/photo/photo-1497436072909-60f360e1d4b1.jpg" alt="">--%>

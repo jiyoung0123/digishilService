@@ -41,7 +41,8 @@ public class ReactAjaxImplController {
     }
 
     @RequestMapping("/updatePoint")
-    public void updateGuestCoupon(@RequestParam("guestId") String guestId, @RequestParam("guestCoupon") int guestCoupon) throws Exception {
+    public void updateGuestCoupon(@RequestParam("guestId") String guestId,
+                                  @RequestParam("guestCoupon") int guestCoupon) throws Exception {
         Guest guest = new Guest(guestId, guestCoupon);
         guestService.updateGuestCoupon(guest);
     }
