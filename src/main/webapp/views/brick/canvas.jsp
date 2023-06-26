@@ -13,8 +13,8 @@
     <div class="container position-relative">
         <!-- Breadcrumbs -->
         <ol class="breadcrumb ps-0  justify-content-center">
-            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-            <li class="breadcrumb-item active">Terms &amp; Conditions</li>
+            <li class="breadcrumb-item"><a href="index.html">포인트게임</a></li>
+            <li class="breadcrumb-item active">벽돌게임</li>
         </ol>
         <h1 class="hero-heading mb-0">Brick !</h1>
     </div>

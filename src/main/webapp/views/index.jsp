@@ -461,9 +461,7 @@
                     <!-- /Megamenu end-->
                     <c:choose>
                         <c:when test="${loginGuest != null}">
-                    <li class="nav-item"><a class="nav-link" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}"> <span class="spinner-grow spinner-grow-sm"></span>리액트 포인트게임</a></li>&nbsp; &nbsp;
-
-                    <li class="nav-item"><a class="nav-link" href="/chat?guestId=${loginGuest.getGuestId()}"> 메신저 </a>
+                            <li class="nav-item"><a class="nav-link" href="/chat?guestId=${loginGuest.getGuestId()}"> 메신저 </a></li>
                         </c:when>
                         <c:otherwise>
 
@@ -473,7 +471,7 @@
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="/index" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         더보기</a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="/randomChat">종이비행기 </a><a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="/randomChatList">우리끼리 채팅 </a><a class="dropdown-item" href="docs/docs-customizing-css.html">Customizing CSS </a><a class="dropdown-item" href="docs/docs-credits.html">Credits </a><a class="dropdown-item" href="docs/docs-changelog.html">Changelog </a>
+                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="/randomChat">종이비행기 </a><a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="/randomChatList">우리끼리 채팅 </a><a class="dropdown-item" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}">리액트 게임</a><a class="dropdown-item" href="docs/docs-customizing-css.html">Customizing CSS </a><a class="dropdown-item" href="docs/docs-credits.html">Credits </a><a class="dropdown-item" href="docs/docs-changelog.html">Changelog </a>
                             <div class="dropdown-divider"></div>
                             <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item" href="docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item" href="docs/components-directory.html">Theme </a>
                         </div>
