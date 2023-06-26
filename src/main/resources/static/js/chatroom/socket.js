@@ -46,6 +46,7 @@ function connect(event) {
     event.preventDefault();
 }
 
+
 function onConnected() {
 
     // sub 할 url => /sub/chat/room/roomId 로 구독한다
@@ -169,12 +170,15 @@ function onMessageReceived(payload) {
         console.log("-------------------------------------------------");
         var messageText = document.createTextNode(chat.content1);
         messageElement.appendChild(messageText);
+        getUserList();
 
     } else if (chat.type === 'LEAVE') { // chatType 가 leave 라면 아래 내용
         messageElement.classList.add('event-message');
         chat.content = chat.sendid + chat.content1;
         console.log("-------------------------------------------------");
         console.log(chat.content);
+        var messageText = document.createTextNode(chat.content1);
+        messageElement.appendChild(messageText);
         getUserList();
 
     } else { // chatType 이 talk 라면 아래 내용
@@ -185,7 +189,6 @@ function onMessageReceived(payload) {
         var messageText = document.createTextNode(chat.content1);
         avatarElement.appendChild(avatarText);
         avatarElement.style['background-color'] = getAvatarColor(chat.sendid);
-
         messageElement.appendChild(avatarElement);
 
         var usernameElement = document.createElement('span');

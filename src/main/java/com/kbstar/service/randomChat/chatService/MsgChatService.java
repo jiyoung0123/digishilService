@@ -48,8 +48,7 @@ public class MsgChatService {
 
     // 채팅방 유저 리스트에 유저 추가
     public String addUser(String roomId, String userName) throws Exception {
-        log.info("-------------------------------------------addUser도착");
-        log.info("addUserClass=[{}, {}]", roomId, userName);
+        log.info("-------------------------------------------addUser도착=[{}, {}]",roomId,userName);
 
         String userUUID = UUID.randomUUID().toString();
         RandomChatRoom room = mapper.select(roomId);

@@ -12,6 +12,26 @@
 <script src="/webjars/sockjs-client/sockjs.min.js"></script>
 <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
+<script>
+    let websocket={
+        init:function(){
+            $("#disconnect").click(function() {
+                websocket.disconnect();
+            });
+        },
+        disconnect:function(){
+            if (this.stompClient !== null) {
+                this.stompClient.disconnect();
+            }
+            websocket.setConnected(false);
+            console.log("Disconnected");
+        }
+    }
+    $(function(){
+        websocket.init();
+    })
+</script>
+
 <title>My Spring WebSocket Chatting</title>
 <link rel="stylesheet" href="/css/chatroom/main.css"/>
 
@@ -46,7 +66,7 @@
 
 <div id="username-page">
     <div class="username-page-container">
-        <h1 class="title">Type your username</h1>
+        <h1 class="title">대화명을 입력 해 주세요!</h1>
         <form id="usernameForm" name="usernameForm">
             <c:choose>
             <c:when test="${loginGuest == null}">
@@ -61,7 +81,7 @@
             </c:otherwise>
             </c:choose>
             <div class="form-group">
-                <button type="submit" class="accent username-submit">Start Chatting</button>
+                <button type="submit" class="accent username-submit">채팅방 입장하기</button>
             </div>
         </form>
     </div>
@@ -75,9 +95,13 @@
             참가한 유저
         </button>
         <div id="list" class="dropdown-menu" aria-labelledby="showUserListButton">
-
         </div>
     </div>
+    <form>
+        <button class="btn btn-secondary" style="float: right;" type="submit" id="disconnectWebsocket">
+            방 나가기
+        </button>
+    </form>
     <div class="chat-container">
         <div class="chat-header">
             <h2>${room.roomName}</h2>

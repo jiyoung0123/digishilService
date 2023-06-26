@@ -1,5 +1,6 @@
 package com.kbstar.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.kbstar.dto.ChatRoomMap;
 import com.kbstar.dto.RandomChat;
 import com.kbstar.dto.RandomChatRoom;
@@ -9,16 +10,21 @@ import com.kbstar.service.randomChat.chatService.MsgChatService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.socket.messaging.SessionDisconnectEvent;
+import org.springframework.context.event.EventListener;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentMap;
@@ -34,13 +40,11 @@ public class RandomChatController {
     SimpMessagingTemplate template;
 
     @Autowired
-    RandomChatServiceMain repository;
-
-    @Autowired
     MsgChatService msgChatService;
 
-//    private final MsgChatService msgChatService;
-
+    @Autowired
+    RandomChatServiceMain randomChatServiceMain;
+    
     @MessageMapping("/randomReceiveall") // 모두에게 전송
     public void randomReceiveall(RandomChat msg, SimpMessageHeaderAccessor headerAccessor) {
 //        send(target)라는 outbound로 msg를 보냄
@@ -65,28 +69,18 @@ public class RandomChatController {
 
     @MessageMapping("/pub/chat/enterUser")
     public void enterUser(@Payload RandomChat chat, SimpMessageHeaderAccessor headerAccessor) throws Exception {
-        log.info("======================================================/pub/chat/enterUser도착");
-        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!chat 확인하기!!!!!!!!!!!!!!!!!!!!!!!!!");
-        log.info(String.valueOf(chat));
-        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!chat 확인끝!!!!!!!!!!!!!!!!!!!!!!!!!");
+        log.info("======================================================/pub/chat/enterUser도착={}",chat);
 
         // 채팅방 유저+1
-        repository.plusUserCnt(chat.getRoomId());
+        randomChatServiceMain.plusUserCnt(chat.getRoomId());
         String roomId = chat.getRoomId();
         RandomChatRoom room = mapper.select(roomId);
 
-        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!chat 확인하기22222222222222!!!!!!!!!!!!!!!!!!!!!!!!!");
-        log.info(String.valueOf(chat));
-        log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!chat 확인끝22222222222222!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-
 //         채팅방에 유저 추가 및 UserUUID 반환
         String userUUID = msgChatService.addUser(chat.getRoomId(), chat.getSendid());
+        log.info("userUUID확인해보기!!!!!!={}",userUUID);
+        log.info("headerAccessor알아보기!!!!={}",headerAccessor);
 
-        log.info("userUUID확인해보기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        log.info(userUUID);
-        log.info("headerAccessor알아보기!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-        log.info(String.valueOf(headerAccessor));
 
         Map<String, String> userList = room.getUserList();
         room.getUserList().put(userUUID,chat.getSendid());
@@ -94,6 +88,7 @@ public class RandomChatController {
 //        // 반환 결과를 socket session 에 userUUID 로 저장
         headerAccessor.getSessionAttributes().put("userUUID", userUUID);
         headerAccessor.getSessionAttributes().put("roomId", chat.getRoomId());
+        headerAccessor.getSessionAttributes().put("userName", chat.getSendid());
 
         chat.setContent1(chat.getSendid() + " 님 입장!!");
         log.info("chat 메세지 확인용!!!!!!!!!!!!!!!");
@@ -101,9 +96,7 @@ public class RandomChatController {
         log.info("/sub/chat/room/"+chat.getRoomId());
         template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
 
-//        userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
         log.info((String) headerAccessor.getSessionAttributes().get("userUUID")+"이거다!!!!!!!!!!!!!!!!!!!!");
-
         log.info("room에 userList 확인하기!!!!!!!={}",room);
         log.info("======================================================/pub/chat/enterUser끝");
     }
@@ -123,59 +116,83 @@ public class RandomChatController {
     }
 
 //    // 유저 퇴장 시에는 EventListener 을 통해서 유저 퇴장을 확인
-//    @EventListener
-//    public void webSocketDisconnectListener(SessionDisconnectEvent event) {
-//        log.info("DisConnEvent {}", event);
-//
-//        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
-//
-//        // stomp 세션에 있던 uuid 와 roomId 를 확인해서 채팅방 유저 리스트와 room 에서 해당 유저를 삭제
-//        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
-//        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-//
-//        log.info("headAccessor {}", headerAccessor);
-//
-//        // 채팅방 유저 -1
-//        repository.minusUserCnt(roomId);
-//
+    @EventListener
+    public void webSocketDisconnectListener(SessionDisconnectEvent event) throws Exception {
+        log.info("webSocketDisconnectListener도착!!");
+        log.info("DisConnEvent {}", event);
+
+        StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
+
+        // stomp 세션에 있던 uuid 와 roomId 를 확인해서 채팅방 유저 리스트와 room 에서 해당 유저를 삭제
+        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+        String roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+
+        log.info("headAccessor {}", headerAccessor);
+
+        MessageHeaders messageHeaders = headerAccessor.getMessageHeaders();
+        log.info("headerAccessor.getMessageHeaders()확인!={}",messageHeaders);
+
+        Object o = messageHeaders.get(2);   //null 나옴
+        log.info("messageHeaders.get(2)로추출하기!={}",o);
+
+
+        Object sessionAttributes = messageHeaders.get(SimpMessageHeaderAccessor.SESSION_ATTRIBUTES);
+        log.info("messageHeaders.get(SimpMessageHeaderAccessor.SESSION_ATTRIBUTES)로 추출!={}",sessionAttributes);
+
+        // ObjectMapper 객체 생성
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        // JSON 문자열로 변환된 sessionAttributes 값을 추출
+        String sessionAttributesJson = objectMapper.writeValueAsString(sessionAttributes);
+
+        // JSON 파싱하여 필요한 값을 추출
+        JsonNode jsonNode = objectMapper.readTree(sessionAttributesJson);
+        log.info("jsonNode로변경함={}",jsonNode);
+        String userName = jsonNode.get("userName").asText();
+        log.info("json으로 파싱해봄={}",userName);
+
+        // 채팅방 유저 -1
+        randomChatServiceMain.minusUserCnt(roomId);
+        log.info("ChatRoomMap.getInstance().getChatRooms()확인={}",ChatRoomMap.getInstance().getChatRooms());
+
 //        // 채팅방 유저 리스트에서 UUID 유저 닉네임 조회 및 리스트에서 유저 삭제
-//        String username = repository.getUserName(roomId, userUUID);
-//        repository.delUser(roomId, userUUID);
-//
-//        if (username != null) {
-//            log.info("User Disconnected : " + username);
-//
-//            // builder 어노테이션 활용
-//            ChatDTO chat = ChatDTO.builder()
-//                    .type(ChatDTO.MessageType.LEAVE)
-//                    .sender(username)
-//                    .message(username + " 님 퇴장!!")
-//                    .build();
-//
-//            template.convertAndSend("/sub/chat/room/" + roomId, chat);
-//        }
-//    }
+
+//        String username = msgChatService.findUserNameByRoomIdAndUserUUID(ChatRoomMap.getInstance().getChatRooms(), roomId, userUUID);
+//        msgChatService.delUser(ChatRoomMap.getInstance().getChatRooms(), roomId, userUUID);
+
+        if (userUUID != null) {
+            log.info("User Disconnected : " + userUUID);
+            // builder 어노테이션 활용
+            RandomChat chat = RandomChat.builder()
+                    .type(RandomChat.MessageType.LEAVE)
+                    .sendid(userName)
+                    .content1(userName + " 님 퇴장!!")
+                    .build();
+            template.convertAndSend("/sub/chat/room/" + roomId, chat);
+        }
+    }
 
 //     채팅에 참여한 유저 리스트 반환
-    @GetMapping("/pub/chat/userlist")
-    @ResponseBody
-    public Map<String, String> userList(String roomId, SimpMessageHeaderAccessor headerAccessor) throws Exception {
-        log.info("/pub/chat/userlist도착---------------------------------------");
-        log.info("/pub/chat/userlist도착--roomId 확인하기={}",roomId);
-
-        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
-        log.info("userUUID: " + userUUID);
-
-        // roomId 가져오기
-         roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
-        log.info("roomId: " + roomId);
-
-        RandomChatRoom room = mapper.select(roomId);
-        Map<String, String> userList = room.getUserList();
-
-        log.info("/pub/chat/userlist여기서 ,room 확인해보쟈!={}",room);
-        return userList;
-    }
+    //RandomChatImplController에서구현
+//    @GetMapping("/pub/chat/userlist")
+//    @ResponseBody
+//    public ArrayList<String> userList(String roomId, SimpMessageHeaderAccessor headerAccessor) throws Exception {
+//        log.info("/pub/chat/userlist도착---------------------------------------");
+//        log.info("/pub/chat/userlist도착--roomId 확인하기={}",roomId);
+//
+//        String userUUID = (String) headerAccessor.getSessionAttributes().get("userUUID");
+//        log.info("userUUID: " + userUUID);
+//
+//        // roomId 가져오기
+//         roomId = (String) headerAccessor.getSessionAttributes().get("roomId");
+//        log.info("roomId: " + roomId);
+//
+//        RandomChatRoom room = mapper.select(roomId);
+//
+//        log.info("/pub/chat/userlist여기서 ,room 확인해보쟈!={}",room);
+//        log.info("ChatRoomMap.getInstance().getChatRooms()확인하기!={}",ChatRoomMap.getInstance().getChatRooms());
+//        return msgChatService.getUserList(ChatRoomMap.getInstance().getChatRooms(), roomId);
+//    }
 
     // 채팅에 참여한 유저 닉네임 중복 확인
     @GetMapping("/pub/chat/duplicateName")
