@@ -88,7 +88,7 @@ public class RegisterController {
         MultiValueMap<String, String>params = new LinkedMultiValueMap<>();
         params.add("grant_type", "authorization_code");
         params.add("client_id", "9b7c02c3cdf81109f8023cd5a12156ee");
-        params.add("redirect_uri", "http://172.16.21.88/auth/kakao/callback");
+        params.add("redirect_uri", "http://127.0.0.1/auth/kakao/callback");
         params.add("code",code);
 
         //HttpHeader와 HttpBody를 하나의 오브젝트에 담기
