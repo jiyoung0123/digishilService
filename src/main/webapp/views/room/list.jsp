@@ -275,18 +275,42 @@
         });
     });
 
-    let search2Button = {
-        init : $('#search2Button').click(()=>{
-            $.ajax({
-                url : ''
+
+    let checkDate = $('#form_dates').val();
+    let searchForm = {
+        init:function() {
+            $('#searchBtn').click(function(){
+                searchForm.send();
             })
-        })
+        },
+        send:function(){
+            checkDate = $('#form_dates').val();
+            if(checkDate == null || checkDate == ''){
+                $('input[name="checkInDate"]').val(new Date("0000-01-01"));
+                $('input[name="checkOutDate"]').val(new Date("0000-01-02"));
+            }else{
+            // checkDate string을 나누기
+            let checkInDate = checkDate.substring(0, 10);
+            let checkOutDate = checkDate.substring(14);
+            console.log("sub string--"+checkInDate,checkOutDate);
+            checkInDate = new Date(checkInDate);
+            checkOutDate = new Date(checkOutDate);
+            console.log("new date--"+checkInDate,checkOutDate);
+            // 잘라낸 날짜를 input hidden에 넣기
+            $('input[name="checkInDate"]').val(checkInDate);
+            $('input[name="checkOutDate"]').val(checkOutDate);
+            }
+            $('#searchForm').attr({
+                'action':'/room/list',
+                'method':'post'
+            });
+            $('#searchForm').submit();
+        }
     }
 
-    $(()=>{
-        search2Button.init();
+    $(function(){
+        searchForm.init();
     })
-
 </script>
 
 <div class="container-fluid">
@@ -294,22 +318,26 @@
         <div class="col-lg-6 py-4 p-xl-5">
             <h2 class="mb-4">Stay on Manhattan, NY</h2>
             <hr class="my-4">
-            <form autocomplete="off">
+            <form autocomplete="off" id="searchForm">
+                <input type="hidden" name="checkInDate"/>
+                <input type="hidden" name="checkOutDate"/>
                 <div class="row">
                     <div class="col-xl-4 col-md-6 mb-4">
                         <label class="form-label" for="form_dates">Dates</label>
                         <div class="datepicker-container datepicker-container-left">
-                            <input class="form-control" type="text" name="bookingDate" id="form_dates" placeholder="Choose your dates">
+                            <input class="form-control" type="text" name="checkDate" id="form_dates" placeholder="Choose your dates">
                         </div>
                     </div>
                     <div class="col-xl-4 col-md-6 mb-4">
                         <label class="form-label" for="form_guests">Guests</label>
-                        <select class="selectpicker form-control" name="guests" id="form_guests" data-style="btn-selectpicker" title=" ">
-                            <option value="guests_0">1    </option>
-                            <option value="guests_1">2    </option>
-                            <option value="guests_2">3    </option>
-                            <option value="guests_3">4    </option>
-                            <option value="guests_4">5    </option>
+                        <select class="selectpicker form-control" name="roomCap" id="form_guests" data-style="btn-selectpicker" title=" ">
+                            <option value="0">    </option>
+                            <option value="1">1    </option>
+                            <option value="2">2    </option>
+                            <option value="3">3    </option>
+                            <option value="4">4    </option>
+                            <option value="5">5    </option>
+                            <option value="6">6    </option>
                         </select>
                     </div>
                     <div class="col-xl-4 col-md-6 mb-4">
@@ -352,7 +380,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 mb-4 order-2 order-sm-1">
-                        <button id="search2Button"class="btn btn-primary" type="submit"> <i class="fas fa-search me-1"></i>Search                </button>
+                        <button id="searchBtn"class="btn btn-primary" type="submit"> <i class="fas fa-search me-1"></i>Search</button>
                     </div>
                 </div>
             </form>

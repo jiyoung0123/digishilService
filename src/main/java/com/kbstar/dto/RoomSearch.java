@@ -21,6 +21,9 @@ public class RoomSearch {
 
     private String guestId;
 
+    private Date checkInDate;
+    private Date checkOutDate;
+
 //    private Date reserveCheckIn;
 //    private Date reserveCheckOut;
 
