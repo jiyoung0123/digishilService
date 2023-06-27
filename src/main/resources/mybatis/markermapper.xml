@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.MarkerMapper">
+<!--    <select id="search" parameterType="MarkerSearch" resultType="room">-->
+<!--        SELECT * FROM room-->
+<!--        <where>-->
+<!--            <if test="loc != null and !loc.equals('')">-->
+<!--                loc = UPPER(#{loc})-->
+<!--            </if>-->
+<!--            <if test="title != null and !title.equals('')">-->
+<!--                AND title LIKE '%'||#{title}||'%'-->
+<!--            </if>-->
+<!--        </where>-->
+<!--    </select>-->
+    <select id="getloc" parameterType="String" resultType="room">
+        SELECT * FROM room WHERE roomLoc=UPPER(#{loc})
+    </select>
+    <select id="select" parameterType="Integer" resultType="room">
+        SELECT * FROM room WHERE id=#{id}
+    </select>
+
+    <select id="selectall" resultType="room">
+        SELECT * FROM room
+    </select>
+<!--    <insert id="insert" parameterType="marker">-->
+<!--        INSERT INTO marker VALUES (marker_seq.NEXTVAL, #{title},#{target}, #{lat}, #{lng}, #{img}, UPPER(#{loc}))-->
+<!--    </insert>-->
+
+
+    <insert id="insert" parameterType="room">
+        INSERT INTO room VALUES (roomSeq.NEXTVAL,#{hostId},#{roomPrice},#{roomName}, #{roomAddress}, #{roomLoc},#{roomLoc2}, #{roomLat}, #{roomLng}, #{roomImage1}, #{roomCap})
+    </insert>
+
+
+    <update id="update" parameterType="room">
+        UPDATE room SET roomPrice=#{roomPrice},roomName=#{roomName},roomAddress=#{roomAddress},roomLoc=#{roomLoc}, roomLoc2=#{roomLoc2}, roomLat=#{roomLat},roomLng=#{roomLng} WHERE id=#{id}
+    </update>
+
+
+
+    <delete id="delete" parameterType="Integer">
+        DELETE FROM room WHERE id=#{id}
+    </delete>
+
+
+</mapper>

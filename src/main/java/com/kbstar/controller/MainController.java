@@ -59,6 +59,12 @@ public class MainController {
     }
 
 
+    @RequestMapping("/marker")
+    public String marker(Model model){
+        model.addAttribute("center","marker");
+        return "index";
+    }
+
 
     @RequestMapping("/registerDetail")
     public String registerDetail(Model model){

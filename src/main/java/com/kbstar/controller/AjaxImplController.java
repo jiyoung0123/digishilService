@@ -1,15 +1,15 @@
 package com.kbstar.controller;
 
-import com.kbstar.dto.Guest;
-import com.kbstar.dto.HostRoomReserveReview;
-import com.kbstar.dto.Reserve;
-import com.kbstar.dto.Review;
+import com.kbstar.dto.*;
 import com.kbstar.service.GuestService;
+import com.kbstar.service.MarkerService;
 import com.kbstar.service.ReserveService;
 import com.kbstar.service.ReviewService;
 import com.kbstar.util.MailUtil;
 import com.kbstar.util.WebCrawler;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +27,9 @@ import java.util.UUID;
 // 일반적인 컨트롤러는 화면jsp파일을 return 해 주니, ajax 요청은 이걸 이용하자-@RestController
 @RestController
 public class AjaxImplController {
+
+    @Autowired
+    MarkerService markerService;
 
     @Autowired
     GuestService guestService;
@@ -91,6 +94,37 @@ public class AjaxImplController {
         }
         return result;
     }
+
+
+    @RequestMapping("/markers")
+    public Object markers(String loc)  {
+        List<Room> list = null;
+        try {
+            list = markerService.getLoc(loc);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        JSONArray ja = new JSONArray();
+        for(Room obj:list){
+            JSONObject jo = new JSONObject();
+            jo.put("id",obj.getRoomId());
+            jo.put("host",obj.getHostId());
+            jo.put("price",obj.getRoomPrice());
+            jo.put("name",obj.getRoomName());
+            jo.put("address",obj.getRoomAddress());
+            jo.put("loc",obj.getRoomLoc());
+            jo.put("lat",obj.getRoomLat());
+            jo.put("lng",obj.getRoomLng());
+            jo.put("img",obj.getRoomImage1());
+            jo.put("cap",obj.getRoomCap());
+
+            ja.add(jo);
+        }
+        return ja;
+    }
+
 
     @RequestMapping("/findHostIdOfRoom")
     public String checkReserveId(int reserveId) throws Exception {

@@ -32,6 +32,10 @@ public class Room {
     private String roomImage6;
     private int roomLikes;
 
+
+
+
+
     // roomList를 불러오기 위한 항목 추가
     private String hostImage;
     private String hostName;
