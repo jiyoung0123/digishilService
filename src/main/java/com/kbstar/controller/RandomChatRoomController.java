@@ -47,11 +47,12 @@ public class RandomChatRoomController {
 
     @PostMapping("/chat/createroom")
     public String createRoom(@RequestParam String roomName,
+                             @RequestParam String roomLoc,
                              @RequestParam String createUserId,
                              @RequestParam("roomPwd") String roomPwd,
                              @RequestParam("secretChk") boolean secretChk,
                              @RequestParam(value = "maxUserCnt", defaultValue = "2") int maxUserCnt,
-                             @RequestParam("chatType") RandomChatRoom.ChatType chatType,
+//                             @RequestParam("chatType") RandomChatRoom.ChatType chatType,
                              RandomChatRoom randomChatRoom,
                              Model model,
                              RedirectAttributes rttr) throws Exception {
@@ -59,7 +60,7 @@ public class RandomChatRoomController {
         RandomChatRoom room;
 //        room = chatServiceMain.createChatRoom(createUserId,roomName, roomPwd, secretChk, maxUserCnt, chatType);
 
-        room = chatServiceMain.createChatRoom(createUserId, roomName, roomPwd, secretChk, maxUserCnt, chatType);
+        room = chatServiceMain.createChatRoom(createUserId, roomName, roomPwd, secretChk, maxUserCnt, roomLoc);
 
         chatServiceMain.register(room);
 
