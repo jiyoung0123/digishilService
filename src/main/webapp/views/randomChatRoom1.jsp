@@ -97,11 +97,11 @@
         <div id="list" class="dropdown-menu" aria-labelledby="showUserListButton">
         </div>
     </div>
-    <form>
-        <button class="btn btn-secondary" style="float: right;" type="submit" id="disconnectWebsocket">
-            방 나가기
-        </button>
-    </form>
+<%--    <form>--%>
+<%--        <button class="btn btn-secondary" style="float: right;" type="submit" id="disconnectWebsocket">--%>
+<%--            방 나가기--%>
+<%--        </button>--%>
+<%--    </form>--%>
     <div class="chat-container">
         <div class="chat-header">
             <h2>${room.roomName}</h2>
