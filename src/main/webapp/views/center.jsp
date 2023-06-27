@@ -96,19 +96,21 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-8">
-                <p class="subtitle text-secondary">어디로 가야할지 모르겠다면?        </p>
-                <h2>지금 핫한 숙소를 예약하세요 !</h2>
+                <p style="padding-left: 50px;" class="subtitle text-secondary">어디로 가야할지 모르겠다면?</p>
+                <h1 style="padding-left: 50px;">지금 <span style="color: red;">HOT</span>한 숙소를 예약하세요 !</h1>
             </div>
             <div class="col-lg-4 mb-4">
-                <h2 class="h5 text-dark d-flex align-items-center mb-4"><span class="badge badge-primary-light badge-pill py-1 me-1">Hot</span>인기 검색어</h2>
-                <ul class="list-unstyled ms-3 text-sm">
+                <h1 class="h5 text-dark d-flex align-items-center mb-4" style="font-weight: bold;"><span class="badge badge-primary-light badge-pill py-1 me-1">Hot</span>&nbsp;&nbsp;인기 검색어</h1>
+                <ul class="list-unstyled ms-3 text-sm" style="padding-left: 50px;">
                     <c:forEach var="search" items="${search}" varStatus="status">
-                        <li class="mb-2"><a class="text-muted" href="/room/roomSearch?roomName=${search.searchWord}"> <span class="h6 text-primary">${status.index + 1}.&nbsp;&nbsp;</span>${search.searchWord}</a></li>
+                        <li class="mb-2">
+                            <a class="text-sm fw-bold" href="/room/roomSearch?roomName=${search.searchWord}">
+                                <span class="h5">${status.index + 1}.&nbsp;&nbsp;</span>${search.searchWord}
+                            </a>
+                        </li>
                     </c:forEach>
                 </ul>
             </div>
-            <%--            <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category.html">--%>
-            <%--                See all deals<i class="fas fa-angle-double-right ms-2"></i></a></div>--%>
         </div>
         <!-- Slider main container-->
         <div class="swiper-container swiper-container-mx-negative swiper-init pt-3" data-swiper="{&quot;slidesPerView&quot;:4,&quot;spaceBetween&quot;:20,&quot;loop&quot;:true,&quot;roundLengths&quot;:true,&quot;breakpoints&quot;:{&quot;1200&quot;:{&quot;slidesPerView&quot;:3},&quot;991&quot;:{&quot;slidesPerView&quot;:2},&quot;565&quot;:{&quot;slidesPerView&quot;:1}},&quot;pagination&quot;:{&quot;el&quot;:&quot;.swiper-pagination&quot;,&quot;clickable&quot;:true,&quot;dynamicBullets&quot;:true}}">
@@ -160,8 +162,10 @@
             <!-- If we need pagination-->
             <div class="swiper-pagination"></div>
         </div>
+
     </div>
 </section>
+<%--------------DIGI실 추천여행지-------------%>
 <section class="py-6">
     <div class="container">
         <div class="row mb-5">
@@ -169,8 +173,8 @@
                 <p class="subtitle text-primary"><spring:message code="site.recommendation"/></p>
                 <h2><spring:message code="site.recommendationTitle"/></h2>
             </div>
-            <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="category.html">
-                See all guides<i class="fas fa-angle-double-right ms-2"></i></a></div>
+            <div class="col-md-4 d-lg-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="/room/list">
+                모든 숙소 둘러보기<i class="fas fa-angle-double-right ms-2"></i></a></div>
         </div>
         <div class="swiper-container guides-slider mx-n2 pt-3">
             <!-- Additional required wrapper-->
@@ -221,6 +225,46 @@
         </div>
     </div>
 </section>
+<%--------------DIGI실 추천여행지-------------%>
+
+
+
+
+
+<section class="py-7">
+    <div class="container">
+        <div class="text-center">
+            <p class="subtitle text-primary">Testimonials</p>
+            <h2 class="mb-5">DIGISHIL 고객의 솔직한 리뷰</h2>
+        </div>
+        <!-- Slider main container-->
+        <div class="swiper-container testimonials-slider testimonials">
+            <!-- Additional required wrapper-->
+            <div class="swiper-wrapper pt-2 pb-5">
+                <!-- Slides-->
+                <div class="swiper-slide p-4">
+                    <div class="testimonial card rounded-3 shadow border-0">
+                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
+                        <div class="text">
+                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                            <p class="testimonial-text">digishil로 예약하니까 정말 특별한 여행을 할 수 있었어요. 호스트분도 너무 친절하셨고 숙소가 전통적인 분위기와 현대적인 편의시설이 결합된 곳이라서 정말 멋진 경험을 했어요. 다양한 선택지와 편리한 예약 시스템 때문에 앞으로도 계속해서 이용할 계획이에요!</p><strong>김기현</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide p-4">
+                    <div class="testimonial card rounded-3 shadow border-0">
+                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
+                        <div class="text">
+                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
+                            <p class="testimonial-text">digishil로 예약한 것은 정말로 최고의 선택이었어요. 숙소 위치가 관광명소와 가까워서 도보로 여러 곳을 다니기에 편리했고, 숙소 자체도 아늑하고 아름다웠어요. 호스트분이 친절하게 안내해주셔서 불편한 점이 없었고, 어플의 예약 시스템도 간편하고 편리했어요.</p><strong>심재현</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 <section class="py-6 bg-gray-100">
     <div class="container">
@@ -247,7 +291,7 @@
                         </svg>
                     </div>
                     <h3 class="h5"><spring:message code="site.centerSub2"/> </h3>
-<%--                    <p class="text-muted">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit</p>--%>
+                    <%--                    <p class="text-muted">The bedding was hardly able to cover it and seemed ready to slide off any moment. His many legs, pit</p>--%>
                 </div>
             </div>
             <div class="col-lg-4 mb-3 mb-lg-0 text-center">
@@ -265,128 +309,50 @@
 </section>
 
 
-<!-- Divider Section-->
-<%--<section class="py-7 position-relative dark-overlay"><img class="bg-image" src="img/photo/photo-1497436072909-60f360e1d4b1.jpg" alt="">--%>
+<%--<section class="py-6 bg-gray-100">--%>
 <%--    <div class="container">--%>
-<%--        <div class="overlay-content text-white py-lg-5">--%>
-<%--            <h3 class="display-3 fw-bold text-serif text-shadow mb-5">Ready for your next holidays?</h3><a class="btn btn-light" href="category-rooms.html">DIGI와 함께 시작하기</a>--%>
+<%--        <div class="row mb-5">--%>
+<%--            <div class="col-md-8">--%>
+<%--                <p class="subtitle text-secondary">Stories from around the globe</p>--%>
+<%--                <h2>From our travel blog</h2>--%>
+<%--            </div>--%>
+<%--            <div class="col-md-4 d-md-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="blog.html">--%>
+<%--                See all articles<i class="fas fa-angle-double-right ms-2"></i></a></div>--%>
+<%--        </div>--%>
+<%--        <div class="row">--%>
+<%--            <!-- blog item-->--%>
+<%--            <div class="col-lg-4 col-sm-6 mb-4 hover-animate">--%>
+<%--                <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="..."/></a>--%>
+<%--                    <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Travel </a>--%>
+<%--                        <h5 class="my-2"><a class="text-dark" href="post.html">Autumn fashion tips and tricks          </a></h5>--%>
+<%--                        <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>--%>
+<%--                        <p class="my-2 text-muted text-sm">Pellentesque habitant morbi tristique senectus. Vestibulum tortor quam, feugiat vitae, ultricies ege...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <!-- blog item-->--%>
+<%--            <div class="col-lg-4 col-sm-6 mb-4 hover-animate">--%>
+<%--                <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="..."/></a>--%>
+<%--                    <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Living </a>--%>
+<%--                        <h5 class="my-2"><a class="text-dark" href="post.html">Newest photo apps          </a></h5>--%>
+<%--                        <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>--%>
+<%--                        <p class="my-2 text-muted text-sm">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibu...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <!-- blog item-->--%>
+<%--            <div class="col-lg-4 col-sm-6 mb-4 hover-animate">--%>
+<%--                <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1482463084673-98272196658a.jpg" alt="..."/></a>--%>
+<%--                    <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Travel </a>--%>
+<%--                        <h5 class="my-2"><a class="text-dark" href="post.html">Best books about Photography          </a></h5>--%>
+<%--                        <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>--%>
+<%--                        <p class="my-2 text-muted text-sm">Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.  Mauris placerat eleif...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
 <%--        </div>--%>
 <%--    </div>--%>
 <%--</section>--%>
-<section class="py-7">
-    <div class="container">
-        <div class="text-center">
-            <p class="subtitle text-primary">Testimonials</p>
-            <h2 class="mb-5">Our dear customers said about us</h2>
-        </div>
-        <!-- Slider main container-->
-        <div class="swiper-container testimonials-slider testimonials">
-            <!-- Additional required wrapper-->
-            <div class="swiper-wrapper pt-2 pb-5">
-                <!-- Slides-->
-                <div class="swiper-slide p-4">
-                    <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
-                        <div class="text">
-                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide p-4">
-                    <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
-                        <div class="text">
-                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide p-4">
-                    <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
-                        <div class="text">
-                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide p-4">
-                    <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
-                        <div class="text">
-                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide p-4">
-                    <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
-                        <div class="text">
-                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-slide p-4">
-                    <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
-                        <div class="text">
-                            <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever</p><strong>Jessica Watson</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-pagination">     </div>
-        </div>
-    </div>
-</section>
-<section class="py-6 bg-gray-100">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-md-8">
-                <p class="subtitle text-secondary">Stories from around the globe</p>
-                <h2>From our travel blog</h2>
-            </div>
-            <div class="col-md-4 d-md-flex align-items-center justify-content-end"><a class="text-muted text-sm" href="blog.html">
-                See all articles<i class="fas fa-angle-double-right ms-2"></i></a></div>
-        </div>
-        <div class="row">
-            <!-- blog item-->
-            <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-                <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1512917774080-9991f1c4c750.jpg" alt="..."/></a>
-                    <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Travel </a>
-                        <h5 class="my-2"><a class="text-dark" href="post.html">Autumn fashion tips and tricks          </a></h5>
-                        <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                        <p class="my-2 text-muted text-sm">Pellentesque habitant morbi tristique senectus. Vestibulum tortor quam, feugiat vitae, ultricies ege...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- blog item-->
-            <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-                <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1522771739844-6a9f6d5f14af.jpg" alt="..."/></a>
-                    <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Living </a>
-                        <h5 class="my-2"><a class="text-dark" href="post.html">Newest photo apps          </a></h5>
-                        <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                        <p class="my-2 text-muted text-sm">ellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibu...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-            <!-- blog item-->
-            <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
-                <div class="card shadow border-0 h-100"><a href="post.html"><img class="img-fluid card-img-top" src="img/photo/photo-1482463084673-98272196658a.jpg" alt="..."/></a>
-                    <div class="card-body"><a class="text-uppercase text-muted text-sm letter-spacing-2" href="#">Travel </a>
-                        <h5 class="my-2"><a class="text-dark" href="post.html">Best books about Photography          </a></h5>
-                        <p class="text-gray-500 text-sm my-3"><i class="far fa-clock me-2"></i>January 16, 2016</p>
-                        <p class="my-2 text-muted text-sm">Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.  Mauris placerat eleif...</p><a class="btn btn-link ps-0" href="post.html">Read more<i class="fa fa-long-arrow-alt-right ms-2"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Instagram-->
 <section>

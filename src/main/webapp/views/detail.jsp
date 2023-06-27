@@ -66,15 +66,18 @@
               <div class="d-flex align-items-center">
                 <div class="icon-circle bg-secondary me-2"><i class="fa fa-check"></i></div><span>Alcohol served</span>
               </div>
-            </li>
+            </li><li class="list-inline-item mb-3">
+            <div class="d-flex align-items-center">
+              <div class="icon-circle bg-secondary me-2"><i class="fa fa-check"></i></div><span>No smoking</span>
+            </div>
+          </li>
+
             <li class="list-inline-item mb-3">
               <div class="d-flex align-items-center">
-                <div class="icon-circle bg-secondary me-2"><i class="fa fa-check"></i></div><span>No smoking</span>
-              </div>
-            </li>
-            <li class="list-inline-item mb-3">
-              <div class="d-flex align-items-center">
-                <div class="icon-circle bg-secondary me-2"><i class="fa fa-check"></i></div><span>Parking spaces (paid)</span>
+                <div class="icon-circle bg-secondary me-2">
+                  <i class="fa fa-check"></i>
+                </div>
+                <span>Parking spaces (paid)</span>
               </div>
             </li>
             <li class="list-inline-item mb-3">
