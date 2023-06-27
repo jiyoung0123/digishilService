@@ -24,18 +24,20 @@ public class MsgChatService {
     // 채팅방 삭제에 따른 채팅방의 사진 삭제를 위한 fileService 선언
 //    private final FileService fileService;
 
-    public RandomChatRoom createChatRoom(String createUserId, String roomName, String roomPwd, boolean secretChk, int maxUserCnt,RandomChatRoom.ChatType chatType) {
+    public RandomChatRoom createChatRoom(String createUserId, String roomName, String roomPwd, boolean secretChk, int maxUserCnt,String roomLoc) {
         // roomName 와 roomPwd 로 chatRoom 빌드 후 return
         RandomChatRoom room = RandomChatRoom.builder()
                 .createUserId(createUserId)
                 .roomId(UUID.randomUUID().toString())
                 .roomName(roomName)
+                .roomLoc(roomLoc)
                 .roomPwd(roomPwd) // 채팅방 패스워드
                 .secretChk(secretChk) // 채팅방 잠금 여부
                 .userCount(0) // 채팅방 참여 인원수
                 .maxUserCnt(maxUserCnt) // 최대 인원수 제한
-                .chatType(chatType)
                 .build();
+
+//                        .chatType(chatType)
 
            room.setUserList(new ConcurrentHashMap<String, String>());
            log.info("==============================setUserList출력");

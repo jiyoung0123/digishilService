@@ -97,11 +97,7 @@
         <div id="list" class="dropdown-menu" aria-labelledby="showUserListButton">
         </div>
     </div>
-<%--    <form>--%>
-<%--        <button class="btn btn-secondary" style="float: right;" type="submit" id="disconnectWebsocket">--%>
-<%--            방 나가기--%>
-<%--        </button>--%>
-<%--    </form>--%>
+
     <div class="chat-container">
         <div class="chat-header">
             <h2>${room.roomName}</h2>
@@ -112,30 +108,33 @@
         <ul id="messageArea">
 
         </ul>
+        <div class="container" style="padding-left: 100px;">
         <form id="messageForm" name="messageForm" nameForm="messageForm">
             <div class="form-group">
-                <div class="input-group clearfix">
-                    <input type="text" id="message" placeholder="Type a message..." autocomplete="off"
+                <div class="input-group clearfix ">
+                    <input type="text" id="message" placeholder="대화를 입력하세요" autocomplete="off"
                            class="form-control"/>
                     <button type="submit" class="primary">Send</button>
                 </div>
             </div>
         </form>
-
-        <div class="btn-group dropend">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="showMenu" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                파일 업로드
-            </button>
-            <div id="menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <input type="file" id="file">
-                <button type="button" class="btn btn-primary" id="uploadFile" onclick="uploadFile()">저장</button>
-
-            </div>
         </div>
     </div>
 
 </div>
+
+
+<%--        <div class="btn-group dropend">--%>
+<%--            <button class="btn btn-secondary dropdown-toggle" type="button" id="showMenu" data-toggle="dropdown"--%>
+<%--                    aria-haspopup="true" aria-expanded="false">--%>
+<%--                파일 업로드--%>
+<%--            </button>--%>
+<%--            <div id="menu" class="dropdown-menu" aria-labelledby="dropdownMenuButton">--%>
+<%--                <input type="file" id="file">--%>
+<%--                <button type="button" class="btn btn-primary" id="uploadFile" onclick="uploadFile()">저장</button>--%>
+
+<%--            </div>--%>
+<%--        </div>--%>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>

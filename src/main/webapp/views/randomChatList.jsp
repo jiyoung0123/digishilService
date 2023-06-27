@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -11,42 +12,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kit.fontawesome.com/5f198f7eda.js" crossorigin="anonymous"></script>
 
-
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
-            crossorigin="anonymous"></script>
-
-    <link rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
-          integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
-          crossorigin="anonymous">
-    <script src="/js/roomlist/bootstrap-show-password.min.js"></script>
-    <script th:inline="javascript">
-
+<script th:inline="javascript">
         let roomId;
-
         $(function(){
             let $maxUserCnt = $("#maxUserCnt");
             let $msgType = $("#msgType");
-
             // 모달창 열릴 때 이벤트 처리 => roomId 가져오기
             $("#enterRoomModal").on("show.bs.modal", function (event) {
                 roomId = $(event.relatedTarget).data('id');
                 // console.log("roomId: " + roomId);
-
             });
 
             $("#confirmPwdModal").on("show.bs.modal", function (e) {
                 roomId = $(e.relatedTarget).data('id');
                 // console.log("roomId: " + roomId);
-
             });
 
             // 채팅방 설정 시 비밀번호 확인
@@ -121,7 +100,7 @@
             let pwd = $("#roomPwd").val();
             let secret = $("#secret").is(':checked');
             let secretChk = $("#secretChk");
-            let $rtcType = $("#rtcType");
+            let roomLoc = $("#roomLoc");
             let $msgType = $("#msgType");
 
             if (name === "") {
@@ -137,15 +116,16 @@
                 return false;
             }
 
-            if($rtcType.is(':checked')){
-                if($("#maxUserCnt").val() <= 1){
-                    alert("채팅은 최소 2명 이상!!");
-                    return false;
-                }else if ($("#maxUserCnt").val() > 4) {
-                    alert("4명 이상은 서버가 아파요ㅠ.ㅠ");
-                    return false;
-                }
-            }else if($msgType.is(':checked')){
+            // if($rtcType.is(':checked')){
+            //     if($("#maxUserCnt").val() <= 1){
+            //         alert("채팅은 최소 2명 이상!!");
+            //         return false;
+            //     }else if ($("#maxUserCnt").val() > 4) {
+            //         alert("4명 이상은 서버가 아파요ㅠ.ㅠ");
+            //         return false;
+            //     }
+            // }else
+            //     if($msgType.is(':checked')){
                 // 일반채팅 : 최소 방 인원 수는 2, 최대 100명
                 if($("#maxUserCnt").val() <= 1){
                     alert("채팅은 최소 2명 이상!!");
@@ -154,13 +134,13 @@
                     alert("100명 이상은 서버가 못 버텨요ㅠ.ㅠ");
                     return false;
                 }
-            }
+
 
             // 채팅 타입 필수
-            if ($('input[name=chatType]:checked').val() == null) {
-                alert("채팅 타입은 필수입니다")
-                return false;
-            }
+            // if ($('input[name=chatRoomLoc]:checked').val() == null) {
+            //     alert("채팅 지역은 필수입니다")
+            //     return false;
+            // }
 
             if (secret) {
                 secretChk.attr('value', true);
@@ -171,7 +151,6 @@
             if(!numberChk()){
                 return false;
             }
-
             return true;
         }
 
@@ -223,16 +202,13 @@
                     if (!result) {
                         alert("채팅방이 꽉 차서 입장 할 수 없습니다");
                     }
-
                     chk = result;
                 }
             })
             return chk;
         }
-
-
-    </script>
-    <style>
+</script>
+<style>
         a {
             text-decoration: none;
         }
@@ -256,50 +232,57 @@
         span.input-group-text.input-password-show {
             height: 40px;
         }
-
     </style>
-<%--</head>--%>
+<section class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover" style="background-image: url('img/photo/restaurant-1515164783716-8e6920f3e77c.jpg');">
+        <div class="container overlay-content">
+            <div class="d-flex justify-content-between align-items-start flex-column flex-lg-row align-items-lg-end">
+                <div class="text-white mb-4 mb-lg-0">
+                    <div class="badge badge-pill badge-transparent px-3 py-2 mb-4" style="color: black">실시간 채팅</div>
+                    <h1 class="text-shadow verified">같은 여행을 꿈꾸는 사람들과 연결되세요&nbsp;<i class="fa fa-heart"></i></h1>
+                    <p><i class="fa-map-marker-alt fas me-2"></i>공유숙소 커뮤니티 함께 만들어요!!</p>
+                    <p class="mb-0 d-flex align-items-center">${list.size()}&nbsp;Chat Rooms</p>
+                </div>
+                <div class="calltoactions"><a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#roomModal">방 개설하기</a></div>
+            </div>
+        </div>
+</section>
+
 
 <div class="container">
-    <div class="container-fluid pt-5 pb-3 border-bottom px-lg-5">
-        <div class="row" style="padding-left: 50px; padding-right: 50px;">
-            <div class="col-xl-8">
-                <h1><span style="color: #0b5ed7;">&nbsp;<i class="fa-solid fa-users" style='font-size:30px;color:#0b5ed7'></i></span><span style="font-size: large;">&nbsp;&nbsp;&nbsp;여행 친구들과의 간편한 대화&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-regular fa-comment" style='font-size:30px;color:#0b5ed7'></i></span></h1>
-<%--                            <p class="lead text-muted" style="font-size: medium">&nbsp;&nbsp&nbsp;&nbsp;총 &nbsp;99개의 숙소</p>--%>
-            </div>
-        </div>
-        </div>
-
     <div class="container-fluid py-5 px-lg-5">
-    <c:choose>
-    <c:when test="${loginGuest == null}">
-        <div class="row">
-            <div class="col">
-                <a href="/login"><button type="button" class="btn btn-primary">로그인하기</button></a>
-            </div>
-        </div>
-    </c:when>
-    </c:choose>
-        <div class="card border-0 shadow">
-        <table class="table table-hover" id="table">
+            <c:choose>
+            <c:when test="${loginGuest == null}">
+                <div class="row">
+                    <div class="col">
+                        <a href="/login"><button type="button" class="btn btn-primary">로그인하기</button></a>
+                    </div>
+                </div>
+            </c:when>
+            </c:choose>
+        <table class="table table-hover table-striped" id="table">
+            <thead>
             <tr style="text-align: center;">
                 <th scope="col">채팅방명</th>
+                <th scope="col">지역</th>
                 <th scope="col">잠금</th>
                 <th scope="col">참여 인원</th>
-                <th scope="col">채팅 종류</th>
+                <th scope="col">개설일자</th>
                 <th scope="col">채팅방 설정</th>
             </tr>
+            </thead>
             <c:forEach var="room" items="${list}">
                 <span class="hidden" id="${room.roomName}"></span>
+
                 <tr>
-                    <td class="text-sm fw-bold mb-0" style="padding-left: 20px;">
+                    <th style="padding-left: 20px;">
                         <c:if test="${room.secretChk}">
                             <a style="color: slategray" href="#enterRoomModal" data-bs-toggle="modal" data-target="#enterRoomModal" data-id="${room.roomId}">${room.roomName}</a>
                         </c:if>
                         <c:if test="${not room.secretChk}">
                             <a style="color: black;" href="/chat/room?roomId=${room.roomId}" roomId="${room.roomId}" onclick="return chkRoomUserCnt(this.getAttribute('roomId'));">${room.roomName}</a>
                         </c:if>
-                    </td>
+                    </th>
+                    <td style="text-align: center;">${room.roomLoc}</td>
                     <td style="text-align: center;">
                         <span >
                             <c:if test="${room.secretChk}">
@@ -312,30 +295,15 @@
                     </td>
                     <td style="text-align: center;">
                         <span class="label-heading">
-                            <c:choose>
-                                <c:when test="${room.chatType == 'MSG'}">일반 채팅</c:when>
-                                <c:otherwise>화상 채팅</c:otherwise>
-                            </c:choose>
+                               <fmt:formatDate value="${room.createDate}" pattern="yyyy년 MMM dd일"/>
                         </span>
                     </td>
-                    <td style="text-align: center;">
-                        <button class="tdate-tile me-3 btn btn-outline-primary" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" data-id="${room.roomId}">방 설정</button>
+                    <td style="text-align: center; padding-left: 20px;">
+                        <button  style="font-size: 0.775rem;" class="tdate-tile me-3 btn btn-outline-primary" id="configRoom" data-bs-toggle="modal" data-bs-target="#confirmPwdModal" data-id="${room.roomId}">방 설정</button>
                     </td>
                 </tr>
             </c:forEach>
         </table>
-        </div>
-
-
-
-            <div class="row" style="margin-top: 30px; margin-left: 10px;">
-                <div class="col-xl-8">
-                    <button type="button" class="btn btn-primary px-3" data-bs-toggle="modal" data-bs-target="#roomModal">방 만들기</button>
-                </div>
-            </div>
-
-
-
     </div>
 </div>
 
@@ -362,20 +330,19 @@
                             </div>
                         </div>
                     </div>
+<%--                    <div class="mb-3">--%>
+<%--                        <div class="form-check">--%>
+<%--                            <label for="roomLoc" class="col-form-label">채팅방 지역</label>--%>
+<%--                            <input type="text" class="form-control" id="roomLoc" name="roomLoc">--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="chatType" id="msgType" value="MSG">
-                            <label class="form-check-label" for="msgType">
-                                일반 채팅(최대 100명)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="chatType" id="rtcType" value="RTC">
-                            <label class="form-check-label" for="rtcType">
-                                화상 채팅(최대 4명)
-                            </label>
-                        </div>
+                        <label for="roomLoc" class="col-form-label">채팅방 지역
+                            <!--<input class="form-check-input" type="checkbox" id="maxChk">--></label>
+                        <input type="text" class="form-control" id="roomLoc" name="roomLoc">
                     </div>
+
                     <div class="mb-3">
                         <label for="maxUserCnt" class="col-form-label">채팅방 인원 설정
                             <!--<input class="form-check-input" type="checkbox" id="maxChk">--></label>
@@ -491,3 +458,21 @@
         </div>
     </div>
 </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+
+<link rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+      integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+      crossorigin="anonymous">
+<script src="/js/roomlist/bootstrap-show-password.min.js"></script>

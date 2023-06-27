@@ -1,15 +1,8 @@
 package com.kbstar.dto;
 
 import lombok.*;
-import org.springframework.web.socket.WebSocketSession;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
+import java.util.*;
+import java.util.Date;
 /**
  * @desc 는 문자 채팅 방을 위한 dto 클래
  * */
@@ -25,6 +18,8 @@ public class RandomChatRoom {
     private String createUserId;
     private String roomId; // 채팅방 아이디
     private String roomName; // 채팅방 이름
+    private String roomLoc; // 채팅방 지역
+    private Date createDate; //채팅방 개설일
     private long userCount; // 채팅방 인원수
     private int maxUserCnt; // 채팅방 최대 인원 제한
 

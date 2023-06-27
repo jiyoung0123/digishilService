@@ -63,10 +63,10 @@ public class RandomChatServiceMain {
     }
 
     // roomName 로 채팅방 만들기
-    public RandomChatRoom createChatRoom(String createuserID, String roomName, String roomPwd, boolean secretChk, int maxUserCnt, RandomChatRoom.ChatType chatType){
+    public RandomChatRoom createChatRoom(String createuserID, String roomName, String roomPwd, boolean secretChk, int maxUserCnt, String roomLoc){
 
         RandomChatRoom room;
-        room = msgChatService.createChatRoom(createuserID, roomName, roomPwd, secretChk, maxUserCnt, chatType);
+        room = msgChatService.createChatRoom(createuserID, roomName, roomPwd, secretChk, maxUserCnt, roomLoc);
 
         // 채팅방 타입에 따라서 사용되는 Service 구분
 //        if(chatType.equals("msgChat")){
