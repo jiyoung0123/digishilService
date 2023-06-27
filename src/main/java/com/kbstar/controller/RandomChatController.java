@@ -94,6 +94,7 @@ public class RandomChatController {
         log.info("chat 메세지 확인용!!!!!!!!!!!!!!!");
         log.info(chat.getContent1());
         log.info("/sub/chat/room/"+chat.getRoomId());
+
         template.convertAndSend("/sub/chat/room/" + chat.getRoomId(), chat);
 
         log.info((String) headerAccessor.getSessionAttributes().get("userUUID")+"이거다!!!!!!!!!!!!!!!!!!!!");

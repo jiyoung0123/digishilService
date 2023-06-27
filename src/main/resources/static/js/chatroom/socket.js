@@ -92,24 +92,41 @@ function isDuplicateName() {
 
 // 유저 리스트 받기
 // ajax 로 유저 리스를 받으며 클라이언트가 입장/퇴장 했다는 문구가 나왔을 때마다 실행된다.
-function getUserList() {
+function getUserList(userName) {
     const $list = $('#list');
+    console.log("userName들어오냐??"+userName);
+    // var users = "";
+    // users = "<li class='dropdown-item'>" + userName + "</li>"
 
-    $.ajax({
-        type: "GET",
-        url: "/pub/chat/userlist",
-        data: {
-            "roomId": roomId
-        },
-        success: function (data) {
-            var users = "";
-            for (let i = 0; i < data.length; i++) {
-                //console.log("data[i] : "+data[i]);
-                users += "<li class='dropdown-item'>" + data[i] + "</li>"
-            }
-            $list.html(users);
+    var listItem = "<li class='dropdown-item'>" + userName + "</li>";
+    $list.append(listItem);
+    // $list.html(users);
+    // $.ajax({
+    //     type: "GET",
+    //     url: "/pub/chat/userlist",
+    //     data: {
+    //         "roomId": roomId,
+    //         "userId":chat.sendid
+    //     },
+    //     success: function (data) {
+    //         var users = "";
+    //         for (let i = 0; i < data.length; i++) {
+    //             //console.log("data[i] : "+data[i]);
+    //             users += "<li class='dropdown-item'>" + data[i] + "</li>"
+    //         }
+    //         $list.html(users);
+    //     }
+    // })
+}
+
+function minusUserList(userName){
+    const $list = $('#list');
+    console.log("userName들어오냐??"+userName);
+    $list.find('li').each(function() {
+        if ($(this).text().trim() === userName.trim()) {
+            $(this).remove();
         }
-    })
+    });
 }
 
 
@@ -134,15 +151,9 @@ function sendMessage(event) {
         // messageArea.innerHTML = JSON.stringify(chatMessage.content1);
         // messageArea.appendChild(JSON.stringify(chatMessage.content1));
         // messageArea.scrollTop = messageArea.scrollHeight;
-        // messageInput.value = '';
-        // =====================================================================================================
-        // GPT로 내가 짜봄
-        // var messageDiv = document.createElement('div');
-        // messageDiv.textContent = chatMessage.sendid + ":" +chatMessage.content1;
-        // messageArea.appendChild(messageDiv);
-        // messageArea.scrollTop = messageArea.scrollHeight;
-        // // =====================================================================================================
-        // messageInput.value = '';
+        messageInput.value = '';
+
+
     }
     event.preventDefault();
 }
@@ -170,7 +181,9 @@ function onMessageReceived(payload) {
         console.log("-------------------------------------------------");
         var messageText = document.createTextNode(chat.content1);
         messageElement.appendChild(messageText);
-        getUserList();
+        let userName = chat.sendid;
+        console.log(userName);
+        getUserList(userName);
 
     } else if (chat.type === 'LEAVE') { // chatType 가 leave 라면 아래 내용
         messageElement.classList.add('event-message');
@@ -179,7 +192,9 @@ function onMessageReceived(payload) {
         console.log(chat.content);
         var messageText = document.createTextNode(chat.content1);
         messageElement.appendChild(messageText);
-        getUserList();
+        let userName = chat.sendid;
+        // getUserList();
+        minusUserList(userName);
 
     } else { // chatType 이 talk 라면 아래 내용
         messageElement.classList.add('chat-message');
