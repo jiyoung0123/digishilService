@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4083a9e1e518bd0452f9a390ffd2eec7"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4083a9e1e518bd0452f9a390ffd2eec7&libraries=services"></script>
+
 
 <style>
     #map03 > #map{
@@ -437,7 +440,7 @@
                                             <input type="hidden" name="guestId" value="${loginGuest.guestId}">
                                             <input type="hidden" name="roomId" value="${roomSearchList.roomId}">
                                             <div class="card-img-overlay-top text-end">
-                                                <button id="likeFormBtn" class="card-fav-icon position-relative z-index-40" type="button">
+                                                <button id="likeFormBtn2" class="card-fav-icon position-relative z-index-40" type="button">
                                                     <c:if test="${roomSearchList.likeId != ''}">
                                                         <i id="likeHeart" class="fa-solid fa-heart" style="color: #fff700;"></i>
                                                     </c:if>

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4083a9e1e518bd0452f9a390ffd2eec7&libraries=services"></script>
 
 <script>
     let roomId = ${roomDetail.roomId};
@@ -229,6 +230,100 @@
     // https://demo.bootstrapious.com/directory/1-0/icons/orion-svg-sprite.svg
     //- injectSvgSprite('${path}icons/orion-svg-sprite.svg');
     injectSvgSprite('https://demo.bootstrapious.com/directory/1-4/icons/orion-svg-sprite.svg');
+
+</script>
+
+<script>
+    let roomLat = ${roomDetail.roomLat};
+    let roomLng = ${roomDetail.roomLng};
+    console.log('위도' + roomLat);
+    console.log('경도' + roomLng);
+
+
+
+
+
+    var mapContainer = document.getElementById('detailMap'), // 지도를 표시할 div
+        mapOption = {
+            center: new daum.maps.LatLng(roomLat, roomLng), // 지도의 중심좌표
+            level:6 // 지도의 확대 레벨
+        };
+
+
+
+    //지도를 미리 생성
+    var map = new daum.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new daum.maps.services.Geocoder();
+    //마커를 미리 생성
+    var marker = new daum.maps.Marker({
+        position: new daum.maps.LatLng(roomLat, roomLng),
+        map: map
+    });
+
+
+    function sample5_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                var addr = data.address; // 최종 주소 변수
+
+                // 주소 정보를 해당 필드에 넣는다.
+                // document.getElementById("roomAddress").value = addr;
+                // 주소로 상세 정보를 검색
+                geocoder.addressSearch(data.address, function(results, status) {
+                    // 정상적으로 검색이 완료됐으면
+                    if (status === daum.maps.services.Status.OK) {
+
+                        var result = results[0]; //첫번째 결과의 값을 활용
+
+                        // 해당 주소에 대한 좌표를 받아서
+                        var coords = new daum.maps.LatLng(result.y, result.x)
+
+                        // 지도를 보여준다.
+                        mapContainer.style.display = "block";
+                        map.relayout();
+
+                        // 지도 중심을 변경한다.
+                        map.setCenter(coords);
+                        // 마커를 결과값으로 받은 위치로 옮긴다.
+                        marker.setPosition(coords)
+
+                        var iwContent = '<div style="padding:5px;"> 11만원 <br><a href="https://map.daum.com/link/map/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">자세히보기</a> <a href="https://map.kakao.com/link/to/Hello World!,33.450701,126.570667" style="color:blue" target="_blank">길찾기</a></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                            iwPosition = new daum.maps.LatLng(result.y, result.x);
+
+
+                        var infowindow = new daum.maps.InfoWindow({
+                            position : iwPosition,
+                            content : iwContent
+                        });
+
+
+
+
+                        infowindow.open(map, marker);
+
+
+                        daum.maps.event.addListener(marker, 'mouseover', function() {
+                            // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+                            infowindow.open(map, marker);
+                        });
+
+                        daum.maps.event.addListener(marker, 'mouseout', function() {
+                            // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
+                            infowindow.close();
+                        });
+
+
+
+
+                    }
+                });
+            }
+        }).open();
+    }
+</script>
+
+
 
 </script>
 
