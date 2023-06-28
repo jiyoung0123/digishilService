@@ -100,10 +100,8 @@
             </div>
           </div>
           <div class="card-body p-4">
-            <h6 class="card-text">Your account security: </h6>
-            <p class="card-text mb-4"><span class="badge badge-info-light">Medium</span></p>
-            <p class="text-muted card-text">We’re always working on ways to increase safety in our community. </p>
-            <p class="text-muted card-text">That’s why we look at every account to make sure it’s as secure as possible.</p>
+            <h6 class="card-text">${guest.guestName} 님의 보안 등급: </h6>
+            <p class="card-text mb-4"><span class="badge badge-info-light">양호</span></p>
           </div>
         </div>
       </div>

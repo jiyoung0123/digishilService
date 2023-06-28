@@ -250,7 +250,7 @@
                 </div>
                 <div class="swiper-slide p-4">
                     <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
+                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-8.jpg" alt="..."></div>
                         <div class="text">
                             <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
                             <p class="testimonial-text">digishil로 예약한 것은 정말로 최고의 선택이었어요. 숙소 위치가 관광명소와 가까워서 도보로 여러 곳을 다니기에 편리했고, 숙소 자체도 아늑하고 아름다웠어요. 호스트분이 친절하게 안내해주셔서 불편한 점이 없었고, 어플의 예약 시스템도 간편하고 편리했어요.</p><strong>심재현</strong>
