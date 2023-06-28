@@ -61,7 +61,7 @@
                 AND roomPrice &lt;= #{roomPriceTo}
             </if>
             <if test="roomCap != null and !roomCap.equals('') and roomCap != 0">
-                AND roomCap &lt;= #{roomCap}
+                AND roomCap &gt;= #{roomCap}
             </if>
             <if test="checkInDate != null and checkOutDate != null">
                 AND room.roomId NOT IN (
@@ -98,7 +98,7 @@
                 AND roomtype LIKE '%' || #{roomType} || '%'
             </if>
             <if test="roomCap != null and !roomCap.equals('') and roomCap != 0">
-                AND roomCap &lt;= #{roomCap}
+                AND roomCap &gt;= #{roomCap}
             </if>
             <if test="checkInDate != null and checkOutDate != null">
                 AND room.roomId NOT IN (
