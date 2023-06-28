@@ -5,10 +5,15 @@
 
 <style>
     #map03 > #map{
-        width:1200px;
+
+        width:1000px;
         height: 800px;
-        border: 2px solid red;
+        border: 2px solid;
+        margin-top: 22px;
     }
+
+
+
 
     .wrap {
         position: absolute;
@@ -17,6 +22,7 @@
         width: 288px;
         height: 132px;
         margin-left: -144px;
+
         text-align: left;
         overflow: hidden;
         font-size: 12px;
@@ -32,6 +38,11 @@
     .wrap .info:nth-child(1) {
         border: 0;
         box-shadow: 0px 1px 2px #888;
+    }
+
+
+    .btn {
+        margin-top: 20px;
     }
 
     .info .title {
@@ -153,14 +164,27 @@
                 // 오버레이 생성
                 var overlay = createOverlay(positions[i]);
 
+                var overlay = new kakao.maps.CustomOverlay({
+                    content: content,
+                    position: markerPosition,
+                    yAnchor: 1
+                });
+
+
                 // 마우스 이벤트 리스너 등록
-                kakao.maps.event.addListener(marker, 'mouseover', makeMouseoverListener(overlay));
-                kakao.maps.event.addListener(marker, 'mouseout', makeMouseoutListener(overlay));
+                kakao.maps.event.addListener(marker, 'mouseenter', makeMouseenterListener(overlay));
+                kakao.maps.event.addListener(marker, 'mouseleave', makeMouseleaveListener(overlay));
                 kakao.maps.event.addListener(marker, 'click', makeClickListener(overlay));
             }
 
 
+
+
+
             function createOverlay(position) {
+
+
+
                 var content =
                     '<div class="wrap">' +
                     '    <div class="info">' +
@@ -186,23 +210,20 @@
 
 
 
-                var overlay = new kakao.maps.CustomOverlay({
-                    content: content,
-                    position: markerPosition,
-                    yAnchor: 1
-                });
+
 
                 return overlay;
             }
 
-            function makeMouseoverListener(overlay) {
+
+            function makeMouseenterListener(overlay) {
                 return function() {
                     overlay.setMap(map);
                 };
             }
 
 
-            function makeMouseoutListener(overlay) {
+            function makeMouseleaveListener(overlay) {
                 return function() {
                     overlay.setMap(null);
                 };
@@ -213,6 +234,9 @@
                     overlay.setMap(map);
                 };
             }
+
+
+
         }
 
 

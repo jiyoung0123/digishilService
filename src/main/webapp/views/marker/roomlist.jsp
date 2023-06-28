@@ -218,18 +218,18 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-6 py-4 p-xl-5">
-            <h2 class="mb-4">Stay on Manhattan, NY</h2>
+            <h2 class="mb-4">서울에서 살아보기</h2>
             <hr class="my-4">
             <form action="#" autocomplete="off">
                 <div class="row">
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <label class="form-label" for="form_dates">Dates</label>
+                        <label class="form-label" for="form_dates">날짜</label>
                         <div class="datepicker-container datepicker-container-left">
-                            <input class="form-control" type="text" name="bookingDate" id="form_dates" placeholder="Choose your dates">
+                            <input class="form-control" type="text" name="bookingDate" id="form_dates" placeholder="날짜를 선택하세요">
                         </div>
                     </div>
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <label class="form-label" for="form_guests">Guests</label>
+                        <label class="form-label" for="form_guests">게스트</label>
                         <select class="selectpicker form-control" name="guests" id="form_guests" data-style="btn-selectpicker" title=" ">
                             <option value="guests_0">1    </option>
                             <option value="guests_1">2    </option>
@@ -239,7 +239,7 @@
                         </select>
                     </div>
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <label class="form-label" for="form_type">Home type</label>
+                        <label class="form-label" for="form_type">타입</label>
                         <select class="selectpicker form-control" name="type" id="form_type" multiple data-style="btn-selectpicker" data-none-selected-text="">
                             <option value="type_0">Entire place    </option>
                             <option value="type_1">Private room    </option>
@@ -247,7 +247,7 @@
                         </select>
                     </div>
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <label class="form-label">Price range</label>
+                        <label class="form-label">가격 범위</label>
                         <div class="text-primary" id="slider-snap"></div>
                         <div class="nouislider-values">
                             <div class="min">From $<span id="slider-snap-value-from"></span></div>
@@ -258,18 +258,18 @@
                     </div>
                     <div class="col-md-6 col-lg-12 col-xl-8 mb-4 d-xl-flex justify-content-center">
                         <div>
-                            <label class="form-label">Host and booking</label>
+                            <label class="form-label">상세 조건</label>
                             <ul class="list-inline mb-0 mt-1">
                                 <li class="list-inline-item">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" id="instantBook" type="checkbox">
-                                        <label class="form-check-label" for="instantBook"> <span class="text-sm">Instant book</span></label>
+                                        <label class="form-check-label" for="instantBook"> <span class="text-sm">빠른 예약</span></label>
                                     </div>
                                 </li>
                                 <li class="list-inline-item">
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" id="superhost" type="checkbox">
-                                        <label class="form-check-label" for="superhost"> <span class="text-sm">Superhost</span></label>
+                                        <label class="form-check-label" for="superhost"> <span class="text-sm">슈퍼 호스트</span></label>
                                     </div>
                                 </li>
                             </ul>
