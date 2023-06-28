@@ -41,6 +41,56 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<style>
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+        .sidenav {
+            height: auto;
+            padding: 15px;
+        }
+        .row.content {height:auto;}
+    }
+
+    #img-btn {
+        z-index: 9999;
+        opacity: 0;
+        width: 250px;
+        height: 250px;
+        position: fixed;
+        bottom: 13%;
+        right: 0%;
+        font: 2px monospace;
+        transition: opacity 2s, transform 2s;
+        border-style: none;
+    }
+
+
+
+
+    #scroll-btn {
+        opacity: 0;
+        width: 50px;
+        height: 50px;
+        color: #fff;
+        background-color: #ef476f;
+        position: fixed;
+        bottom: 13%;
+        right: 10%;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        font: 2px monospace;
+        transition: opacity 2s, transform 2s;
+    }
+    #img-btn.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+
+</style>
+
+
 <script>
 
     function changeLanguage(language) {
@@ -264,9 +314,24 @@
             this.stompClient.send("/receiveme", {}, msg);
         }
     };
+
+    let chatbtn = {
+        init:function(){
+            const imgBtn = document.createElement("img");
+            imgBtn.setAttribute("src", "img/이미지.png");
+            imgBtn.setAttribute("id", "img-btn");
+            document.body.appendChild(imgBtn);
+            imgBtn.classList.add("show");
+            scrollBtn.addEventListener("click", function(){
+                location.href='/chatbot';
+            });
+        }
+    };
+
     $(function(){
         websocket.init();
-    })
+        chatbtn.init();
+    });
 
 </script>
 <body style="padding-top: 72px;">
@@ -541,24 +606,11 @@
                         <li>제휴문의 : digishil@kbfg.com</li>
                     </ul>
                 </div>
-<%--                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">--%>
-<%--                    <h6 class="text-uppercase text-dark mb-3">Pages</h6>--%>
-<%--                    <ul class="list-unstyled">--%>
-<%--                        <li><a class="text-muted" href="compare.html">Comparison                                   </a></li>--%>
-<%--                        <li><a class="text-muted" href="team.html">Team                                   </a></li>--%>
-<%--                        <li><a class="text-muted" href="contact.html">Contact                                   </a></li>--%>
-<%--                    </ul>--%>
-<%--                </div>--%>
+
                 <div class="col-lg-4">
                     <h6 class="text-uppercase text-dark mb-3">상호명 : (주)디지실</h6>
                     <p class="mb-3">㈜디지실은 통신판매중개자로서 통신판매의 당사자가 아닙니다.
                         상품, 상품정보, 거래에 관한 의무와 책임은 계약당사자에게 있습니다.</p>
-<%--                    <form action="#" id="newsletter-form">--%>
-<%--                        <div class="input-group mb-3">--%>
-<%--                            <input class="form-control bg-transparent border-dark border-end-0" type="email" placeholder="Your Email Address" aria-label="Your Email Address">--%>
-<%--                            <button class="btn btn-outline-dark border-start-0" type="submit"> <i class="fa fa-paper-plane text-lg"></i></button>--%>
-<%--                        </div>--%>
-<%--                    </form>--%>
                 </div>
             </div>
         </div>
