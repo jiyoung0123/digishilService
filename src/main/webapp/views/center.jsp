@@ -66,7 +66,7 @@
                             <div class="col-lg-3 d-flex align-items-center form-group no-divider">
                                 <select class="selectpicker" title=<spring:message code="input.local2"/> data-style="btn-form-control" name="roomLoc">
                                     <option value="서울">서울</option>
-                                    <option value="부산">부산</option>
+                                    <option value="부산광역시">부산</option>
                                     <option value="제주">제주</option>
                                     <option value="x-large">그밖의 지역</option>
                                 </select>
@@ -189,7 +189,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide h-auto px-2">
-                    <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a class="tile-link" href="/room/searchList?roomLoc=부산"></a><img class="bg-image" src="/img/photo/busan1.jpg" alt="Card image">
+                    <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a class="tile-link" href="/room/searchList?roomLoc=부산광역시"></a><img class="bg-image" src="/img/photo/busan1.jpg" alt="Card image">
                         <div class="card-body overlay-content">
                             <h6 class="card-title text-shadow text-uppercase">부산</h6>
                             <p class="card-text text-sm">Busan</p>
