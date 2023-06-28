@@ -49,6 +49,7 @@ public class MainController {
         model.addAttribute("roomList",list);
         model.addAttribute("search",search);
         model.addAttribute("center","center");
+
         return "index";
     }
 

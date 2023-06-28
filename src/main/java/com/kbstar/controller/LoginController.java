@@ -1,7 +1,9 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Guest;
+import com.kbstar.dto.Reserve;
 import com.kbstar.service.GuestService;
+import com.kbstar.service.ReserveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -18,11 +21,14 @@ public class LoginController {
     @Autowired
     GuestService guestService;
     @Autowired
+    ReserveService reserveService;
+    @Autowired
     private BCryptPasswordEncoder encoder;
     @RequestMapping("/loginImpl")
     public String loginImpl(Model model, String guestId, String guestPwd, HttpSession session) {
         log.info("---------------------------------"+guestId, guestPwd);
         Guest guest = null;
+
         try {
             guest = guestService.get(guestId);
             if(guest != null && encoder.matches(guestPwd,guest.getGuestPwd())){
@@ -45,5 +51,4 @@ public class LoginController {
         }
                 return "index";
     }
-
 }

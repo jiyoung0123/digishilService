@@ -330,12 +330,6 @@
                             </div>
                         </div>
                     </div>
-<%--                    <div class="mb-3">--%>
-<%--                        <div class="form-check">--%>
-<%--                            <label for="roomLoc" class="col-form-label">채팅방 지역</label>--%>
-<%--                            <input type="text" class="form-control" id="roomLoc" name="roomLoc">--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
 
                     <div class="mb-3">
                         <label for="roomLoc" class="col-form-label">채팅방 지역
