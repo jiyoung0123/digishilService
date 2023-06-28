@@ -8,19 +8,25 @@
 
 
 <style>
+
+    .custom-iframe {
+        /*overflow: auto; !* 스크롤 추가 *!*/
+        width: 100%; /* 부모 요소에 대해 100% 너비로 설정 */
+        height: 500px; /* 부모 요소에 대해 100% 높이로 설정 */
+    }
     #map03 > #map{
 
-        width:1000px;
-        height: 800px;
-        border: 2px solid;
-        margin-top: 22px;
+        width: 100%;
+        /*height: 800px;*/
+        /*border: 2px solid;*/
+        /*margin-top: 22px;*/
     }
 
 
 
 
     .wrap {
-        position: absolute;
+        /*position: absolute;*/
         left: 0;
         bottom: 40px;
         width: 288px;
@@ -457,26 +463,16 @@
         </div>
 
 
-        <div class="col-lg-6 map-side-lg pe-lg-0">
-            <div class="map-full shadow-left" id="categorySideMap">
-                <div>
-                    <div class="col-sm-8 text-left">
-
-
-                        <div class="container" id="map03">
-
-                            <div >
-                                <button id="s_btn" type="button" class="btn btn-default" >Seoul</button>
-                                <button id="b_btn" type="button" class="btn btn-default">Busan</button>
-                                <button id="j_btn" type="button" class="btn btn-default">Jeju</button>
-                            </div>
-
-
-                            <div id="map"></div>
-                        </div>
+        <div class="col-lg-6 map-side-lg pe-lg-0 ">
+<%--            <div class="map-full shadow-left" id="categorySideMap">--%>
+                <div class="custom-iframe" id="map03">
+                    <div >
+                        <button id="s_btn" type="button" class="btn btn-default" >Seoul</button>
+                        <button id="b_btn" type="button" class="btn btn-default">Busan</button>
+                        <button id="j_btn" type="button" class="btn btn-default">Jeju</button>
                     </div>
+                    <div id="map"></div>
                 </div>
-            </div>
         </div>
     </div>
 
