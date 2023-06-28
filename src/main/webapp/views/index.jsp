@@ -43,16 +43,6 @@
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
 <style>
-
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-        .sidenav {
-            height: auto;
-            padding: 15px;
-        }
-        .row.content {height:auto;}
-    }
-
     #img-btn {
         z-index: 9999;
         opacity: 0;
@@ -66,23 +56,6 @@
         border-style: none;
     }
 
-
-
-
-    #scroll-btn {
-        opacity: 0;
-        width: 50px;
-        height: 50px;
-        color: #fff;
-        background-color: #ef476f;
-        position: fixed;
-        bottom: 13%;
-        right: 10%;
-        border: 2px solid #fff;
-        border-radius: 50%;
-        font: 2px monospace;
-        transition: opacity 2s, transform 2s;
-    }
     #img-btn.show {
         opacity: 1;
         transition: opacity 5s, transform 5s;
