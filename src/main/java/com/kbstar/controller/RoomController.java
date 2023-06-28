@@ -31,6 +31,7 @@ public class RoomController {
 
     @RequestMapping("/list")
     public String list(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpServletRequest request, RoomSearch rs) throws Exception {
+        log.info("-----------------------rs1"+rs);
         PageInfo<Room> p = null;
         String guestId = null;
         try {

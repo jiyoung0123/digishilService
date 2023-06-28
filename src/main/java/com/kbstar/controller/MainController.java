@@ -49,6 +49,7 @@ public class MainController {
         model.addAttribute("roomList",list);
         model.addAttribute("search",search);
         model.addAttribute("center","center");
+
         return "index";
     }
 
@@ -102,6 +103,11 @@ public class MainController {
             return "redirect:/login";
         }
         model.addAttribute("center", "randomChat");
+        return "index";
+    }
+    @RequestMapping("/gpt")
+    public String gpt(Model model){
+        model.addAttribute("center","gpt/gpt");
         return "index";
     }
 

@@ -37,7 +37,7 @@
         JOIN host ON room.hostId = host.hostId
         WHERE roomId=#{roomId}
     </select>
-    <select id="roomSearch" parameterType="String" resultType="room">
+    <select id="roomSearch" parameterType="roomSearch" resultType="room">
         SELECT room.roomId, room.hostId, room.roomPrice, room.roomname, room.roomaddress, room.roomaddress2, room.roomloc, room.roominfo,
         room.roomintro, room.roomclean, room.roompet, room.roomwprice, room.roomcap, room.roomtype, room.roomlat,
         room.roomlng, room.roomimage1, room.roomimage2, room.roomimage3, room.roomimage4, room.roomimage5,
@@ -48,17 +48,28 @@
             <if test="roomName != null and !roomName.equals('') ">
                 roomName LIKE '%'||#{roomName}||'%'
             </if>
-            <if test="roomLoc !=null and !roomLoc.equals('')">
+            <if test="roomLoc != null and !roomLoc.equals('')">
                 AND roomLoc LIKE '%'||#{roomLoc}||'%'
             </if>
-            <if test="roomType !=null and !roomType.equals('')">
+            <if test="roomType != null and !roomType.equals('')">
                 AND roomType LIKE '%'||#{roomType}||'%'
             </if>
-            <if test= "roomPriceFrom != null and !roomPriceFrom.equals('') ">
+            <if test="roomPriceFrom != null and !roomPriceFrom.equals('')">
                 AND roomPrice &gt;= #{roomPriceFrom}
             </if>
-            <if test="roomPriceTo != null and !roomPriceTo.equals('') ">
+            <if test="roomPriceTo != null and !roomPriceTo.equals('')">
                 AND roomPrice &lt;= #{roomPriceTo}
+            </if>
+            <if test="roomCap != null and !roomCap.equals('') and roomCap != 0">
+                AND roomCap &gt;= #{roomCap}
+            </if>
+            <if test="checkInDate != null and checkOutDate != null">
+                AND room.roomId NOT IN (
+                SELECT r.roomId
+                FROM reserve r
+                WHERE r.reserveCheckOut &gt;= #{checkInDate}
+                AND r.reserveCheckIn &lt;= #{checkOutDate}
+                )
             </if>
         </where>
     </select>
@@ -85,6 +96,17 @@
             </if>
             <if test="roomType != null and !roomType.equals('')">
                 AND roomtype LIKE '%' || #{roomType} || '%'
+            </if>
+            <if test="roomCap != null and !roomCap.equals('') and roomCap != 0">
+                AND roomCap &gt;= #{roomCap}
+            </if>
+            <if test="checkInDate != null and checkOutDate != null">
+                AND room.roomId NOT IN (
+                SELECT r.roomId
+                FROM reserve r
+                WHERE r.reserveCheckOut &gt;= #{checkInDate}
+                AND r.reserveCheckIn &lt;= #{checkOutDate}
+                )
             </if>
         </where>
     </select>

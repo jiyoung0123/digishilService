@@ -41,6 +41,29 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+<style>
+    #img-btn {
+        z-index: 9999;
+        opacity: 0;
+        width: 250px;
+        height: 250px;
+        position: fixed;
+        bottom: 13%;
+        right: 0%;
+        font: 2px monospace;
+        transition: opacity 2s, transform 2s;
+        border-style: none;
+    }
+
+    #img-btn.show {
+        opacity: 1;
+        transition: opacity 5s, transform 5s;
+    }
+
+</style>
+
+
 <script>
 
     function changeLanguage(language) {
@@ -264,9 +287,27 @@
             this.stompClient.send("/receiveme", {}, msg);
         }
     };
+
+    let chatbtn = {
+        init:function(){
+            const imgBtn = document.createElement("img");
+            imgBtn.setAttribute("src", "img/이미지.png");
+            imgBtn.setAttribute("id", "img-btn");
+            document.body.appendChild(imgBtn);
+            imgBtn.classList.add("show");
+            $('#img-btn').click(()=>{
+                location.href="/gpt"
+            })
+            // scrollBtn.addEventListener("click", function(){
+            //     location.href='/gpt';
+            // });
+        }
+    };
+
     $(function(){
         websocket.init();
-    })
+        chatbtn.init();
+    });
 
 </script>
 <body style="padding-top: 72px;">
@@ -318,150 +359,13 @@
 
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active" id="homeDropdownMenuLink" href="index.html" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Home</a>
-                        <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="/room/list">Rooms</a><a class="dropdown-item" href="index-2.html">Restaurants</a><a class="dropdown-item" href="index-3.html">Travel</a><a class="dropdown-item" href="index-4.html">Real Estate <span class="badge badge-info-light ms-1 mt-n1">New</span></a></div>
+                        <div class="dropdown-menu" aria-labelledby="homeDropdownMenuLink"><a class="dropdown-item" href="/room/list">DIGISHIL 살아보기</a><a class="dropdown-item" href="/chat?guestId=${loginGuest.getGuestId()}"> 메신저 </a><a class="dropdown-item" href="/randomChatList">우리끼리 채팅 </a>
+                        </div>
                     </li>
-                    <!-- Megamenu-->
-<%--                    <li class="nav-item dropdown position-static"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Template</a>--%>
-<%--                        <div class="dropdown-menu megamenu py-lg-0">--%>
-<%--                            <div class="row">--%>
-<%--                                <div class="col-lg-9">--%>
-<%--                                    <div class="row p-3 pe-lg-0 ps-lg-5 pt-lg-5">--%>
-<%--                                        <div class="col-lg-3">--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">Homepage</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="/room/list">Rooms   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-2.html">Restaurants   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-3.html">Travel   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="index-4.html">Real estate <span class="badge badge-info-light ms-1">New</span>   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">Restaurants</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="category.html">Category - Map on the top   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-2.html">Category - Map on the right   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-3.html">Category - no map   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="detail.html">Restaurant detail   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-lg-3">--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">Rooms</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-rooms.html">Category - Map on the top   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-2-rooms.html">Category - Map on the right   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="category-3-rooms.html">Category - no map   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="detail-rooms.html">Room detail   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">Blog</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
 
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="blog.html">Blog   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="post.html">Post   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">Pages</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="compare.html">Comparison   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="team.html">Team   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="contact.html">Contact   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-lg-3">--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">Pages</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="pricing.html">Pricing   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="text.html">Text page   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="faq.html">F.A.Q.s   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="coming-soon.html">Coming soon   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="404.html">404 page   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="knowledge-base.html">Knowledge Base  <span class="badge badge-info-light ms-1">New</span>   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="knowledge-base-topic.html">Knowledge Base  &mdash; Topic<span class="badge badge-info-light ms-1">New</span>   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="terms.html">Terms & Conditions  <span class="badge badge-info-light ms-1">New</span>   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">Host</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-add-0.html">Add new listing - 6 pages   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-list.html">Bookings &mdash; list view   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-lg-3">--%>
-<%--                                            <!-- Megamenu list-->--%>
-<%--                                            <h6 class="text-uppercase">User</h6>--%>
-<%--                                            <ul class="megamenu-list list-unstyled">--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-profile.html">Profile   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-account.html">Account   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-personal.html">Personal info - forms   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-security.html">Password & security - forms   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="login.html">Sign in   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="/signup">Sign up   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-booking-1.html">Booking process - 4 pages   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-grid.html">Bookings &mdash; grid view   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-booking-detail.html">Booking detail   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-invoice.html">Invoice  <span class="badge badge-info-light ms-1">New</span>   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-messages.html">Messages <span class="badge badge-info-light ms-1">New</span>   </a></li>--%>
-<%--                                                <li class="megamenu-list-item"><a class="megamenu-list-link" href="user-messages-detail.html">Message Detail  <span class="badge badge-info-light ms-1">New</span>   </a></li>--%>
-<%--                                            </ul>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="row megamenu-services d-none d-lg-flex ps-lg-5">--%>
-<%--                                        <div class="col-xl-3 col-lg-6 d-flex">--%>
-<%--                                            <div class="megamenu-services-item">--%>
-<%--                                                <svg class="svg-icon megamenu-services-icon">--%>
-<%--                                                    <use xlink:href="#destination-map-1"> </use>--%>
-<%--                                                </svg>--%>
-<%--                                                <div>--%>
-<%--                                                    <h6 class="text-uppercase">Best rentals</h6>--%>
-<%--                                                    <p class="mb-0 text-muted text-sm">Find the perfect place</p>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-xl-3 col-lg-6 d-flex">--%>
-<%--                                            <div class="megamenu-services-item">--%>
-<%--                                                <svg class="svg-icon megamenu-services-icon">--%>
-<%--                                                    <use xlink:href="#money-box-1"> </use>--%>
-<%--                                                </svg>--%>
-<%--                                                <div>--%>
-<%--                                                    <h6 class="text-uppercase">Earn points</h6>--%>
-<%--                                                    <p class="mb-0 text-muted text-sm">And get great rewards</p>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-xl-3 col-lg-6 d-flex">--%>
-<%--                                            <div class="megamenu-services-item">--%>
-<%--                                                <svg class="svg-icon megamenu-services-icon">--%>
-<%--                                                    <use xlink:href="#customer-support-1"> </use>--%>
-<%--                                                </svg>--%>
-<%--                                                <div>--%>
-<%--                                                    <h6 class="text-uppercase">020-800-456-747</h6>--%>
-<%--                                                    <p class="mb-0 text-muted text-sm">24/7 Available Support</p>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                        <div class="col-xl-3 col-lg-6 d-flex">--%>
-<%--                                            <div class="megamenu-services-item">--%>
-<%--                                                <svg class="svg-icon megamenu-services-icon">--%>
-<%--                                                    <use xlink:href="#secure-payment-1"> </use>--%>
-<%--                                                </svg>--%>
-<%--                                                <div>--%>
-<%--                                                    <h6 class="text-uppercase">Secure Payment</h6>--%>
-<%--                                                    <p class="mb-0 text-muted text-sm">Secure Payment</p>--%>
-<%--                                                </div>--%>
-<%--                                            </div>--%>
-<%--                                        </div>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                                <div class="col-lg-3 d-none d-lg-block position-relative"><img class="bg-image" src="/img/photo/photo-1521170665346-3f21e2291d8b.jpg" alt=""></div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                    </li>--%>
-                    <!-- /Megamenu end-->
                     <c:choose>
                         <c:when test="${loginGuest != null}">
-                            <li class="nav-item"><a class="nav-link" href="/chat?guestId=${loginGuest.getGuestId()}"> 메신저 </a></li>
+                            <li class="nav-item"></li>
                         </c:when>
                         <c:otherwise>
 
@@ -471,9 +375,8 @@
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="/index" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         더보기</a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="/randomChat">종이비행기 </a><a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="/randomChatList">우리끼리 채팅 </a><a class="dropdown-item" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}">리액트 게임</a><a class="dropdown-item" href="docs/docs-customizing-css.html">Customizing CSS </a><a class="dropdown-item" href="docs/docs-credits.html">Credits </a><a class="dropdown-item" href="docs/docs-changelog.html">Changelog </a>
-                            <div class="dropdown-divider"></div>
-                            <h6 class="dropdown-header fw-normal">Components</h6><a class="dropdown-item" href="docs/components-bootstrap.html">Bootstrap </a><a class="dropdown-item" href="docs/components-directory.html">Theme </a>
+                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="/randomChat">종이비행기 </a><a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}">리액트 게임</a>
+
                         </div>
                     </li>
                     <c:choose>
@@ -486,7 +389,7 @@
                                 <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/default_profile.png" alt="Julie"/>
                             </c:if>
                             <c:if test="${loginGuest.guestImage != null}">
-                                <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/uimg/${loginGuest.guestImage}" alt="Julie"/>
+                                <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/${loginGuest.guestImage}" alt="Julie"/>
                             </c:if>
                             <li class="nav-item dropdown"><a id="loginDropdownMenuLink" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/login">${loginGuest.guestName}</a>
                                 <div class="dropdown-menu" aria-labelledby="loginDropdownMenuLink">
@@ -520,47 +423,29 @@
 <!-- Footer-->
 <footer class="position-relative z-index-10 d-print-none">
     <!-- Main block - menus, subscribe form-->
-    <div class="py-6 bg-gray-200 text-muted">
+    <div class="py-6 bg-gray-200 text-muted" style="padding-top:0px; padding-bottom: 0px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <div class="fw-bold text-uppercase text-dark mb-3">Directory</div>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p>
+                    <div class="fw-bold text-uppercase text-dark mb-3">상호명 : (주) 디지실</div>
+                    <p>사업자등록번호 : 886-81-01187 <br>통신판매업 신고번호 : 제2022-서울성북-0534호</p>
                     <ul class="list-inline">
                         <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="twitter"><i class="fab fa-twitter"></i></a></li>
                         <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="facebook"><i class="fab fa-facebook"></i></a></li>
                         <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="instagram"><i class="fab fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="pinterest"><i class="fab fa-pinterest"></i></a></li>
-                        <li class="list-inline-item"><a class="text-muted text-primary-hover" href="#" target="_blank" title="vimeo"><i class="fab fa-vimeo"></i></a></li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3">Rentals</h6>
+                <div class="col-lg-4 col-md-6 mb-5 mb-lg-0">
+                    <h6 class="text-uppercase text-dark mb-3">고객 문의 : 1877-3670</h6>
                     <ul class="list-unstyled">
-                        <li><a class="text-muted" href="index.html">Rooms</a></li>
-                        <li><a class="text-muted" href="category-rooms.html">Map on top</a></li>
-                        <li><a class="text-muted" href="category-2-rooms.html">Side map</a></li>
-                        <li><a class="text-muted" href="category-3-rooms.html">No map</a></li>
-                        <li><a class="text-muted" href="detail-rooms.html">Room detail</a></li>
+                        <li>제휴문의 : digishil@kbfg.com</li>
                     </ul>
                 </div>
-                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
-                    <h6 class="text-uppercase text-dark mb-3">Pages</h6>
-                    <ul class="list-unstyled">
-                        <li><a class="text-muted" href="compare.html">Comparison                                   </a></li>
-                        <li><a class="text-muted" href="team.html">Team                                   </a></li>
-                        <li><a class="text-muted" href="contact.html">Contact                                   </a></li>
-                    </ul>
-                </div>
+
                 <div class="col-lg-4">
-                    <h6 class="text-uppercase text-dark mb-3">Daily Offers & Discounts</h6>
-                    <p class="mb-3"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. At itaque temporibus.</p>
-                    <form action="#" id="newsletter-form">
-                        <div class="input-group mb-3">
-                            <input class="form-control bg-transparent border-dark border-end-0" type="email" placeholder="Your Email Address" aria-label="Your Email Address">
-                            <button class="btn btn-outline-dark border-start-0" type="submit"> <i class="fa fa-paper-plane text-lg"></i></button>
-                        </div>
-                    </form>
+                    <h6 class="text-uppercase text-dark mb-3">상호명 : (주)디지실</h6>
+                    <p class="mb-3">㈜디지실은 통신판매중개자로서 통신판매의 당사자가 아닙니다.
+                        상품, 상품정보, 거래에 관한 의무와 책임은 계약당사자에게 있습니다.</p>
                 </div>
             </div>
         </div>
