@@ -45,21 +45,6 @@
 <div class="container-fluid py-5 px-lg-5">
     <div class="row">
         <div class="col-lg-9">
-            <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
-                <div class="me-3">
-                    <p class="mb-3 mb-md-0"><strong>12</strong> results found</p>
-                </div>
-                <div>
-                    <label class="form-label me-2" for="form_sort">Sort by</label>
-                    <select class="selectpicker" name="sort" id="form_sort" data-style="btn-selectpicker" title="">
-                        <option value="sortBy_0">Most popular   </option>
-                        <option value="sortBy_1">Recommended   </option>
-                        <option value="sortBy_2">Newest   </option>
-                        <option value="sortBy_3">Oldest   </option>
-                        <option value="sortBy_4">Closest   </option>
-                    </select>
-                </div>
-            </div>
             <div class="row">
                 <!-- place item-->
                 <c:forEach var="roomList" items="${roomList.getList()}">
