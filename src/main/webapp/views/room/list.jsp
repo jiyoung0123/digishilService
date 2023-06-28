@@ -357,7 +357,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-6 mb-4 order-2 order-sm-1">
-                        <button id="searchBtn"class="btn btn-primary" type="submit"> <i class="fas fa-search me-1"></i>Search</button>
+                        <button id="searchBtn"class="btn btn-primary" type="submit"> <i class="fas fa-search me-1"></i>검색</button>
                     </div>
                 </div>
             </form>
