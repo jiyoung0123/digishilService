@@ -28,7 +28,7 @@
                 <div class="col-lg-4 align-self-center mb-4 mb-lg-0">
                   <a class="list-group-item list-group-item-action p-4" href="/room/detail?id=${obj.roomId}">
                     <div class="d-flex align-items-center mb-3">
-                      <h2 class="h5 mb-0">${obj.hostName}</h2><img class="avatar avatar-sm avatar-border-white ms-3" src="/img/avatar/avatar-0.jpg" alt="Jack London">
+                      <h2 class="h5 mb-0">${obj.hostName}</h2><img class="avatar avatar-sm avatar-border-white ms-3" src="/img/avatar/${obj.hostImage}" alt="Jack London">
                     </div>
                     <p class="text-sm text-muted">${obj.roomName}</p>
                     <c:choose>
