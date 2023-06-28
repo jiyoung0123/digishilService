@@ -489,7 +489,7 @@
                                 <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/default_profile.png" alt="Julie"/>
                             </c:if>
                             <c:if test="${loginGuest.guestImage != null}">
-                                <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/uimg/${loginGuest.guestImage}" alt="Julie"/>
+                                <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/${loginGuest.guestImage}" alt="Julie"/>
                             </c:if>
                             <li class="nav-item dropdown"><a id="loginDropdownMenuLink" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/login">${loginGuest.guestName}</a>
                                 <div class="dropdown-menu" aria-labelledby="loginDropdownMenuLink">
