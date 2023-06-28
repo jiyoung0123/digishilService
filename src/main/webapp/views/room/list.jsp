@@ -322,7 +322,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-6 py-4 p-xl-5">
-            <h2 class="mb-4">Stay on Manhattan, NY</h2>
+<%--            <h2 class="mb-4">Stay on Manhattan, NY</h2>--%>
             <hr class="my-4">
             <form autocomplete="off" id="searchForm">
                 <input type="hidden" name="checkInDate"/>
