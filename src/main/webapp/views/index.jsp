@@ -295,9 +295,12 @@
             imgBtn.setAttribute("id", "img-btn");
             document.body.appendChild(imgBtn);
             imgBtn.classList.add("show");
-            scrollBtn.addEventListener("click", function(){
-                location.href='/chatbot';
-            });
+            $('#img-btn').click(()=>{
+                location.href="/gpt"
+            })
+            // scrollBtn.addEventListener("click", function(){
+            //     location.href='/gpt';
+            // });
         }
     };
 

@@ -105,6 +105,11 @@ public class MainController {
         model.addAttribute("center", "randomChat");
         return "index";
     }
+    @RequestMapping("/gpt")
+    public String gpt(Model model){
+        model.addAttribute("center","gpt/gpt");
+        return "index";
+    }
 
 
 
