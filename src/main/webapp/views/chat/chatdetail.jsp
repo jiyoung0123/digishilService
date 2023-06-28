@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 <script>
@@ -151,21 +153,33 @@
         //console.log('====');
         //console.log(obj.chatSender);
         if(obj.chatSender == chatSender){
-          let html =
+            let chatDate = new Date(obj.chatDate);
+            let formattedDate = chatDate.getFullYear() + '-' +
+                ('0' + (chatDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + chatDate.getDate()).slice(-2) + ' ' +
+                ('0' + chatDate.getHours()).slice(-2) + '시' +
+                ('0' + chatDate.getMinutes()).slice(-2) + '분';
+            let html =
                   `
                   <div class="d-flex col-md-9 col-xl-7 ms-lg-auto mb-3" id=\${obj.chatContentsId}>
                   <div class="ms-auto">
                   <div class="bg-primary rounded p-4 mb-2">
                   <p class="text-sm mb-0 text-white" id="chatContents">\${obj.chatContents}</p>
                   </div>
-                  <p class="small text-muted ms-3">\${obj.chatDate}</p>
+                  <p class="small text-muted ms-3">\${formattedDate}</p>
                   </div>
                   <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/avatar-10.jpg" alt="user">
                   </div>
                   `;
           $('#chatContainer').append(html);
         }else{
-          let html =
+            let chatDate = new Date(obj.chatDate);
+            let formattedDate = chatDate.getFullYear() + '-' +
+                ('0' + (chatDate.getMonth() + 1)).slice(-2) + '-' +
+                ('0' + chatDate.getDate()).slice(-2) + ' ' +
+                ('0' + chatDate.getHours()).slice(-2) + '시' +
+                ('0' + chatDate.getMinutes()).slice(-2) + '분';
+            let html =
                   `
                   <div class="d-flex col-md-9 col-xl-7 mb-3" id=\${obj.chatContentsId}>
                   <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/avatar-1.jpg" alt="user">
@@ -173,7 +187,7 @@
                   <div class="bg-gray-200 rounded p-4 mb-2">
                   <p id="chatContents">\${obj.chatContents}</p>
                   </div>
-                  <p class="small text-muted ms-3">\${obj.chatDate}<button type="button" class="btn detectBtn" data-chat-contents="\${obj.chatContents}">번역</button></p>
+                  <p class="small text-muted ms-3">\${formattedDate}<button type="button" class="btn detectBtn" data-chat-contents="\${obj.chatContents}">번역</button></p>
                   </div>
                   </div>
                   `
@@ -282,8 +296,8 @@
                               </div>
                               <div class="text-block pt-3 pb-0">
                                   <ul class="list-unstyled text-sm mb-0">
-                                      <li class="mb-3"><i class="fas fa-users fa-fw text-muted me-2"></i>${reserveInfo[0].reserveCap} guests</li>
-                                      <li class="mb-0"><i class="far fa-calendar fa-fw text-muted me-2"></i>${reserveInfo[0].reserveCheckIn} <i class="fas fa-arrow-right fa-fw text-muted mx-3"></i>${reserveInfo[0].reserveCheckOut}</li>
+                                      <li class="mb-3"><i class="fas fa-users fa-fw text-muted me-2"></i>${reserveInfo[0].reserveCap} 명</li>
+                                      <li class="mb-0"><i class="far fa-calendar fa-fw text-muted me-2"></i><fmt:formatDate  value="${reserveInfo[0].reserveCheckIn}" pattern="yyyy-MM-dd" /> <i class="fas fa-arrow-right fa-fw text-muted mx-3"></i><fmt:formatDate  value="${reserveInfo[0].reserveCheckOut}" pattern="yyyy-MM-dd" /></li>
                                   </ul>
                               </div>
                           </div>
