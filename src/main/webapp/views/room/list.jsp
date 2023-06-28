@@ -324,14 +324,14 @@
                 <div class="row">
                     <div class="col-xl-4 col-md-6 mb-4">
                         <label class="form-label" for="form_dates">Dates</label>
-                        <div class="datepicker-container datepicker-container-left">
-                            <input class="form-control" type="text" name="checkDate" id="form_dates" placeholder="Choose your dates">
+                        <div style="padding-top:20px;" class="datepicker-container datepicker-container-left">
+                            <input class="form-control" type="text" name="checkDate" id="form_dates" placeholder="원하는 날짜를 선택하세요">
                         </div>
                     </div>
                     <div class="col-xl-4 col-md-6 mb-4">
                         <label class="form-label" for="form_guests">Guests</label>
-                        <select class="selectpicker form-control" name="roomCap" id="form_guests" data-style="btn-selectpicker" title=" ">
-                            <option value="0">    </option>
+                        <select class="selectpicker form-control" name="roomCap" id="form_guests" data-style="btn-selectpicker" title="숙박인원을 선택하세요">
+                            <option value="0">     </option>
                             <option value="1">1    </option>
                             <option value="2">2    </option>
                             <option value="3">3    </option>
@@ -345,15 +345,7 @@
                         </select>
                     </div>
                     <div class="col-xl-4 col-md-6 mb-4">
-                        <label class="form-label" for="form_type">Home type</label>
-                        <select class="selectpicker form-control" name="type" id="form_type" multiple data-style="btn-selectpicker" data-none-selected-text="">
-                            <option value="type_0">Entire place    </option>
-                            <option value="type_1">Private room    </option>
-                            <option value="type_2">Shared room    </option>
-                        </select>
-                    </div>
-                    <div class="col-xl-4 col-md-6 mb-4">
-                        <label class="form-label">Price range</label>
+                        <label style="padding-bottom:30px;" class="form-label">Price range</label>
                         <div class="text-primary" id="slider-snap"></div>
                         <div class="nouislider-values">
                             <div class="min">From ￦<span id="slider-snap-value-from"></span></div>
@@ -361,25 +353,6 @@
                         </div>
                         <input type="hidden" name="roomPriceFrom" id="slider-snap-input-from" value="40">
                         <input type="hidden" name="roomPriceTo" id="slider-snap-input-to" value="110">
-                    </div>
-                    <div class="col-md-6 col-lg-12 col-xl-8 mb-4 d-xl-flex justify-content-center">
-                        <div>
-                            <label class="form-label">Host and booking</label>
-                            <ul class="list-inline mb-0 mt-1">
-                                <li class="list-inline-item">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" id="instantBook" type="checkbox">
-                                        <label class="form-check-label" for="instantBook"> <span class="text-sm">Instant book</span></label>
-                                    </div>
-                                </li>
-                                <li class="list-inline-item">
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" id="superhost" type="checkbox">
-                                        <label class="form-check-label" for="superhost"> <span class="text-sm">Superhost</span></label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -389,26 +362,7 @@
                 </div>
             </form>
             <hr class="my-4">
-            <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
-                <div class="me-3">
-                    <c:if test="${roomList != null}">
-                        <p class="mb-3 mb-md-0"><strong>${roomList.getList().size()}</strong> results found</p>
-                    </c:if>
-                    <c:if test="${roomList == null}">
-                        <p class="mb-3 mb-md-0"><strong>${roomSearchList.getList().size()}</strong> results found</p>
-                    </c:if>
-                </div>
-                <div>
-                    <label class="form-label me-2" for="form_sort">Sort by</label>
-                    <select class="selectpicker" name="sort" id="form_sort" data-style="btn-selectpicker" title="">
-                        <option value="sortBy_0">Most popular   </option>
-                        <option value="sortBy_1">Recommended   </option>
-                        <option value="sortBy_2">Newest   </option>
-                        <option value="sortBy_3">Oldest   </option>
-                        <option value="sortBy_4">Closest   </option>
-                    </select>
-                </div>
-            </div>
+
             <div class="row">
                 <!-- place item-->
                 <c:choose>
@@ -418,7 +372,7 @@
                                 <div class="card h-100 border-0 shadow">
                                     <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="/img/photo/${roomList.roomImage1}" alt="Modern, Well-Appointed Room"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
                                         <div class="card-img-overlay-bottom z-index-20">
-                                            <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/avatar-0.jpg" alt="Pamela"/>
+                                            <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/${roomList.hostImage}" alt="Pamela"/>
                                                 <div>${roomList.hostName}</div>
                                             </div>
                                         </div>
