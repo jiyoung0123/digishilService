@@ -53,29 +53,24 @@
             <div class="container-fluid py-5 px-lg-5">
             <div class="row">
             <c:forEach var="obj" items="${roomLocList}">
-
                 <!-- place item-->
                 <div class="col-sm-6 col-xl-3 mb-5 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
                     <div class="card h-100 border-0 shadow">
-
-
-
-
-                        <div class="card-img-top overflow-hidden gradient-overlay">
+                    <div class="card-img-top overflow-hidden gradient-overlay">
                             <a href="/room/detail?id=${obj.roomId}">
-                                <img class="img-fluid" src="/img/photo/photo-1484154218962-a197022b5858.jpg" alt="Modern, Well-Appointed Room"/>
+                                <img class="img-fluid" src="/img/photo/${obj.roomImage1}" alt="Modern, Well-Appointed Room"/>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="d-flex text-white text-sm align-items-center">
                                         <button id="hostIntro" type="button" class="btn">
-                                            <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/avatar-0.jpg" alt="Pamela"/>
+                                            <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/${obj.hostImage}" alt="Pamela"/>
                                         </button>
                                         <div style="font-size: 20px;">${obj.hostName}</div>
                                     </div>
                                 </div>
-                                <div class="card-img-overlay-top text-end" >
-                                        <%--                        profile current 참조 74라인 속성값 --%>
-                                        <i class="fa-solid fa-heart" style="font-size:35px; color: red !important;"></i>
-                                </div>
+<%--                                <div class="card-img-overlay-top text-end" >--%>
+<%--                                        &lt;%&ndash;                        profile current 참조 74라인 속성값 &ndash;%&gt;--%>
+<%--                                        <i class="fa-solid fa-heart" style="font-size:35px; color: red !important;"></i>--%>
+<%--                                </div>--%>
                             </a>
                         </div>
 

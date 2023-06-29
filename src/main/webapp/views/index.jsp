@@ -288,25 +288,9 @@
         }
     };
 
-    let chatbtn = {
-        init:function(){
-            const imgBtn = document.createElement("img");
-            imgBtn.setAttribute("src", "img/이미지.png");
-            imgBtn.setAttribute("id", "img-btn");
-            document.body.appendChild(imgBtn);
-            imgBtn.classList.add("show");
-            $('#img-btn').click(()=>{
-                location.href="/gpt"
-            })
-            // scrollBtn.addEventListener("click", function(){
-            //     location.href='/gpt';
-            // });
-        }
-    };
-
     $(function(){
         websocket.init();
-        chatbtn.init();
+
     });
 
 </script>
@@ -372,17 +356,17 @@
                         </c:otherwise>
                     </c:choose>
                     </li>
-                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle " id="docsDropdownMenuLink" href="/index" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active " id="docsDropdownMenuLink" href="/index" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         더보기</a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="/randomChat">종이비행기 </a><a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}">리액트 게임</a>
+                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}">리액트 게임</a>
 
                         </div>
                     </li>
                     <c:choose>
                         <c:when test="${loginGuest == null}">
-                            <li class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/register">회원가입</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/login">로그인</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/register">회원가입</a></li>
                         </c:when>
                         <c:otherwise>
                             <c:if test="${loginGuest.guestImage == null}">

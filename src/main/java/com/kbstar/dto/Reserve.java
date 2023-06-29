@@ -42,7 +42,7 @@ public class Reserve {
     private String roomAddress2;
     private String roomLoc;
     private String hostImage;
-    private int roomWPrice;
+    private int roomPrice;
     Integer reviewId;
 
 //

@@ -28,7 +28,7 @@
                 <div class="col-lg-4 align-self-center mb-4 mb-lg-0">
                   <a class="list-group-item list-group-item-action p-4" href="/room/detail?id=${obj.roomId}">
                     <div class="d-flex align-items-center mb-3">
-                      <h2 class="h5 mb-0">${obj.hostName}</h2><img class="avatar avatar-sm avatar-border-white ms-3" src="/img/avatar/avatar-0.jpg" alt="Jack London">
+                      <h2 class="h5 mb-0">${obj.hostName}</h2><img class="avatar avatar-sm avatar-border-white ms-3" src="/img/avatar/${obj.hostImage}" alt="Jack London">
                     </div>
                     <p class="text-sm text-muted">${obj.roomName}</p>
                     <c:choose>
@@ -51,7 +51,7 @@
                   </div>
                   <div class="col-6 col-md-4 col-lg-3 py-3">
                     <h6 class="label-heading">1박당 금액</h6>
-                    <p class="text-sm fw-bold">${obj.roomWPrice}</p>
+                    <p class="text-sm fw-bold">${obj.roomPrice}</p>
                     <h6 class="label-heading">결제금액</h6>
                     <p class="text-sm fw-bold mb-0"><fmt:formatNumber type="number" pattern="###,###원" value="${obj.reservePayAmount}"/></p>
                   </div>
