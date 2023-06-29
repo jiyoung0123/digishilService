@@ -119,6 +119,9 @@
                 center: new kakao.maps.LatLng(lat,lng), // 지도의 중심좌표
                 level: 5 // 지도의 확대 레벨
             };
+
+
+
             map = new kakao.maps.Map(mapContainer, mapOption);
 
             var mapTypeControl = new kakao.maps.MapTypeControl();
@@ -199,7 +202,7 @@
                     '        <div class="body">' +
                     '          ' +
                     '  <div class="img">' +
-                    '                <img src="/uimg/' + position.img + '" style="width:73px; height:70px">' +
+                    '                <img src="/uimg/' + position.mimg + '" style="width:73px; height:70px">' +
                     '            </div>' +
 
 
@@ -290,6 +293,25 @@
         });
     });
 
+
+    // $('#show_map').click(() =>{
+    //     $.ajax({
+    //         url: 'http://127.0.0.1/room/detail?roomId=' + position.id,
+    //
+    //
+    //     }).done((data)=>{
+    //
+    //         lat : data.lat;
+    //         lng : data.lng;
+    //         loc : data.loc;
+    //         map03.go(lat,lng,loc);
+    //
+    //     })
+
+
+
+    })
+
     let search2Button = {
         init : $('#search2Button').click(()=>{
             $.ajax({
@@ -303,6 +325,29 @@
     })
 
 </script>
+
+
+<script>
+    function moveToMap() {
+        // 여기에 지도로 화면을 이동하는 코드를 작성합니다.
+        // 예를 들어, 구글 맵 API를 사용한다면 다음과 같이 사용할 수 있습니다.
+
+        // 맵의 중앙 좌표를 설정합니다.
+        var center = { lat: 37.123, lng: 127.456 };
+
+        // 지도 생성
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: center,
+            zoom: 10
+        });
+
+
+        // 이동할 위치로 화면을 이동시킵니다.
+        map.panTo(center);
+    }
+</script>
+
+
 
 <div class="container-fluid">
     <div class="row">
@@ -345,6 +390,8 @@
 
                 </div>
                 <div class="row">
+
+
                     <div class="col-sm-6 mb-4 order-2 order-sm-1">
                         <button id="search2Button"class="btn btn-primary" type="submit"> <i class="fas fa-search me-1"></i>상세 검색                </button>
                     </div>
@@ -368,7 +415,7 @@
                                             <input type="hidden" name="guestId" value="${loginGuest.guestId}">
                                             <input type="hidden" name="roomId" value="${roomList.roomId}">
                                             <div class="card-img-overlay-top text-end">
-                                                <button id="likeFormBtn" class="card-fav-icon position-relative z-index-40" type="button">
+                                                <button id="likeFormBtn2" class="card-fav-icon position-relative z-index-40" type="button">
                                                     <c:if test="${roomList.likeId != ''}">
                                                         <i id="likeHeart" class="fa-solid fa-heart" style="color: #fff700;"></i>
                                                     </c:if>
@@ -379,8 +426,13 @@
                                             </div>
                                         </form>
                                     </div>
+
+
+
+
                                     <div class="card-body d-flex align-items-center">
-                                        <div class="w-100">
+                                        <div class="w-100" onclick="moveToMap()">
+<%--                                        <div class="w-100" id = "show_map">--%>
                                             <h6 class="card-title"><a class="text-decoration-none text-dark" href="/room/detail?id=${roomList.roomId}">${roomList.roomName}</a></h6>
                                             <div class="d-flex card-subtitle mb-3">
                                                 <p class="flex-grow-1 mb-0 text-muted text-sm">${roomList.roomType}</p>
@@ -431,6 +483,7 @@
                                                 <p class="flex-shrink-1 mb-0 card-stars text-xs text-end"><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i>
                                                 </p>
                                             </div>
+
                                             <p class="card-text text-muted"><span class="h4 text-primary"><fmt:formatNumber type="number" pattern="₩###,###" value="${roomSearchList.roomPrice}"/></span> per night</p>
                                         </div>
                                     </div>
@@ -457,6 +510,13 @@
                                 <button id="s_btn" type="button" class="btn btn-default" >Seoul</button>
                                 <button id="b_btn" type="button" class="btn btn-default">Busan</button>
                                 <button id="j_btn" type="button" class="btn btn-default">Jeju</button>
+
+
+
+
+
+
+
                             </div>
 
 

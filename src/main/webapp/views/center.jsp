@@ -138,6 +138,8 @@
             <!-- Additional required wrapper-->
             <div class="swiper-wrapper pb-5">
                 <!-- Slides-->
+
+
                 <c:forEach var="roomList" items="${roomList}">
                     <div class="swiper-slide h-auto px-2">
                         <!-- place item-->

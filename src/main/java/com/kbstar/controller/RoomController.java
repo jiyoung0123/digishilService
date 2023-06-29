@@ -103,6 +103,7 @@ public class RoomController {
         }
         // 검색 후 리스트 띄우는 부분
         PageInfo<Room> p = null;
+
         p = new PageInfo<>(roomService.roomSearch(pageNo, rs), 5);
         model.addAttribute("target","room");
         model.addAttribute("roomSearchList",p);
