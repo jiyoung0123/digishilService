@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -116,17 +115,6 @@
                 return false;
             }
 
-            // if($rtcType.is(':checked')){
-            //     if($("#maxUserCnt").val() <= 1){
-            //         alert("채팅은 최소 2명 이상!!");
-            //         return false;
-            //     }else if ($("#maxUserCnt").val() > 4) {
-            //         alert("4명 이상은 서버가 아파요ㅠ.ㅠ");
-            //         return false;
-            //     }
-            // }else
-            //     if($msgType.is(':checked')){
-                // 일반채팅 : 최소 방 인원 수는 2, 최대 100명
                 if($("#maxUserCnt").val() <= 1){
                     alert("채팅은 최소 2명 이상!!");
                     return false;
@@ -135,12 +123,6 @@
                     return false;
                 }
 
-
-            // 채팅 타입 필수
-            // if ($('input[name=chatRoomLoc]:checked').val() == null) {
-            //     alert("채팅 지역은 필수입니다")
-            //     return false;
-            // }
 
             if (secret) {
                 secretChk.attr('value', true);
@@ -183,6 +165,32 @@
         // 채팅방 삭제
         function delRoom(){
             location.href = "/chat/delRoom/"+roomId;
+        }
+        function editRoom(){
+            $.ajax({
+                type : "post",
+                url : "/chat/editRoom/"+roomId,
+                async : false,
+                data : {
+                    "chRoomPwd" : chRoomPwd,
+                    "chRoomName" : chRoomName,
+                    "chUserCount" : chUserCount,
+                    "chSecretChk" : chSecretChk
+                },
+                success : function(result){
+                    // console.log("동작완료")
+                    // console.log("확인 : "+chkRoomUserCnt(roomId))
+
+                    if(result){
+                        if (chkRoomUserCnt(roomId)) {
+                            location.href = "/chat/room?roomId="+roomId;
+                        }
+                    }else{
+                        alert("비밀번호가 틀립니다. \n 비밀번호를 확인해주세요")
+                    }
+                }
+            })
+
         }
 
         // 채팅방 입장 시 인원 수에 따라서 입장 여부 결정
@@ -332,8 +340,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="roomLoc" class="col-form-label">채팅방 지역
-                            <!--<input class="form-check-input" type="checkbox" id="maxChk">--></label>
+                        <label for="roomLoc" class="col-form-label">채팅방 지역</label>
                         <input type="text" class="form-control" id="roomLoc" name="roomLoc">
                     </div>
 
@@ -419,9 +426,9 @@
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="chPwd" class="col-form-label">비밀번호 변경</label>
+                    <label for="chRoomPwd" class="col-form-label">비밀번호 변경</label>
                     <div class="input-group">
-                        <input type="password" name="confirmPwd" id="chPwd" class="form-control" data-toggle="password">
+                        <input type="password" name="chRoomPwd" id="chRoomPwd" class="form-control" data-toggle="password">
                         <div class="input-group-append">
                             <span class="input-group-text"><i class="fa fa-eye"></i></span>
                         </div>
@@ -432,8 +439,8 @@
                     <input type="text" class="form-control" id="chRoomName" name="chRoomName">
                 </div>
                 <div class="mb-3">
-                    <label for="chRoomUserCnt" class="col-form-label">채팅방 인원 변경</label>
-                    <input type="text" class="form-control" id="chRoomUserCnt" name="chUserCnt">
+                    <label for="chUserCount" class="col-form-label">채팅방 인원 변경</label>
+                    <input type="text" class="form-control" id="chUserCount" name="chUserCount">
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="chSecret">
@@ -442,12 +449,13 @@
                         채팅방 잠금
                     </label>
                 </div>
+                <br>
                 <div class="mb-3">
                     <button type="button" class="btn btn-primary" onclick="delRoom()">방 삭제</button>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button id="editBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="editRoom()">변경하기</button>
             </div>
         </div>
     </div>

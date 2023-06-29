@@ -20,6 +20,8 @@ public class Review {
     Integer reviewHidden;
     String guestId2;
 
+    private String guestImage;
+
     public Review(String guestId, Double reviewRate, String reviewContents1, String guestId2,  Integer reserveId, Integer roomId) {
         this.guestId = guestId;
         this.reviewRate = reviewRate;

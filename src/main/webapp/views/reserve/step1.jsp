@@ -70,7 +70,8 @@
     <div class="row">
       <div class="col-lg-7">
         <p class="subtitle text-primary">Book your holiday home</p>
-        <h1 class="h2 mb-5">${room.roomName}<span class="text-muted float-end">Step 1</span>      </h1>
+        <h1 class="h2 mb-5">${room.roomName}      </h1>
+        <p class="text-muted float-end">Step 1</p>
         <div class="text-block">
           <div class="alert alert-warning text-sm mb-3">
             <div class="d-flex align-items-center">
@@ -119,12 +120,12 @@
                 <div><span class="text-sm">숙소에서는 금연을 준수해 주세요.</span></div>
               </div>
             </li>
-            <li class="mb-2">
-              <div class="d-flex align-items-center mb-3">
-                <div class="icon-rounded icon-rounded-sm bg-secondary-light flex-shrink-0 me-4"><i class="fa fa-cat text-secondary fa-fw text-center"></i></div>
-                <div><span class="text-sm">${room.roomPet}</span></div>
-              </div>
-            </li>
+<%--            <li class="mb-2">--%>
+<%--              <div class="d-flex align-items-center mb-3">--%>
+<%--                <div class="icon-rounded icon-rounded-sm bg-secondary-light flex-shrink-0 me-4"><i class="fa fa-cat text-secondary fa-fw text-center"></i></div>--%>
+<%--                <div><span class="text-sm">${room.roomPet}</span></div>--%>
+<%--              </div>--%>
+<%--            </li>--%>
           </ul>
         </div>
         <div class="row form-block flex-column flex-sm-row">
