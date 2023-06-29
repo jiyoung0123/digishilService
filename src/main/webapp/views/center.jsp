@@ -86,7 +86,7 @@
                             </div>
                             <div class="col-lg-3 d-flex align-items-center form-group no-divider">
                                 <select class="selectpicker" title=<spring:message code="input.local2"/> data-style="btn-form-control" name="roomLoc">
-                                    <option value="서울">서울</option>
+                                    <option value="서울특별시">서울</option>
                                     <option value="부산광역시">부산</option>
                                     <option value="제주">제주</option>
                                     <option value="x-large">그밖의 지역</option>
@@ -202,7 +202,7 @@
             <div class="swiper-wrapper pb-5">
                 <!-- Slides-->
                 <div class="swiper-slide h-auto px-2">
-                    <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a class="tile-link" href="/room/searchList?roomLoc=서울"></a><img class="bg-image" src="/img/photo/야경.jpg" alt="Card image">
+                    <div class="card card-poster gradient-overlay hover-animate mb-4 mb-lg-0"><a class="tile-link" href="/room/searchList?roomLoc=서울특별시"></a><img class="bg-image" src="/img/photo/야경.jpg" alt="Card image">
                         <div class="card-body overlay-content">
                             <h6 class="card-title text-shadow text-uppercase">서울</h6>
                             <p class="card-text text-sm">Seoul</p>
@@ -262,19 +262,19 @@
                 <!-- Slides-->
                 <div class="swiper-slide p-4">
                     <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-3.jpg" alt="..."></div>
+                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/재용.jpg" alt="..."></div>
                         <div class="text">
                             <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">digishil로 예약하니까 정말 특별한 여행을 할 수 있었어요. 호스트분도 너무 친절하셨고 숙소가 전통적인 분위기와 현대적인 편의시설이 결합된 곳이라서 정말 멋진 경험을 했어요. 다양한 선택지와 편리한 예약 시스템 때문에 앞으로도 계속해서 이용할 계획이에요!</p><strong>김기현</strong>
+                            <p class="testimonial-text">digishil로 예약하니까 정말 특별한 여행을 할 수 있었어요. 호스트분도 너무 친절하셨고 숙소가 전통적인 분위기와 현대적인 편의시설이 결합된 곳이라서 정말 멋진 경험을 했어요. 다양한 선택지와 편리한 예약 시스템 때문에 앞으로도 계속해서 이용할 계획이에요!</p><strong>호공자</strong>
                         </div>
                     </div>
                 </div>
                 <div class="swiper-slide p-4">
                     <div class="testimonial card rounded-3 shadow border-0">
-                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/avatar-8.jpg" alt="..."></div>
+                        <div class="testimonial-avatar"><img class="avatar avatar-lg p-1" src="img/avatar/제니.jpg" alt="..."></div>
                         <div class="text">
                             <div class="testimonial-quote"><i class="fas fa-quote-right"></i></div>
-                            <p class="testimonial-text">digishil로 예약한 것은 정말로 최고의 선택이었어요. 숙소 위치가 관광명소와 가까워서 도보로 여러 곳을 다니기에 편리했고, 숙소 자체도 아늑하고 아름다웠어요. 호스트분이 친절하게 안내해주셔서 불편한 점이 없었고, 어플의 예약 시스템도 간편하고 편리했어요.</p><strong>심재현</strong>
+                            <p class="testimonial-text">digishil로 예약한 것은 정말로 최고의 선택이었어요. 숙소 위치가 관광명소와 가까워서 도보로 여러 곳을 다니기에 편리했고, 숙소 자체도 아늑하고 아름다웠어요. 호스트분이 친절하게 안내해주셔서 불편한 점이 없었고, 어플의 예약 시스템도 간편하고 편리했어요.</p><strong>제니</strong>
                         </div>
                     </div>
                 </div>
