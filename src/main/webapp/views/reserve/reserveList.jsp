@@ -51,7 +51,7 @@
                   </div>
                   <div class="col-6 col-md-4 col-lg-3 py-3">
                     <h6 class="label-heading">1박당 금액</h6>
-                    <p class="text-sm fw-bold">${obj.roomWPrice}</p>
+                    <p class="text-sm fw-bold">${obj.roomPrice}</p>
                     <h6 class="label-heading">결제금액</h6>
                     <p class="text-sm fw-bold mb-0"><fmt:formatNumber type="number" pattern="###,###원" value="${obj.reservePayAmount}"/></p>
                   </div>
