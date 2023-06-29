@@ -108,6 +108,20 @@ public class RandomChatRoomController {
         return "redirect:/randomChatList";
     }
 
+    // 채팅방 설정 변경
+    @PostMapping("/chat/editRoom/{roomId}")
+    @ResponseBody
+    public boolean editRoom(@PathVariable String roomId,
+                            @RequestParam String chRoomPwd,
+                            @RequestParam long chUserCount,
+                            @RequestParam boolean chsecretChk) throws Exception {
+        log.info("editRoom도착!!!!!!!!!!!!!!!!!!!!!");// 넘어온 roomId 와 roomPwd 를 이용해서 비밀번호 찾기
+        // 찾아서 입력받은 roomPwd 와 room pwd 와 비교해서 맞으면 true, 아니면  false
+        log.info("chRoomPwd,chUserCount,chsecretChk확인!=[{},{},{}]",chRoomPwd,chUserCount,chsecretChk);
+
+        return chatServiceMain.confirmPwd(roomId, chRoomPwd);
+    }
+
     // 유저 카운트
     @GetMapping("/chat/chkUserCnt/{roomId}")
     @ResponseBody

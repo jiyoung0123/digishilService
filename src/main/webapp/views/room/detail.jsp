@@ -132,12 +132,14 @@
                     <div class="h-100" id="detailMap"></div>
                 </div>
             </div>
-            <c:forEach var="obj" items="${roomReviewList}">
+
             <div class="text-block">
                 <p class="subtitle text-sm text-primary">REVIEWS</p>
                 <h5 class="mb-4">후기</h5>
+                <c:forEach var="obj" items="${roomReviewList}">
                 <div class="d-flex d-block d-sm-flex review">
-                    <div class="text-md-center flex-shrink-0 me-4 me-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="/img/avatar/avatar-8.jpg"><span class="text-uppercase text-muted text-sm"></span></div>
+
+                    <div class="text-md-center flex-shrink-0 me-4 me-xl-5"><img class="d-block avatar avatar-xl p-2 mb-2" src="/img/avatar/${obj.guestImage}"><span class="text-uppercase text-muted text-sm"></span></div>
                     <div>
                         <h6 class="mt-2 mb-1">${obj.guestId2}</h6>
                         <div class="mb-2">
@@ -158,9 +160,11 @@
                         </div>
                         <p class="text-muted text-sm">${obj.reviewContents1}</p>
                     </div>
+
                 </div>
+                </c:forEach>
                 </div>
-            </c:forEach>
+
         </div>
 
 <%--        reserve Form Start--%>
