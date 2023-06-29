@@ -49,7 +49,7 @@
         JOIN guest ON reserve.guestId=guest.guestId
         JOIN room ON room.roomId = reserve.roomId
         JOIN host ON room.hostId = host.hostId
-        WHERE reserve.guestId = #{guestId}
+        WHERE reserve.guestId = #{guestId} AND reserve.reserveCheckOut>SYSDATE
         ORDER BY reserve.reserveCheckIn ASC
     </select>
 
