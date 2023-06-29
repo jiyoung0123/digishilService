@@ -48,23 +48,6 @@
 
   })
 
-
-  // function findHostId(reserveId){
-  //     $.ajax({
-  //         url:'/findHostIdOfRoom',
-  //         data: {
-  //             'reserveId': reserveId
-  //         }
-  //     }).done((data)=>{
-  //         console.log('find my host Id');
-  //         console.log(data);
-  //     }).fail(()=>{
-  //         console.log('host Id failed');
-  //     })
-  // }
-
-
-
 //chat data send
   /// chatRoom이 열리면서 send data
   function sendData() {
@@ -123,41 +106,6 @@
             </div>
           </div>
         </div>
-<%--        <div class="text-block">--%>
-<%--          <form action="#">--%>
-<%--            <div class="d-flex justify-content-between align-items-end mb-4">--%>
-<%--              <h5 class="mb-0">카카오페이로 결제하기</h5>--%>
-<%--              <div class="text-muted"><i class="fab fa-cc-amex fa-2x me-2"> </i><i class="fab fa-cc-visa fa-2x me-2"> </i><i class="fab fa-cc-mastercard fa-2x"></i></div>--%>
-<%--            </div>--%>
-<%--            <select class="selectpicker form-control mb-3" name="payment" id="form_payment" data-style="btn-selectpicker">--%>
-<%--              <option value="">Visa •••• 5687</option>--%>
-<%--              <option value="">Mastercard •••• 4569</option>--%>
-<%--            </select>--%>
-<%--            <button class="btn btn-link btn-collapse ps-0 text-muted" type="button" data-bs-toggle="collapse" data-bs-target="#addNewCard" aria-expanded="false" aria-controls="addNewCard" data-expanded-text="Close" data-collapsed-text="Add a new card">Add a new card</button>--%>
-<%--            <div class="row collapse" id="addNewCard">--%>
-<%--              <div class="mb-4 col-md-6">--%>
-<%--                <label class="form-label" for="card-name">Name on Card</label>--%>
-<%--                <input class="form-control" type="text" name="card-name" placeholder="Name on card" id="card-name">--%>
-<%--              </div>--%>
-<%--              <div class="mb-4 col-md-6">--%>
-<%--                <label class="form-label" for="card-number">Card Number</label>--%>
-<%--                <input class="form-control" type="text" name="card-number" placeholder="Card number" id="card-number">--%>
-<%--              </div>--%>
-<%--              <div class="mb-4 col-md-4">--%>
-<%--                <label class="form-label" for="expiry-date">Expiry Date</label>--%>
-<%--                <input class="form-control" type="text" name="expiry-date" placeholder="MM/YY" id="expiry-date">--%>
-<%--              </div>--%>
-<%--              <div class="mb-4 col-md-4">--%>
-<%--                <label class="form-label" for="cvv">CVC/CVV</label>--%>
-<%--                <input class="form-control" type="text" name="cvv" placeholder="123" id="cvv">--%>
-<%--              </div>--%>
-<%--              <div class="mb-4 col-md-4">--%>
-<%--                <label class="form-label" for="zip">ZIP</label>--%>
-<%--                <input class="form-control" type="text" name="zip" placeholder="123" id="zip">--%>
-<%--              </div>--%>
-<%--            </div>--%>
-<%--          </form>--%>
-<%--        </div>--%>
         <div class="text-block">
           <h6>기본 규칙</h6>
           <h9>훌륭한 게스트가 되기 위한 몇 가지 간단한 규칙을 지켜주실 것을 모든 게스트에게 당부드리고 있습니다. </h9>
@@ -167,7 +115,6 @@
               <li>호스트의 집도 자신의 집처럼 아껴주세요.</li>
             </ul>
           </p>
-<%--          <p class="text-sm text-muted">호스트의 집도 자신의 집처럼 아껴주세요.</p>--%>
         </div>
 
         <%--        message box to host for reserve start--%>
@@ -206,11 +153,6 @@
 <%--          </form>--%>
         </div>
 
-
-<%--        <form action="/payment/success" method="GET">--%>
-<%--          <input name="reserveId" value="${reserveId}">--%>
-<%--          <div class="col text-center text-sm-end"><button type="submit" class="btn btn-primary px-3" href="/kakaopay">결제하러 가기<i class="fa-chevron-right fa ms-2"></i></button></div>--%>
-<%--        </form>--%>
 
       </div>
       <div class="col-lg-5 ps-xl-5">
