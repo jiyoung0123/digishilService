@@ -288,25 +288,9 @@
         }
     };
 
-    let chatbtn = {
-        init:function(){
-            const imgBtn = document.createElement("img");
-            imgBtn.setAttribute("src", "img/이미지.png");
-            imgBtn.setAttribute("id", "img-btn");
-            document.body.appendChild(imgBtn);
-            imgBtn.classList.add("show");
-            $('#img-btn').click(()=>{
-                location.href="/gpt"
-            })
-            // scrollBtn.addEventListener("click", function(){
-            //     location.href='/gpt';
-            // });
-        }
-    };
-
     $(function(){
         websocket.init();
-        chatbtn.init();
+
     });
 
 </script>
