@@ -123,7 +123,7 @@
             <div>
               <h5>질문이 있으신가요? 호스트에게 메시지를 보내 문의하세요.</h5>
               <p class="text-sm text-muted">이 숙소의 체크인 시간은 오후 3:00부터 오후 11:00까지입니다이며, 체크아웃은 오전 12:00입니다.</p>
-            </div><img class="avatar avatar-md p-1 flex-shrink-0 ms-4" src="/img/avatar/avatar-10.jpg" alt="Jack London">
+            </div><img class="avatar avatar-md p-1 flex-shrink-0 ms-4" src="/img/avatar/${hostImage}" alt="Jack London">
           </div>
 
             <form class="bg-light rounded shadow-sm" action="#" >
@@ -140,11 +140,7 @@
         <div class="row form-block flex-column flex-sm-row">
           <div class="col text-center text-sm-start"><a class="btn btn-link text-muted" href="user-booking-2.html"> <i class="fa-chevron-left fa me-2"></i>이전으로</a>
           </div>
-<%--          <div class="col text-center text-sm-end">--%>
-<%--            <button id="payBtn" class="btn btn-link">--%>
-<%--              <img class="img-fluid" src="img/kakaoPay_medium.jpg" alt="Kakao Pay">--%>
-<%--            </button>--%>
-<%--          </div>--%>
+
 <%--          <form action="/payment/success" method="GET">--%>
             <div class="col text-center text-sm-end">
               <img class="img-fluid" src="img/kakaoPay_small.jpg" alt="Kakao Pay">
