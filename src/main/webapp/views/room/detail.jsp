@@ -111,7 +111,7 @@
             </div>
 
             <div class="text-block">
-                <div class="d-flex"><img class="avatar avatar-lg p-1 flex-shrink-0 me-4" src="/img/avatar/avatar-10.jpg" alt="Jack London">
+                <div class="d-flex"><img class="avatar avatar-lg p-1 flex-shrink-0 me-4" src="/img/avatar/${roomDetail.hostImage}" alt="Jack London">
                     <div>
                         <p> <span class="text-muted text-uppercase text-sm">호스트 소개</span><br><strong>${roomDetail.hostName}</strong></p>
                         <c:choose>
