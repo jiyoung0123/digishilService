@@ -95,9 +95,9 @@
 
                             <div class="col-lg-3 d-flex align-items-center form-group no-divider">
                                 <select class="selectpicker" title=<spring:message code="input.room"/> data-style="btn-form-control" name="roomType">
-                                    <option value="small">아파트</option>
-                                    <option value="medium">오피스텔</option>
-                                    <option value="large">독채</option>
+                                    <option value="아파트">아파트</option>
+                                    <option value="오피스텔">오피스텔</option>
+                                    <option value="독채">독채</option>
                                     <option value="x-large">기상천외한숙소</option>
                                 </select>
                             </div>
