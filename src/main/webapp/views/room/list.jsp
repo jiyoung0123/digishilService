@@ -513,7 +513,7 @@
                                             <input type="hidden" name="guestId" value="${loginGuest.guestId}">
                                             <input type="hidden" name="roomId" value="${roomList.roomId}">
                                             <div class="card-img-overlay-top text-end">
-                                                <button id="likeFormBtn2" class="card-fav-icon position-relative z-index-40" type="button">
+                                                <button id="likeFormBtn" class="card-fav-icon position-relative z-index-40" type="button">
                                                     <c:if test="${roomList.likeId != ''}">
                                                         <i id="likeHeart" class="fa-solid fa-heart" style="color: #fff700;"></i>
                                                     </c:if>
