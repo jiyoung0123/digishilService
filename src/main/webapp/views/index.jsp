@@ -359,7 +359,7 @@
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle active " id="docsDropdownMenuLink" href="/index" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         더보기</a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="docsDropdownMenuLink">
-                            <h6 class="dropdown-header fw-normal">Documentation</h6><a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}">리액트 게임</a>
+                            <a class="dropdown-item" href="/canvas">블럭깨기 Game</a><a class="dropdown-item" href="http://localhost:3000?guestId=${loginGuest.getGuestId()}">리액트 게임</a>
 
                         </div>
                     </li>
@@ -375,7 +375,7 @@
                             <c:if test="${loginGuest.guestImage != null}">
                                 <img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/${loginGuest.guestImage}" alt="Julie"/>
                             </c:if>
-                            <li class="nav-item dropdown"><a id="loginDropdownMenuLink" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/login">${loginGuest.guestName}</a>
+                            <li class="nav-item dropdown"><a id="loginDropdownMenuLink" class="nav-link active dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/login">${loginGuest.guestName}</a>
                                 <div class="dropdown-menu" aria-labelledby="loginDropdownMenuLink">
                                     <a class="dropdown-item" href="/guestInfo?id=${loginGuest.guestId}">회원정보 수정</a>
                                     <a class="dropdown-item" href="/guestPwd?id=${loginGuest.guestId}">비밀번호 변경</a>
@@ -383,7 +383,7 @@
                                     <a class="dropdown-item" href="/likeList?guestId=${loginGuest.guestId}">찜 목록</a>
                                 </div>
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="/logouts">로그아웃</a></li>
+                            <li class="nav-item"><a class="nav-link active" href="/logouts">로그아웃</a></li>
                         </c:otherwise>
                     </c:choose>
                     <li class="nav-item mt-3 mt-lg-0 ms-lg-3 d-lg-none d-xl-inline-block"><a class="btn btn-primary" href="user-add-0.html">당신의 공간을 DIGI실 하세요</a></li>
