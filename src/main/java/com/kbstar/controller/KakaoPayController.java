@@ -147,12 +147,14 @@ public class KakaoPayController {
 
         HostRoomReserveReview hostInfo = new HostRoomReserveReview();
         hostInfo = reserveService.findByReserveId(reserveId);
+        String hostImage = hostInfo.getHostImage();
         String hostId = hostInfo.getHostId();
         String chatSender = hostInfo.getGuestId();
 
 //        List<HostRoomReserveReview> hostInfo = new ArrayList<>();
 //        hostInfo = reserveService.findByReserveId(reserveId);
 
+        model.addAttribute("hostImage", hostImage);
         model.addAttribute("hostId", hostId);
         model.addAttribute("chatSender",chatSender);
         model.addAttribute("days",daysBetween);
