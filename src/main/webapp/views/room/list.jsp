@@ -57,6 +57,55 @@
     }
 
 
+
+    .img {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .img img {
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+
+    .img img:hover {
+        transform: scale(1.1);
+        z-index: 1;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-content {
+        max-width: 80%;
+        max-height: 80%;
+        margin: auto;
+        display: block;
+        padding: 20px;
+    }
+
+    .close {
+        color: #fff;
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover {
+        color: #ccc;
+    }
+
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
     .wrap .info {width: 286px;height: 1200px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -182,34 +231,48 @@
                 kakao.maps.event.addListener(marker, 'mouseover', makeMouseoverListener(overlay));
                 kakao.maps.event.addListener(marker, 'mouseout', makeMouseoutListener(overlay));
                 kakao.maps.event.addListener(marker, 'click', makeClickListener(overlay));
+
+
+
+
             }
 
 
             function createOverlay(position) {
                 var content =
-                    '<div class="wrap"  >'   +
-
+                    '<div class="wrap">' +
                     '    <div class="info">' +
-
-
                     '        <div class="title">' +
                     '            ' + position.name +
-                    // '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-
                     '        </div>' +
-
-
                     '        <div class="body">' +
-                    '          ' +
-                    '  <div class="img">' +
-                    '                <img src="/uimg/' + position.mimg + '" style="width:73px; height:70px">' +
+                    '            <div class="img">' +
+
+
+                    '                <img src="/img/photo/' + position.img + '" style="width: 100%; height: 100% " onmouseenter="showModal(this)"  >' +
+                    '         <div class="modal"> ' +
+                    '<span class="close" onclick="hideModal()">&times;</span>' +
+                ' <img class="modal-content">' +
+                '</div>' +
+
+
+
+
+
+
+
+
+
+
                     '            </div>' +
-
-
                     '            <div class="desc">' +
                     '                <div class="ellipsis">' + position.info + '</div>' +
                     '                <div class="jibun ellipsis">' + position.intro + '</div>' +
-                    '                <div><a href= "/room/detail?id='     +  position.id + '    " target="_blank" class="link">' + ' ￦ '+ position.price  + '원/1박당' + '</a></div>' +
+                    '                <div>' +
+                    '                    <a href="/room/detail?id=' + position.id + '" target="_blank" class="link">' +
+                    '                        ￦ ' + position.price + '원/1박당' +
+                    '                    </a>' +
+                    '                </div>' +
                     '            </div>' +
                     '        </div>' +
                     '    </div>' +
@@ -257,6 +320,7 @@
             }
 
 
+
         }
 
     };
@@ -291,26 +355,24 @@
                 }
             }
         });
-    });
-
-
-    // $('#show_map').click(() =>{
-    //     $.ajax({
-    //         url: 'http://127.0.0.1/room/detail?roomId=' + position.id,
-    //
-    //
-    //     }).done((data)=>{
-    //
-    //         lat : data.lat;
-    //         lng : data.lng;
-    //         loc : data.loc;
-    //         map03.go(lat,lng,loc);
-    //
-    //     })
-
-
-
     })
+
+    // // $('#show_map').click(() =>{
+    // //     $.ajax({
+    // //         url: 'http://127.0.0.1/room/detail?roomId=' + position.id,
+    // //
+    // //
+    // //     }).done((data)=>{
+    // //
+    // //         lat : data.lat;
+    // //         lng : data.lng;
+    // //         loc : data.loc;
+    // //         map03.go(lat,lng,loc);
+    // //
+    // //     })
+    //
+    // })
+
 
     let search2Button = {
         init : $('#search2Button').click(()=>{
