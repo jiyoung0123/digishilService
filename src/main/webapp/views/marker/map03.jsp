@@ -172,8 +172,8 @@
 
 
                 // 마우스 이벤트 리스너 등록
-                kakao.maps.event.addListener(marker, 'mouseenter', makeMouseenterListener(overlay));
-                kakao.maps.event.addListener(marker, 'mouseleave', makeMouseleaveListener(overlay));
+                kakao.maps.event.addListener(marker, 'mouseenter', makeMouseoverListener(overlay));
+                kakao.maps.event.addListener(marker, 'mouseleave', makeMouseoutListener(overlay));
                 kakao.maps.event.addListener(marker, 'click', makeClickListener(overlay));
             }
 
@@ -216,14 +216,14 @@
             }
 
 
-            function makeMouseenterListener(overlay) {
+            function makeMouseoverListener(overlay) {
                 return function() {
                     overlay.setMap(map);
                 };
             }
 
 
-            function makeMouseleaveListener(overlay) {
+            function makeMouseoutListener(overlay) {
                 return function() {
                     overlay.setMap(null);
                 };
@@ -234,9 +234,6 @@
                     overlay.setMap(map);
                 };
             }
-
-
-
         }
 
 
