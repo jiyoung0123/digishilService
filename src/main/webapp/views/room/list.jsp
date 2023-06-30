@@ -6,14 +6,17 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <style>
-    #map03 > #map{
+<%--    #map03 > #map{--%>
 
-        width:1000px;
-        height: 800px;
-        border: 2px solid;
-        margin-top: 22px;
+<%--        width:1000px;--%>
+<%--        height: 800px;--%>
+<%--        border: 2px solid;--%>
+<%--        margin-top: 22px;--%>
+<%--    }--%>
+    .custom-iframe {
+    width: 100%; /* 부모 요소에 대해 100% 너비로 설정 */
+    height: 700px; /* 부모 요소에 대해 100% 높이로 설정 */
     }
-
 
 
 
@@ -327,6 +330,7 @@
     };
     $(function(){
         map03.init();
+        map03.markers('서울특별시');
     })
 
 
@@ -393,9 +397,9 @@
 
     let search2Button = {
         init : $('#search2Button').click(()=>{
-            $.ajax({
-                url : ''
-            })
+            // $.ajax({
+            //     url : ''
+            // })
         })
     }
 
@@ -578,32 +582,48 @@
 
 
         <div class="col-lg-6 map-side-lg pe-lg-0">
-            <div class="map-full shadow-left" id="categorySideMap">
-                <div>
-                    <div class="col-sm-8 text-left">
-
-
-                        <div class="container" id="map03">
-
-                            <div >
-                                <button id="s_btn" type="button" class="btn btn-default" >Seoul</button>
-                                <button id="b_btn" type="button" class="btn btn-default">Busan</button>
-                                <button id="j_btn" type="button" class="btn btn-default">Jeju</button>
 
 
 
+<%--            <div class="map-full shadow-left" id="categorySideMap">--%>
+<%--                <div>--%>
+<%--                    <div class="col-sm-8 text-left">--%>
+
+
+<%--                        <div class="container" id="map03">--%>
+
+<%--                            <div >--%>
+<%--                                <button id="s_btn" type="button" class="btn btn-default" >Seoul</button>--%>
+<%--                                <button id="b_btn" type="button" class="btn btn-default">Busan</button>--%>
+<%--                                <button id="j_btn" type="button" class="btn btn-default">Jeju</button>--%>
 
 
 
 
+
+
+
+<%--                            </div>--%>
+
+
+<%--                            <div id="map"></div>--%>
+<%--                        </div>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+
+                <div class="map-full shadow-left" id="categorySideMap">
+
+
+
+                            <div class="container" id="map03" class="custom-iframe">
+                                <div id="map"></div>
                             </div>
 
-
-                            <div id="map"></div>
-                        </div>
-                    </div>
                 </div>
-            </div>
+
+
+
         </div>
     </div>
 
