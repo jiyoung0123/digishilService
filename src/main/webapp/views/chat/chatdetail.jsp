@@ -94,7 +94,7 @@
       let newHtml =
               `
                   <div class="d-flex col-md-9 col-xl-7 mb-3" id=\${divId}new>
-                  <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/avatar-1.jpg" alt="user">
+                  <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/${hostInfo.hostImage}" alt="user">
                   <div class="ms-3">
                   <div class="bg-200 bg-warning-light rounded p-4 mb-2">
                   <p id="chatContents">\${translatedResult}</p>
@@ -168,7 +168,7 @@
                   </div>
                   <p class="small text-muted ms-3">\${formattedDate}</p>
                   </div>
-                  <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/avatar-10.jpg" alt="user">
+                  <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/${guestInfo.guestImage}" alt="user">
                   </div>
                   `;
           $('#chatContainer').append(html);
@@ -182,7 +182,7 @@
             let html =
                   `
                   <div class="d-flex col-md-9 col-xl-7 mb-3" id=\${obj.chatContentsId}>
-                  <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/avatar-1.jpg" alt="user">
+                  <img class="avatar avatar-border-white flex-shrink-0" src="img/avatar/${hostInfo.hostImage}" alt="user">
                   <div class="ms-3">
                   <div class="bg-gray-200 rounded p-4 mb-2">
                   <p id="chatContents">\${obj.chatContents}</p>
@@ -214,7 +214,7 @@
           <div class="row">
           <div class="col-lg-3 me-lg-auto">
               <div class="card border-0 shadow mb-6 mb-lg-0">
-                  <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block" href="#"><img class="d-block avatar avatar-xxl p-2 mb-2" src="/img/avatar/avatar-10.jpg" alt=""></a>
+                  <div class="card-header bg-gray-100 py-4 border-0 text-center"><a class="d-inline-block" href="#"><img class="d-block avatar avatar-xxl p-2 mb-2" src="/img/avatar/${hostInfo.hostImage}" alt=""></a>
                       <h5>${hostInfo.hostName}</h5>
                       <p class="text-muted text-sm mb-0">${hostInfo.hostIntro} </p>
                   </div>

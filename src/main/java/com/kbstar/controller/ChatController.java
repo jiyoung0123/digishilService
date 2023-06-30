@@ -1,14 +1,8 @@
 package com.kbstar.controller;
 
 
-import com.kbstar.dto.ChatDetails;
-import com.kbstar.dto.Chatroom;
-import com.kbstar.dto.Host;
-import com.kbstar.dto.HostRoomReserveReview;
-import com.kbstar.service.ChatContentsService;
-import com.kbstar.service.ChatRoomService;
-import com.kbstar.service.HostService;
-import com.kbstar.service.ReserveService;
+import com.kbstar.dto.*;
+import com.kbstar.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -33,6 +27,8 @@ public class ChatController {
     ReserveService reserveService;
     @Autowired
     HostService hostService;
+    @Autowired
+    GuestService guestService;
 
     String dir = "chat/";
     String dirProfile = "profile/";
@@ -82,6 +78,8 @@ public class ChatController {
         reserveInfo = reserveService.getHostGuestReserve(hostId, guestId);
         Host hostInfo = new Host();
         hostInfo = hostService.get(hostId);
+        Guest guestInfo = new Guest();
+        guestInfo = guestService.get(guestId);
 
         //인덱스 -
         model.addAttribute("center", dir+"chatdetail");
@@ -90,6 +88,7 @@ public class ChatController {
         model.addAttribute("chatRoomId", chatRoomId);
         model.addAttribute("hostId", hostId);
         model.addAttribute("hostInfo", hostInfo);
+        model.addAttribute("guestInfo", guestInfo);
         model.addAttribute("guestId", guestId);
         List<ChatDetails> chatDetailsList = chatContentsService.findChatDetailsHost(chatRoomId, hostId);
         model.addAttribute("chatDetailsList", chatDetailsList);

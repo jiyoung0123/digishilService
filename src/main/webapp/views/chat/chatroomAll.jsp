@@ -31,7 +31,7 @@
                   </div>
                   <div class="col-9 col-lg-4 align-self-center mb-3 mb-lg-0">
                     <div class="d-flex align-items-center mb-1 mb-lg-3">
-                      <h2 class="h5 mb-0">${obj.chatRoomInfo.hostId}</h2><img class="avatar avatar-sm avatar-border-white ms-3" src="img/avatar/avatar-0.jpg" alt="Jack London">
+                      <h2 class="h5 mb-0">${obj.chatRoomInfo.hostId}</h2><img class="avatar avatar-sm avatar-border-white ms-3" src="/img/avatar/${obj.chatRoomInfo.hostImage}" alt="Jack London">
                     </div>
                     <p class="text-sm text-muted">Double Room</p><a class="stretched-link" href="user-messages-detail.html"></a>
                   </div>
