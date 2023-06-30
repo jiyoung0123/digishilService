@@ -11,10 +11,11 @@
 
 
 
-  var confirm = function(msg, title, resvNum) {
+  function confirm(reserveIdValue) {
     let refundForm = $(this).closest('#refundForm');
-    let reserveId = $(this).closest('form').find('#reserveId');
-    console.log(reserveId);
+    let reserveId = $(reserveIdValue).val();
+    console.log('=============');
+    console.log(reserveIdValue);
     swal({
       title : "결제취소를 진행하시겠습니까?",
       text : "한번 더 확인 해 주세요.",
@@ -28,16 +29,16 @@
     }, function(isConfirm) {
       if (isConfirm) {
         swal('', '결제가 취소되었습니다.', "success");
-        window.location.href = "payment/refund?reserveId=" + reserveId;
+        window.location.href = "payment/refund?reserveId=" + reserveIdValue;
       }else{
         swal('', '환불 요청이 취소되었습니다.', "success");
       }
     });
   }
 
-  function confirm() {
-    confirm('', '승인할까요?');
-  }
+  // function confirm() {
+  //   confirm('', '승인할까요?');
+  // }
 </script>
 <body style="padding-top: 72px;">
 
@@ -118,11 +119,11 @@
                           <span class="text-primary text-sm text-uppercase">
 
                             <form action="/payment/refund" method="GET" id="refundForm">
-                               <input type="hidden" id="reserveId" name="reserveId" value="${obj.reserveId}">
+                               <input  id="reserveId" name="reserveId" value="${obj.reserveId}">
 <%--                               <a id="refund" href="payment/refund?reserveId=${obj.reserveId}"--%>
 <%--                                  onclick='return confirm("결제취소를 진행하시겠습니까? 한번 더 확인해 주세요");'>--%>
 <%--                                 <i class="fa fa-check fa-fw me-2"></i>환불하기</a>--%>
-                               <a id="refund" onclick='confirm();'>
+                               <a type="#" id="refund"  onclick='confirm("${obj.reserveId}");'>
                                  <i class="fa fa-check fa-fw me-2"></i>환불하기</a>
                             </form>
                           </span>
