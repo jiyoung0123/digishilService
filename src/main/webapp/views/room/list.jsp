@@ -489,6 +489,21 @@
                             <div class="col-sm-6 mb-5 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
                                 <div class="card h-100 border-0 shadow">
                                     <div class="card-img-top overflow-hidden gradient-overlay"> <img class="img-fluid" src="/img/photo/${roomList.roomImage1}" alt="Modern, Well-Appointed Room"/><a class="tile-link" href="/room/detail?id=${roomList.roomId}"></a>
+                                        <!-- 추가-- 최준혁-->
+<%--                                        <c:choose>--%>
+<%--                                            <c:when test="${roomList.hostSuper != null}">--%>
+<%--                                                <div class="card-img-overlay-top z-index-40">--%>
+<%--                                                    <div class="d-flex text-white text-sm align-items-center">--%>
+<%--                                                        <div>슈퍼호스트</div>--%>
+<%--                                                    </div>--%>
+<%--                                                </div>--%>
+<%--                                            </c:when>--%>
+<%--                                            <c:otherwise>--%>
+
+<%--                                            </c:otherwise>--%>
+<%--                                        </c:choose>--%>
+
+                                        <!-- 기존-->
                                         <div class="card-img-overlay-bottom z-index-20">
                                             <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/${roomList.hostImage}" alt="Pamela"/>
                                                 <div>${roomList.hostName}</div>
@@ -537,12 +552,16 @@
                         <c:forEach var="roomSearchList" items="${roomSearchList.getList()}">
                             <div class="col-sm-6 mb-5 hover-animate" data-marker-id="59c0c8e33b1527bfe2abaf92">
                                 <div class="card h-100 border-0 shadow">
+                                    <!-- 방 사진 바디-->
                                     <div class="card-img-top overflow-hidden gradient-overlay">
                                         <img class="img-fluid" src="/img/photo/${roomSearchList.roomImage1}" alt="Modern, Well-Appointed Room"/>
                                         <a class="tile-link" href="/room/detail?id=${roomSearchList.roomId}"></a>
+
+                                        <!-- 기존 -->
                                         <div class="card-img-overlay-bottom z-index-20">
                                             <div class="d-flex text-white text-sm align-items-center"><img class="avatar avatar-border-white flex-shrink-0 me-2" src="/img/avatar/${roomSearchList.hostImage}" alt="Pamela"/>
                                                 <div>${roomSearchList.hostName}</div>
+
                                             </div>
                                         </div>
                                         <form id="likeForm_${roomSearchList.roomId}">
@@ -558,6 +577,7 @@
                                             </div>
                                         </form>
                                     </div>
+                                    <!-- 흰색 카드 바디-->
                                     <div class="card-body d-flex align-items-center">
                                         <div class="w-100">
                                             <h6 class="card-title"><a class="text-decoration-none text-dark" href="/room/detail?id=${roomSearchList.roomId}">${roomSearchList.roomName}</a></h6>

@@ -69,7 +69,11 @@
       $('#buttonSendMessage').click(() => {
         console.log('clicked');
         if($('#chatContentsBox').val().length == 0){
-            alert('뭐라도 내용을 넣으세요');
+            Swal.fire({
+                icon: 'error',
+                title: '입력오류',
+                text: '빈 메세지는 보낼 수 없어요.'
+            })
         }else{
             sendData();
         }

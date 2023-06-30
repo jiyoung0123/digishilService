@@ -86,7 +86,12 @@
         function numberChk(){
             let check = /^[0-9]+$/;
             if (!check.test($("#maxUserCnt").val())) {
-                alert("채팅 인원에는 숫자만 입력 가능합니다!!")
+                Swal.fire({
+                    icon: 'error',
+                    title: '필수값 오류',
+                    text: '채팅 인원에는 숫자만 입력 가능합니다!!'
+                })
+                //alert("채팅 인원에는 숫자만 입력 가능합니다!!")
                 return false;
             }
             return true;
@@ -103,23 +108,49 @@
             let $msgType = $("#msgType");
 
             if (name === "") {
-                alert("방 이름은 필수입니다")
+                Swal.fire({
+                    icon: 'error',
+                    title: '필수값 오류',
+                    text: '방 이름은 필수입니다'
+                })
+                //alert("방 이름은 필수입니다")
                 return false;
             }
             if ($("#" + name).length > 0) {
-                alert("이미 존재하는 방입니다")
+                Swal.fire({
+                    icon: 'error',
+                    title: '중복값 오류',
+                    text: '이미 존재하는 방입니다'
+                })
+                //alert("이미 존재하는 방입니다")
                 return false;
             }
             if (pwd === "") {
-                alert("비밀번호는 필수입니다")
+                Swal.fire({
+                    icon: 'error',
+                    title: '입력 오류',
+                    text: '비밀번호는 필수입니다'
+                })
+              //  alert("비밀번호는 필수입니다")
                 return false;
             }
 
                 if($("#maxUserCnt").val() <= 1){
-                    alert("채팅은 최소 2명 이상!!");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '채팅 인원 부족',
+                        text: '채팅은 최소 2명 이상!!'
+                    })
+
+                   // alert("채팅은 최소 2명 이상!!");
                     return false;
                 }else if ($("#maxUserCnt").val() > 100) {
-                    alert("100명 이상은 서버가 못 버텨요ㅠ.ㅠ");
+                    Swal.fire({
+                        icon: 'error',
+                        title: '채팅 인원 과다',
+                        text: '100명 이상은 서버가 못 버텨요ㅠ.ㅠ'
+                    })
+                    //alert("100명 이상은 서버가 못 버텨요ㅠ.ㅠ");
                     return false;
                 }
 

@@ -56,7 +56,12 @@ let wirteReview = {
                       </div>
                   `
           $('#reviewBox'+reviewId).append(htmlDiv);
-          alert("후기를 남겨주셔서 감사합니다♡");
+          //alert("후기를 남겨주셔서 감사합니다♡");
+          Swal.fire({
+            icon: 'success',
+            title: '후기 완료',
+            text: '후기를 남겨주셔서 감사합니다'
+          })
         }
       });
     })
