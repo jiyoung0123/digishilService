@@ -22,7 +22,7 @@
               data:{'guestId':guestId},
               success:function(result){
                   if(result==0){
-                      $('#checkId').text('룔룔사용가능합니다.');
+                      $('#checkId').text('사용가능합니다.');
                       $('#guestName').focus();
                   }else{
                       $('#checkId').text('중복된 ID 입니다.');

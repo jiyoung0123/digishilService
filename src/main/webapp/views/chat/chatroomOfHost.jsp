@@ -13,7 +13,7 @@
 
       <!-- Breadcrumbs -->
       <div class="col-lg-9 ps-lg-5">
-        <h2> 채팅방 </h2>
+        <h2> 채팅방</h2>
         <section class="py-5">
           <div class="list-group shadow mb-5">
             <c:forEach var="obj" items="${mList}">

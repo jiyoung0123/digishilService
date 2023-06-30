@@ -3,8 +3,42 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
+<script type="text/javascript">
 
 
+
+  var confirm = function(msg, title, resvNum) {
+    let refundForm = $(this).closest('#refundForm');
+    let reserveId = $(this).closest('form').find('#reserveId');
+    console.log(reserveId);
+    swal({
+      title : "결제취소를 진행하시겠습니까?",
+      text : "한번 더 확인 해 주세요.",
+      type : "warning",
+      showCancelButton : true,
+      confirmButtonClass : "btn-danger",
+      confirmButtonText : "예",
+      cancelButtonText : "아니오",
+      closeOnConfirm : false,
+      closeOnCancel : true
+    }, function(isConfirm) {
+      if (isConfirm) {
+        swal('', '결제가 취소되었습니다.', "success");
+        window.location.href = "payment/refund?reserveId=" + reserveId;
+      }else{
+        swal('', '환불 요청이 취소되었습니다.', "success");
+      }
+    });
+  }
+
+  function confirm() {
+    confirm('', '승인할까요?');
+  }
+</script>
 <body style="padding-top: 72px;">
 
 <section class="py-5">
@@ -17,6 +51,7 @@
       <div class="me-3">
         <p class="mb-3 mb-lg-0"><strong>${getMyReserve.size()}개의 예약이</strong> 있습니다.</p>
         <p class="mb-3 mb-lg-0">결제가 완료되기 전에는 예약 확정이 아닙니다.</p>
+        <a style="cursor:pointer; color: blue;" onclick='return alert("결제취소를 진행하시겠습니까? 한번 더 확인해 주세요");'>환불하기</a>
       </div>
     </div>
 
@@ -81,10 +116,13 @@
                             <i class="fa fa-check fa-fw me-2"> </i>${obj.reserveStatus}
                         </span><br class="d-none d-lg-block">
                           <span class="text-primary text-sm text-uppercase">
-                            <form action="/payment/refund" method="GET">
+
+                            <form action="/payment/refund" method="GET" id="refundForm">
                                <input type="hidden" id="reserveId" name="reserveId" value="${obj.reserveId}">
-                               <a id="refund" href="payment/refund?reserveId=${obj.reserveId}"
-                                  onclick='return confirm("결제취소를 진행하시겠습니까? 한번 더 확인해 주세요");'>
+<%--                               <a id="refund" href="payment/refund?reserveId=${obj.reserveId}"--%>
+<%--                                  onclick='return confirm("결제취소를 진행하시겠습니까? 한번 더 확인해 주세요");'>--%>
+<%--                                 <i class="fa fa-check fa-fw me-2"></i>환불하기</a>--%>
+                               <a id="refund" onclick='confirm();'>
                                  <i class="fa fa-check fa-fw me-2"></i>환불하기</a>
                             </form>
                           </span>

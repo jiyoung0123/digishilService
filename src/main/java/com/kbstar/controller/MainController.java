@@ -111,6 +111,12 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/message")
+    public String message(Model model){
+        model.addAttribute("center","message");
+        return "index";
+    }
+
 
 
 }
