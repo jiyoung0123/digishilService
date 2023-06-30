@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4083a9e1e518bd0452f9a390ffd2eec7"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <style>
     #map03 > #map{
@@ -343,15 +344,31 @@
                 if (response == 'true') {
                     let heart = '<i id="likeHeart" class="fa-solid fa-heart" style="color: #fff700;">'+'</i>';
                     $(likeHeart).replaceWith(heart);
-                    alert('찜했습니다');
+                    Swal.fire({
+                        icon: 'success',
+                        title: '찜했습니다.',
+                        text: '찜 목록서 확인하세요!'
+                    })
                 }else if(response == 'login'){
-                    alert('로그인하세요');
+                    Swal.fire({
+                        icon: 'error',
+                        title: '로그인 정보 오류',
+                        text: '로그인 후 가능합니다!'
+                    })
                 }else if(response == 'delete'){
                     let heartDel = '<i id="likeHeart" class="fa-regular fa-heart" style="color: #ffffff;">'+'</i>';
                     $(likeHeart).replaceWith(heartDel);
-                    alert('찜 해제');
+                    Swal.fire({
+                        icon: 'success',
+                        title: '찜 해제',
+                        text: '찜 목록에서 삭제되었습니다!'
+                    })
                 }else{
-                    alert('실패');
+                    Swal.fire({
+                        icon: 'error',
+                        title: '찜 실패',
+                        text: '에러를 확인하세요!'
+                    })
                 }
             }
         });

@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<%-- alert 창 cdn--%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
   $(function(){
@@ -31,9 +33,17 @@
           data:form,
           success:function(data){
             if(data == 'false'){
-              alert("현재 비밀번호가 일치하지 않습니다.");
+              Swal.fire({
+                icon: 'error',
+                title: '변경 실패',
+                text: '현재 비밀번호가 일치하지 않습니다.'
+              })
             }else{
-              alert("비밀번호가 변경되었습니다.");
+              Swal.fire({
+                icon: 'success',
+                title: '변경 성공',
+                text: '비밀번호가 변경되었습니다!'
+              })
             }
           }
         })
@@ -46,22 +56,16 @@
 <section class="py-5">
   <div class="container">
     <!-- Breadcrumbs -->
-    <ol class="breadcrumb ps-0  justify-content-start">
-      <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item"><a href="/guestInfo?id=${guest.guestId}">Account</a></li>
-      <li class="breadcrumb-item active">Login &amp; security   </li>
-    </ol>
+      <br>
     <h1 class="hero-heading mb-0">비밀번호 변경</h1>
-    <p class="text-muted mb-5">Manage your Login & security and settings here.</p>
+    <br>
     <div class="row">
       <div class="col-lg-7 mb-5 mb-lg-0">
         <form class="form-validate" id="guestPwdForm">
           <input type="hidden" name="id" value="${guest.guestId}">
             <div class="text-block">
-              <h3 class="mb-4">Login</h3>
               <div class="row">
                 <div class="col-sm-8">
-                  <h6>Password</h6>
                 </div>
               </div>
               <div id="updatePassword">
@@ -82,7 +86,7 @@
                     <span id="pwdCheck" style="color:rgb(77,102,247)"></span>
                   </div>
                 </div>
-                <button id="guestPwdBtn" class="btn btn-outline-primary">Update Password</button>
+                <button id="guestPwdBtn" class="btn btn-outline-primary">비밀번호 변경하기</button>
               </div>
             </div>
           </form>

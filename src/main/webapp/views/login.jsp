@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
+<%-- alert 창 cdn--%>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
     let loginForm = {
@@ -35,11 +37,17 @@
                 data:{"guestId":guestId},
                 success:function(data){
                     if(data==true){
-                        alert("임시 비밀번호가 발급되었습니다.메일함을 확인해 주세요");
-                        console.log(data);
+                        Swal.fire({
+                            icon: 'success',
+                            title: '발급 성공',
+                            text: '임시 비밀번호가 발급되었습니다. 메일함을 확인해주세요!'
+                        })
                     }else{
-                        alert("아이디를 정확하게 입력해 주세요");
-                        console.log(data);
+                        Swal.fire({
+                            icon: 'error',
+                            title: '회원정보 오류',
+                            text: '올바른 아이디를 입력해 주세요!'
+                        })
                     }
                 }
             });
@@ -117,8 +125,8 @@
                 <input id="searchPwd" class="form-control" name="guestId" type="email" placeholder="name@address.com" autocomplete="off" required data-msg="Please enter your email">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="pwdBtn">Temp Passwoord</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" id="pwdBtn">임시 비밀번호 발급하기</button>
             </div>
         </div>
     </div>
